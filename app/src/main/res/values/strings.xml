@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FacialExpressionChampionship</string>
+    <string name="app_name">表情選手権</string>
+    <string name="battle">対戦する(最大4人)</string>
+    <string name="battle_history">対戦履歴</string>
 </resources>
