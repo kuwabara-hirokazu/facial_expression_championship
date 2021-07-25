@@ -1,5 +1,6 @@
 package com.example.facialexpressionchampionship.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -12,7 +13,8 @@ class HomeActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
 
         binding.battle.setOnClickListener {
-
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
         }
 
         binding.battleHistory.setOnClickListener {
