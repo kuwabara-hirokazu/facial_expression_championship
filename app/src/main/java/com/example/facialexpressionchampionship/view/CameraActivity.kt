@@ -1,12 +1,16 @@
 package com.example.facialexpressionchampionship.view
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaActionSound
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -20,6 +24,7 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityCameraBinding
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,12 +35,28 @@ class CameraActivity : AppCompatActivity() {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val IMAGE_TYPE = "image/*"
         private val TAG = CameraActivity::class.java.simpleName
     }
 
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
+            if (result?.resultCode == Activity.RESULT_OK) {
+                result.data?.let { intent ->
+                    try {
+                        intent.data?.let { uri ->
+                            uri.toString()
+                        }
+                    } catch (e: IOException) {
+                        Log.e(TAG, "画像取得エラー ${e.message}", e)
+                    }
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +73,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding.cameraCaptureButton.setOnClickListener { takePhoto() }
 
+        binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
     }
 
     // 全てのパーミッションが許可されているか
@@ -144,5 +166,13 @@ class CameraActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    private fun onImageAttachmentClick() {
+        Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = IMAGE_TYPE
+            startForResult.launch(this)
+        }
     }
 }
