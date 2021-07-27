@@ -4,8 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaActionSound
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -15,7 +13,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
@@ -28,8 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class CameraActivity : AppCompatActivity() {
@@ -38,7 +33,6 @@ class CameraActivity : AppCompatActivity() {
         // 必要なパーミッションのリスト
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val IMAGE_TYPE = "image/*"
         private val TAG = CameraActivity::class.java.simpleName
     }
@@ -55,7 +49,7 @@ class CameraActivity : AppCompatActivity() {
                 result.data?.let { intent ->
                     try {
                         intent.data?.let { uri ->
-                            uri.toString()
+                            // ToDo 画像確認画面に遷移
                         }
                     } catch (e: IOException) {
                         Log.e(TAG, "画像取得エラー ${e.message}", e)
@@ -78,9 +72,19 @@ class CameraActivity : AppCompatActivity() {
 
         outputDirectory = getOutputDirectory()
 
-        binding.cameraCaptureButton.setOnClickListener { takePhoto() }
+        binding.cameraCaptureButton.setOnClickListener {
+            viewModel.takePhoto(imageCapture, outputDirectory)
+        }
 
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
+
+        viewModel.imageUrl.observe(this) {
+            // ToDo 画像確認画面に遷移
+        }
+
+        viewModel.errorResourceId.observe(this) { resourceId ->
+            Toast.makeText(this, resourceId, Toast.LENGTH_SHORT).show()
+        }
     }
 
     // 全てのパーミッションが許可されているか
@@ -137,42 +141,6 @@ class CameraActivity : AppCompatActivity() {
         }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else filesDir
-    }
-
-    private fun takePhoto() {
-        val imageCapture = imageCapture ?: return
-
-        // 保存先と保存名の設定
-        val photoFile = File(
-            outputDirectory,
-            SimpleDateFormat(
-                FILENAME_FORMAT,
-                Locale.JAPAN
-            ).format(System.currentTimeMillis()) + ".jpg"
-        )
-
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-        // シャッター音の設定
-        val sound = MediaActionSound()
-        sound.load(MediaActionSound.SHUTTER_CLICK)
-
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    val photoUri = Uri.fromFile(photoFile).toString()
-                    Log.d(TAG, "写真保存に成功: $photoUri")
-                    sound.play(MediaActionSound.SHUTTER_CLICK)
-                }
-
-                override fun onError(exception: ImageCaptureException) {
-                    Log.e(TAG, "写真保存に失敗: ${exception.message}", exception)
-                }
-            }
-        )
     }
 
     private fun onImageAttachmentClick() {
