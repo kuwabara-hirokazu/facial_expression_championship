@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -20,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityCameraBinding
+import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -83,7 +83,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         viewModel.errorResourceId.observe(this) { resourceId ->
-            Toast.makeText(this, resourceId, Toast.LENGTH_SHORT).show()
+            showToast(resourceId)
         }
     }
 
@@ -102,7 +102,7 @@ class CameraActivity : AppCompatActivity() {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(this, R.string.camera_permission_message, Toast.LENGTH_SHORT).show()
+                showToast(R.string.camera_permission_message)
                 finish()
             }
         }
