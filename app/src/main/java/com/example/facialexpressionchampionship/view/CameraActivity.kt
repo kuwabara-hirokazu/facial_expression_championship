@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -23,6 +22,7 @@ import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_camera.*
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 
@@ -34,7 +34,6 @@ class CameraActivity : AppCompatActivity() {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
         private const val IMAGE_TYPE = "image/*"
-        private val TAG = CameraActivity::class.java.simpleName
     }
 
     private var imageCapture: ImageCapture? = null
@@ -52,7 +51,7 @@ class CameraActivity : AppCompatActivity() {
                             // ToDo 画像確認画面に遷移
                         }
                     } catch (e: IOException) {
-                        Log.e(TAG, "画像取得エラー ${e.message}", e)
+                        Timber.e("画像取得エラー ${e.message}")
                     }
                 }
             }
@@ -129,7 +128,7 @@ class CameraActivity : AppCompatActivity() {
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
 
             } catch (e: Exception) {
-                Log.e(TAG, "バインディング失敗", e)
+                Timber.e("バインディング失敗 $e")
             }
         }, ContextCompat.getMainExecutor(this))
     }

@@ -2,7 +2,6 @@ package com.example.facialexpressionchampionship.viewmodel
 
 import android.media.MediaActionSound
 import android.net.Uri
-import android.util.Log
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.databinding.ObservableField
@@ -11,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.facialexpressionchampionship.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,7 +65,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    exception.message?.let { Log.e("写真保存に失敗: ${exception.message}", it) }
+                    Timber.e("写真保存に失敗: ${exception.message}")
                     _errorResourceId.postValue(R.string.failed_save_image)
                 }
             }
