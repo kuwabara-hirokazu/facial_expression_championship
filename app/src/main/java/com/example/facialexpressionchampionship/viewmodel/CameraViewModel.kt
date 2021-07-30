@@ -23,7 +23,7 @@ private const val IMAGE_FORMAT = ".jpg"
 @HiltViewModel
 class CameraViewModel @Inject constructor() : ViewModel() {
 
-    var theme = ObservableField<String>()
+    var randomTheme = ObservableField<String>()
         get() {
             val list = listOf("怒り", "軽蔑", "嫌悪", "恐れ", "幸せ", "通常", "悲しみ", "驚き")
             return ObservableField(list.shuffled()[0])
@@ -52,7 +52,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
         val sound = MediaActionSound()
         sound.load(MediaActionSound.SHUTTER_CLICK)
 
-        // 保存処理
+        // 撮影・保存処理
         imageCapture.takePicture(
             outputOptions,
             Executors.newSingleThreadExecutor(),

@@ -17,7 +17,7 @@
             android:id="@+id/theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/theme(viewModel.theme)}"
+            android:text="@{@string/theme(viewModel.randomTheme)}"
             android:textSize="@dimen/text_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
