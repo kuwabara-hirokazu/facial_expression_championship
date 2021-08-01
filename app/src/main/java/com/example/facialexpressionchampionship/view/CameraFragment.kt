@@ -1,38 +1,34 @@
 package com.example.facialexpressionchampionship.view
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.databinding.ActivityCameraBinding
+import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.fragment_camera.*
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
 
 @AndroidEntryPoint
-class CameraActivity : AppCompatActivity() {
+class CameraFragment : Fragment() {
 
     companion object {
-        // 必要なパーミッションのリスト
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
         private const val IMAGE_TYPE = "image/*"
     }
 
@@ -41,6 +37,8 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var outputDirectory: File
 
     private val viewModel: CameraViewModel by viewModels()
+
+    private lateinit var binding: FragmentCameraBinding
 
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
@@ -57,17 +55,19 @@ class CameraActivity : AppCompatActivity() {
             }
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding =
-            DataBindingUtil.setContentView<ActivityCameraBinding>(this, R.layout.activity_camera)
-        binding.viewModel = viewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCameraBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.viewModel = viewModel
 
         outputDirectory = getOutputDirectory()
 
@@ -77,38 +77,20 @@ class CameraActivity : AppCompatActivity() {
 
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
 
-        viewModel.imageUrl.observe(this) {
+        viewModel.imageUrl.observe(viewLifecycleOwner) {
             // ToDo 画像確認画面に遷移
         }
 
-        viewModel.errorResourceId.observe(this) { resourceId ->
-            showToast(resourceId)
+        viewModel.errorResourceId.observe(viewLifecycleOwner) { resourceId ->
+            requireContext().showToast(resourceId)
         }
+
+        startCamera()
     }
 
-    // 全てのパーミッションが許可されているか
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                showToast(R.string.camera_permission_message)
-                finish()
-            }
-        }
-    }
 
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener(Runnable {
             // プレビュー設定
@@ -130,16 +112,16 @@ class CameraActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Timber.e("バインディング失敗 $e")
             }
-        }, ContextCompat.getMainExecutor(this))
+        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     private fun getOutputDirectory(): File {
         // ストレージ/Android/media にディレクトリ作成
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
         }
         return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
+            mediaDir else requireContext().filesDir
     }
 
     private fun onImageAttachmentClick() {
