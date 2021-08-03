@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
+import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,11 @@ class CameraFragment : Fragment() {
                 result.data?.let { intent ->
                     try {
                         intent.data?.let { uri ->
-                            // ToDo 画像確認画面に遷移
+                            ImageConfirmationFragment.createInstance(
+                                viewModel.randomTheme.get(),
+                                uri.toString()
+                            )
+                                .showFragment(parentFragmentManager, R.id.battle_layout, true)
                         }
                     } catch (e: IOException) {
                         Timber.e("画像取得エラー ${e.message}")
@@ -78,7 +83,8 @@ class CameraFragment : Fragment() {
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
 
         viewModel.imageUrl.observe(viewLifecycleOwner) {
-            // ToDo 画像確認画面に遷移
+            ImageConfirmationFragment.createInstance(viewModel.randomTheme.get(), it)
+                .showFragment(parentFragmentManager, R.id.battle_layout, true)
         }
 
         viewModel.errorResourceId.observe(viewLifecycleOwner) { resourceId ->
