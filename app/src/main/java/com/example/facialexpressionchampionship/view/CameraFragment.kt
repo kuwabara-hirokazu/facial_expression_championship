@@ -31,6 +31,8 @@ class CameraFragment : Fragment() {
 
     companion object {
         private const val IMAGE_TYPE = "image/*"
+        private val themeList = listOf("怒り", "軽蔑", "嫌悪", "恐れ", "幸せ", "通常", "悲しみ", "驚き")
+        private val battleTheme = themeList.shuffled()[0]
     }
 
     private var imageCapture: ImageCapture? = null
@@ -47,10 +49,7 @@ class CameraFragment : Fragment() {
                 result.data?.let { intent ->
                     try {
                         intent.data?.let { uri ->
-                            ImageConfirmationFragment.createInstance(
-                                viewModel.randomTheme.get(),
-                                uri.toString()
-                            )
+                            ImageConfirmationFragment.createInstance(battleTheme, uri.toString())
                                 .showFragment(parentFragmentManager, R.id.battle_layout, true)
                         }
                     } catch (e: IOException) {
@@ -74,6 +73,8 @@ class CameraFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        binding.battleTheme = battleTheme
+
         outputDirectory = getOutputDirectory()
 
         binding.cameraCaptureButton.setOnClickListener {
@@ -83,7 +84,7 @@ class CameraFragment : Fragment() {
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
 
         viewModel.imageUrl.observe(viewLifecycleOwner) {
-            ImageConfirmationFragment.createInstance(viewModel.randomTheme.get(), it)
+            ImageConfirmationFragment.createInstance(battleTheme, it)
                 .showFragment(parentFragmentManager, R.id.battle_layout, true)
         }
 

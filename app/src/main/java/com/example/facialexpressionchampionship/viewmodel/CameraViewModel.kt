@@ -4,7 +4,6 @@ import android.media.MediaActionSound
 import android.net.Uri
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,12 +21,6 @@ private const val IMAGE_FORMAT = ".jpg"
 
 @HiltViewModel
 class CameraViewModel @Inject constructor() : ViewModel() {
-
-    var randomTheme = ObservableField<String>()
-        get() {
-            val list = listOf("怒り", "軽蔑", "嫌悪", "恐れ", "幸せ", "通常", "悲しみ", "驚き")
-            return ObservableField(list.shuffled()[0])
-        }
 
     private val _imageUrl = MutableLiveData<String>()
     val imageUrl: LiveData<String> = _imageUrl
