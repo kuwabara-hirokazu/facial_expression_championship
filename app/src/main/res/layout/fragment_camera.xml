@@ -26,7 +26,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="お題: 驚き" />
+            tools:text="お題: 驚きの表情" />
 
         <androidx.camera.view.PreviewView
             android:id="@+id/previewView"
