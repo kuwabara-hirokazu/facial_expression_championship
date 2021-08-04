@@ -3,6 +3,8 @@ package com.example.facialexpressionchampionship.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,7 +31,7 @@ class BattleActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_battle)
 
         if (allPermissionsGranted()) {
-            CameraFragment().showFragment(supportFragmentManager, binding.battleLayout.id , false)
+            CameraFragment().showFragment(supportFragmentManager, binding.battleLayout.id, false)
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
@@ -55,4 +57,16 @@ class BattleActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
+    }
+
+    override fun onBackPressed() {}
 }
