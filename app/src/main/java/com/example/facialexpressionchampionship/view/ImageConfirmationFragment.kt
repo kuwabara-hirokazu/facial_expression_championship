@@ -8,21 +8,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.databinding.FragmentImageConfirmationBinding
+import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ImageConfirmationFragment : Fragment() {
 
+    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
     private val viewModel: ImageConfirmationViewModel by viewModels()
     private lateinit var binding: FragmentImageConfirmationBinding
 
     companion object {
-        private const val THEME = "arg_theme"
         private const val URL = "arg_url"
-        fun createInstance(theme: String?, imageUrl: String): Fragment {
+        fun createInstance(imageUrl: String): Fragment {
             val fragment = ImageConfirmationFragment()
-            val args = bundleOf(THEME to theme, URL to imageUrl)
+            val args = bundleOf(URL to imageUrl)
             fragment.arguments = args
             return fragment
         }
@@ -40,8 +41,9 @@ class ImageConfirmationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
-        viewModel.theme.set(arguments?.getString(THEME))
+
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
 
         binding.retry.setOnClickListener {

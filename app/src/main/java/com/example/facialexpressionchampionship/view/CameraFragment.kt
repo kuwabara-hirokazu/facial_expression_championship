@@ -19,6 +19,7 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_camera.*
@@ -31,16 +32,14 @@ class CameraFragment : Fragment() {
 
     companion object {
         private const val IMAGE_TYPE = "image/*"
-        private val themeList = listOf("怒り", "軽蔑", "嫌悪", "恐れ", "幸せ", "通常", "悲しみ", "驚き")
-        private val battleTheme = themeList.shuffled()[0]
     }
 
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
 
+    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
     private val viewModel: CameraViewModel by viewModels()
-
     private lateinit var binding: FragmentCameraBinding
 
     private val startForResult =
@@ -49,7 +48,7 @@ class CameraFragment : Fragment() {
                 result.data?.let { intent ->
                     try {
                         intent.data?.let { uri ->
-                            ImageConfirmationFragment.createInstance(battleTheme, uri.toString())
+                            ImageConfirmationFragment.createInstance(uri.toString())
                                 .showFragment(parentFragmentManager, R.id.battle_layout, true)
                         }
                     } catch (e: IOException) {
@@ -71,9 +70,8 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
-
-        binding.battleTheme = battleTheme
 
         outputDirectory = getOutputDirectory()
 
@@ -84,7 +82,7 @@ class CameraFragment : Fragment() {
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
 
         viewModel.imageUrl.observe(viewLifecycleOwner) {
-            ImageConfirmationFragment.createInstance(battleTheme, it)
+            ImageConfirmationFragment.createInstance(it)
                 .showFragment(parentFragmentManager, R.id.battle_layout, true)
         }
 

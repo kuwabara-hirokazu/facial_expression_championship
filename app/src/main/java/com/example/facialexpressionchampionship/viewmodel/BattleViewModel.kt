@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageConfirmationViewModel @Inject constructor() : ViewModel() {
+class BattleViewModel @Inject constructor() : ViewModel() {
 
-    var imageUrl = ObservableField<String>()
+    var battleTheme = ObservableField<String>()
 }
