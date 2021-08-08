@@ -6,6 +6,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.lifecycle.ViewModel
 import com.example.facialexpressionchampionship.R
+import com.example.facialexpressionchampionship.model.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber
@@ -21,7 +22,7 @@ private const val IMAGE_FORMAT = ".jpg"
 @HiltViewModel
 class CameraViewModel @Inject constructor() : ViewModel() {
     val imageUrl: PublishSubject<String> = PublishSubject.create()
-    val error: PublishSubject<Int> = PublishSubject.create()
+    val error: PublishSubject<Failure> = PublishSubject.create()
 
     fun takePhoto(imageCapture: ImageCapture?, outputDirectory: File) {
 
@@ -54,7 +55,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
 
                 override fun onError(exception: ImageCaptureException) {
                     Timber.e("写真保存に失敗: ${exception.message}")
-                    error.onNext(R.string.failed_save_image)
+                    error.onNext(Failure(exception, R.string.failed_save_image) {})
                 }
             }
         )

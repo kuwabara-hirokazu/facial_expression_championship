@@ -98,7 +98,7 @@ class CameraFragment : Fragment() {
         viewModel.error
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
-                requireContext().showToast(it)
+                requireContext().showToast(it.message)
             }
             .addTo(disposable)
 
