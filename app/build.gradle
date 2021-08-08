@@ -52,6 +52,11 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.38'
     kapt 'com.google.dagger:hilt-compiler:2.38'
 
+    // Rx
+    implementation "io.reactivex.rxjava3:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava3:rxkotlin:$rx_kotlin_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rx_android_version"
+
     // camera
     implementation "androidx.camera:camera-camera2:$camerax_version"
     implementation "androidx.camera:camera-lifecycle:$camerax_version"

@@ -22,6 +22,10 @@ import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_camera.*
 import timber.log.Timber
 import java.io.File
@@ -41,6 +45,8 @@ class CameraFragment : Fragment() {
     private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
     private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
+
+    private val disposable = CompositeDisposable()
 
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
@@ -81,14 +87,20 @@ class CameraFragment : Fragment() {
 
         binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
 
-        viewModel.imageUrl.observe(viewLifecycleOwner) {
-            ImageConfirmationFragment.createInstance(it)
-                .showFragment(parentFragmentManager, R.id.battle_layout, true)
-        }
+        viewModel.imageUrl
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                ImageConfirmationFragment.createInstance(it)
+                    .showFragment(parentFragmentManager, R.id.battle_layout, true)
+            }
+            .addTo(disposable)
 
-        viewModel.errorResourceId.observe(viewLifecycleOwner) { resourceId ->
-            requireContext().showToast(resourceId)
-        }
+        viewModel.error
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it)
+            }
+            .addTo(disposable)
 
         startCamera()
     }
@@ -135,5 +147,10 @@ class CameraFragment : Fragment() {
             type = IMAGE_TYPE
             startForResult.launch(this)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }
