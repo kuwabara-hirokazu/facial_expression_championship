@@ -51,7 +51,8 @@ class ImageConfirmationFragment : Fragment() {
         }
 
         binding.score.setOnClickListener {
-            // 採点結果画面に遷移
+            val url = mutableMapOf("url" to "https://d3bhdfps5qyllw.cloudfront.net/org/67/67bce941606fcba0f482059692984a64_1080x1337_h.jpg")
+            viewModel.detectFace(url)
         }
     }
 }
