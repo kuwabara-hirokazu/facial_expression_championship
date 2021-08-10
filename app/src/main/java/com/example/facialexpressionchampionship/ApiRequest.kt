@@ -1,5 +1,6 @@
 package com.example.facialexpressionchampionship
 
+import com.example.facialexpressionchampionship.model.FaceResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
 import retrofit2.http.Headers

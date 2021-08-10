@@ -1,6 +1,5 @@
-package com.example.facialexpressionchampionship
+package com.example.facialexpressionchampionship.model
 
-import com.example.facialexpressionchampionship.model.Emotion
 import com.google.gson.annotations.SerializedName
 
 data class FaceResponse(
