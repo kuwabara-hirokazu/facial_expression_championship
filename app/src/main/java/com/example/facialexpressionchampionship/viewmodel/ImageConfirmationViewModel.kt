@@ -20,7 +20,8 @@ class ImageConfirmationViewModel @Inject constructor(
             .execute(
                 onSuccess = {
                     result.onNext(it[0])
-                }
+                },
+                retry = { detectFace(url)}
             )
     }
 }

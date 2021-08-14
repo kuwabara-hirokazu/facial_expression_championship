@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.databinding.FragmentImageConfirmationBinding
+import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel
@@ -71,9 +72,7 @@ class ImageConfirmationFragment : Fragment() {
 
         viewModel.error
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                requireContext().showToast(it.message)
-            }
+            .subscribeBy { showError(binding.root, it) }
             .addTo(disposable)
     }
 

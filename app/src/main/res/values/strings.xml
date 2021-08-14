@@ -9,6 +9,11 @@
     <string name="score_image">採点する</string>
 
     <!-- エラーメッセージ -->
+    <string name="retry">リトライ</string>
     <string name="camera_permission_message">カメラへのアクセスを許可してください</string>
     <string name="failed_save_image">画像の保存に失敗しました</string>
+    <string name="error_message_default">通信エラーです</string>
+    <string name="failed_detect_image">画像の読取りに失敗しました</string>
+    <string name="time_out_error">通信がタイムアウトしました</string>
+    <string name="uncertain_error">不明なエラーが発生しました</string>
 </resources>
