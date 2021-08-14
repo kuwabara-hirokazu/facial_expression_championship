@@ -2,6 +2,7 @@ package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.data.FaceDataSource
+import com.example.facialexpressionchampionship.model.Emotion
 import com.example.facialexpressionchampionship.model.FaceResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.BehaviorSubject
@@ -13,13 +14,13 @@ class ImageConfirmationViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     var imageUrl = ObservableField<String>()
-    val result = BehaviorSubject.create<FaceResponse>()
+    val result = BehaviorSubject.create<Emotion>()
 
     fun detectFace(url: MutableMap<String, String>) {
         repository.detectFace(url)
             .execute(
                 onSuccess = {
-                    result.onNext(it[0])
+                    result.onNext(it)
                 },
                 retry = { detectFace(url)}
             )
