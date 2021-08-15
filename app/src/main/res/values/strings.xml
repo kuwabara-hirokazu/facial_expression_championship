@@ -7,6 +7,18 @@
     <string name="take_photo">Take Photo</string>
     <string name="retry_photo">撮り直す</string>
     <string name="score_image">採点する</string>
+    <string name="score_result">%s度: 採点結果</string>
+    <string name="next_challenger">次の\n挑戦者</string>
+    <string name="ranking">順位発表</string>
+
+    <string name="anger">怒り: %s点</string>
+    <string name="contempt">軽蔑: %s点</string>
+    <string name="disgust">嫌悪: %s点</string>
+    <string name="fear">恐れ: %s点</string>
+    <string name="happiness">幸せ: %s点</string>
+    <string name="neutral">無表情: %s点</string>
+    <string name="sadness">悲しみ: %s点</string>
+    <string name="surprise">驚き: %s点</string>
 
     <!-- エラーメッセージ -->
     <string name="retry">リトライ</string>
