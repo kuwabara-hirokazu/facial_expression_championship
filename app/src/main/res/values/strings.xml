@@ -8,6 +8,7 @@
     <string name="retry_photo">撮り直す</string>
     <string name="score_image">採点する</string>
     <string name="score_result">%s度: 採点結果</string>
+    <string name="challenger_name">挑戦者名</string>
     <string name="next_challenger">次の\n挑戦者</string>
     <string name="ranking">順位発表</string>
 

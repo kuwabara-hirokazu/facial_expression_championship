@@ -2,9 +2,12 @@ package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.model.Emotion
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class FaceScoreViewModel : BaseViewModel() {
     var imageUrl = ObservableField<String>()
+
+    var challenger = ObservableField<String>()
 
     var anger = ObservableField<String>()
 
@@ -22,6 +25,8 @@ class FaceScoreViewModel : BaseViewModel() {
 
     var surprise = ObservableField<String>()
 
+    val isContinue: PublishSubject<Boolean> = PublishSubject.create()
+
     fun setEmotion(emotion: Emotion) {
         anger.set(emotion.anger)
         contempt.set(emotion.contempt)
@@ -31,5 +36,9 @@ class FaceScoreViewModel : BaseViewModel() {
         neutral.set(emotion.neutral)
         sadness.set(emotion.sadness)
         surprise.set(emotion.surprise)
+    }
+
+    fun saveScore() {
+
     }
 }
