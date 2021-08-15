@@ -113,7 +113,6 @@ class CameraFragment : Fragment() {
             // プレビュー設定
             val preview = Preview.Builder()
                 .build()
-                .also { it.setSurfaceProvider(previewView.surfaceProvider) }
 
             imageCapture = ImageCapture.Builder().build()
 
@@ -125,6 +124,9 @@ class CameraFragment : Fragment() {
                 cameraProvider.unbindAll()
                 // ライフサイクルにカメラをバインディング
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+
+                // プレビューのユースケースをpreviewViewに接続
+                preview.setSurfaceProvider(previewView.surfaceProvider)
 
             } catch (e: Exception) {
                 Timber.e("バインディング失敗 $e")
