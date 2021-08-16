@@ -71,8 +71,13 @@ class BattleActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        finish()
-        return true
+        return when(item.itemId) {
+            R.id.menu_home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     // データが消えないようにデフォルトの戻るボタンで戻れないようにする
