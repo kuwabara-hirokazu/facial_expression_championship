@@ -26,7 +26,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import kotlinx.android.synthetic.main.fragment_camera.*
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -113,7 +112,7 @@ class CameraFragment : Fragment() {
             // プレビュー設定
             val preview = Preview.Builder()
                 .build()
-                .also { it.setSurfaceProvider(previewView.surfaceProvider) }
+                .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
 
             imageCapture = ImageCapture.Builder().build()
 
