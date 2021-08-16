@@ -75,5 +75,6 @@ class BattleActivity : AppCompatActivity() {
         return true
     }
 
+    // データが消えないようにデフォルトの戻るボタンで戻れないようにする
     override fun onBackPressed() {}
 }
