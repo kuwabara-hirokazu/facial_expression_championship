@@ -19,13 +19,10 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.extension.takePicture
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.kotlin.subscribeBy
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -44,8 +41,6 @@ class CameraFragment : Fragment() {
     private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
     private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
-
-    private val disposable = CompositeDisposable()
 
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
@@ -78,32 +73,27 @@ class CameraFragment : Fragment() {
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
 
+        binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
+
+        setUpCamera()
+    }
+
+    private fun setUpCamera() {
+        imageCapture = ImageCapture.Builder().build()
         outputDirectory = getOutputDirectory()
 
         binding.cameraCaptureButton.setOnClickListener {
-            viewModel.takePhoto(imageCapture, outputDirectory)
+            imageCapture?.takePicture(outputDirectory,
+                success = {
+                    ImageConfirmationFragment.createInstance(it)
+                        .showFragment(parentFragmentManager, R.id.battle_layout, true)
+                },
+                error = { requireContext().showToast(it.message) }
+            )
         }
-
-        binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
-
-        viewModel.imageUrl
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                ImageConfirmationFragment.createInstance(it)
-                    .showFragment(parentFragmentManager, R.id.battle_layout, true)
-            }
-            .addTo(disposable)
-
-        viewModel.error
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                requireContext().showToast(it.message)
-            }
-            .addTo(disposable)
 
         startCamera()
     }
-
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -113,8 +103,6 @@ class CameraFragment : Fragment() {
             val preview = Preview.Builder()
                 .build()
                 .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
-
-            imageCapture = ImageCapture.Builder().build()
 
             // デフォルトを内カメラに設定
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -146,10 +134,5 @@ class CameraFragment : Fragment() {
             type = IMAGE_TYPE
             startForResult.launch(this)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
     }
 }
