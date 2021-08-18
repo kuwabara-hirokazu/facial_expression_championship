@@ -1,17 +1,16 @@
 package com.example.facialexpressionchampionship.view
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityBattleBinding
+import com.example.facialexpressionchampionship.extension.hasPermission
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
@@ -37,16 +36,12 @@ class BattleActivity : AppCompatActivity() {
 
         viewModel.battleTheme.set(themeList.shuffled()[0])
 
-        if (allPermissionsGranted()) {
+        // 全てのパーミッションが許可されているか
+        if (REQUIRED_PERMISSIONS.all { hasPermission(it) }) {
             CameraFragment().showFragment(supportFragmentManager, binding.battleLayout.id, false)
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
-    }
-
-    // 全てのパーミッションが許可されているか
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(
@@ -56,7 +51,7 @@ class BattleActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
+            if (REQUIRED_PERMISSIONS.all { hasPermission(it) }) {
                 CameraFragment().showFragment(supportFragmentManager, binding.battleLayout.id, false)
             } else {
                 showToast(R.string.camera_permission_message)
