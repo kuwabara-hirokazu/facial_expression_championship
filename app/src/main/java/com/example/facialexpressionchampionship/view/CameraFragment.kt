@@ -19,13 +19,14 @@ import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CameraFragment : Fragment() {
 
     private var imageCapture: ImageCapture? = null
 
-    private lateinit var outputDirectory: File
+    @Inject lateinit var outputDirectory: File
 
     private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
     private val viewModel: CameraViewModel by viewModels()
@@ -61,7 +62,6 @@ class CameraFragment : Fragment() {
 
     private fun setUpCamera() {
         imageCapture = ImageCapture.Builder().build()
-        outputDirectory = getOutputDirectory()
 
         binding.cameraCaptureButton.setOnClickListener {
             imageCapture?.takePicture(outputDirectory,
@@ -98,14 +98,5 @@ class CameraFragment : Fragment() {
                 Timber.e("バインディング失敗 $e")
             }
         }, ContextCompat.getMainExecutor(requireContext()))
-    }
-
-    private fun getOutputDirectory(): File {
-        // ストレージ/Android/media にディレクトリ作成
-        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else requireContext().filesDir
     }
 }
