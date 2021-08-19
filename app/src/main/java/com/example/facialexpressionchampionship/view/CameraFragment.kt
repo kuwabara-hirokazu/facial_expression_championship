@@ -1,13 +1,9 @@
 package com.example.facialexpressionchampionship.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -17,52 +13,32 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
-import com.example.facialexpressionchampionship.extension.showFragment
-import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.extension.*
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.kotlin.subscribeBy
-import kotlinx.android.synthetic.main.fragment_camera.*
 import timber.log.Timber
 import java.io.File
-import java.io.IOException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CameraFragment : Fragment() {
 
-    companion object {
-        private const val IMAGE_TYPE = "image/*"
-    }
-
     private var imageCapture: ImageCapture? = null
 
-    private lateinit var outputDirectory: File
+    @Inject lateinit var outputDirectory: File
 
-    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
+    private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
     private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
 
-    private val disposable = CompositeDisposable()
-
     private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-            if (result?.resultCode == Activity.RESULT_OK) {
-                result.data?.let { intent ->
-                    try {
-                        intent.data?.let { uri ->
-                            ImageConfirmationFragment.createInstance(uri.toString())
-                                .showFragment(parentFragmentManager, R.id.battle_layout, true)
-                        }
-                    } catch (e: IOException) {
-                        Timber.e("画像取得エラー ${e.message}")
-                    }
-                }
+        registerForActivityResult(
+            success = {
+                ImageConfirmationFragment.createInstance(it.toString())
+                    .showFragment(parentFragmentManager, R.id.battle_layout, true)
             }
-        }
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,32 +55,26 @@ class CameraFragment : Fragment() {
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
 
-        outputDirectory = getOutputDirectory()
+        binding.imageAttachment.setOnClickListener { openLibrary(startForResult) }
+
+        setUpCamera()
+    }
+
+    private fun setUpCamera() {
+        imageCapture = ImageCapture.Builder().build()
 
         binding.cameraCaptureButton.setOnClickListener {
-            viewModel.takePhoto(imageCapture, outputDirectory)
+            imageCapture?.takePicture(outputDirectory,
+                success = {
+                    ImageConfirmationFragment.createInstance(it)
+                        .showFragment(parentFragmentManager, R.id.battle_layout, true)
+                },
+                error = { requireContext().showToast(it.message) }
+            )
         }
-
-        binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
-
-        viewModel.imageUrl
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                ImageConfirmationFragment.createInstance(it)
-                    .showFragment(parentFragmentManager, R.id.battle_layout, true)
-            }
-            .addTo(disposable)
-
-        viewModel.error
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                requireContext().showToast(it.message)
-            }
-            .addTo(disposable)
 
         startCamera()
     }
-
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -113,9 +83,7 @@ class CameraFragment : Fragment() {
             // プレビュー設定
             val preview = Preview.Builder()
                 .build()
-                .also { it.setSurfaceProvider(previewView.surfaceProvider) }
-
-            imageCapture = ImageCapture.Builder().build()
+                .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
 
             // デフォルトを内カメラに設定
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -130,27 +98,5 @@ class CameraFragment : Fragment() {
                 Timber.e("バインディング失敗 $e")
             }
         }, ContextCompat.getMainExecutor(requireContext()))
-    }
-
-    private fun getOutputDirectory(): File {
-        // ストレージ/Android/media にディレクトリ作成
-        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else requireContext().filesDir
-    }
-
-    private fun onImageAttachmentClick() {
-        Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = IMAGE_TYPE
-            startForResult.launch(this)
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
     }
 }
