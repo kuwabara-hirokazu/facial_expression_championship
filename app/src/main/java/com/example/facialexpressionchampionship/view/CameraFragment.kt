@@ -1,13 +1,9 @@
 package com.example.facialexpressionchampionship.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -17,46 +13,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
-import com.example.facialexpressionchampionship.extension.showFragment
-import com.example.facialexpressionchampionship.extension.showToast
-import com.example.facialexpressionchampionship.extension.takePicture
+import com.example.facialexpressionchampionship.extension.*
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
-import java.io.IOException
 
 @AndroidEntryPoint
 class CameraFragment : Fragment() {
-
-    companion object {
-        private const val IMAGE_TYPE = "image/*"
-    }
 
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
 
-    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
+    private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
     private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
 
     private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-            if (result?.resultCode == Activity.RESULT_OK) {
-                result.data?.let { intent ->
-                    try {
-                        intent.data?.let { uri ->
-                            ImageConfirmationFragment.createInstance(uri.toString())
-                                .showFragment(parentFragmentManager, R.id.battle_layout, true)
-                        }
-                    } catch (e: IOException) {
-                        Timber.e("画像取得エラー ${e.message}")
-                    }
-                }
+        registerForActivityResult(
+            success = {
+                ImageConfirmationFragment.createInstance(it.toString())
+                    .showFragment(parentFragmentManager, R.id.battle_layout, true)
             }
-        }
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +54,7 @@ class CameraFragment : Fragment() {
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
 
-        binding.imageAttachment.setOnClickListener { onImageAttachmentClick() }
+        binding.imageAttachment.setOnClickListener { openLibrary(startForResult) }
 
         setUpCamera()
     }
@@ -126,13 +107,5 @@ class CameraFragment : Fragment() {
         }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else requireContext().filesDir
-    }
-
-    private fun onImageAttachmentClick() {
-        Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = IMAGE_TYPE
-            startForResult.launch(this)
-        }
     }
 }
