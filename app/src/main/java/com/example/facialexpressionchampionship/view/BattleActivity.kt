@@ -23,7 +23,6 @@ class BattleActivity : AppCompatActivity() {
         // 必要なパーミッションのリスト
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val themeList = listOf("怒り", "軽蔑", "嫌悪", "恐れ", "幸せ", "通常", "悲しみ", "驚き")
     }
 
     private lateinit var binding: ActivityBattleBinding
@@ -34,7 +33,7 @@ class BattleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_battle)
 
-        viewModel.battleTheme.set(themeList.shuffled()[0])
+        viewModel.setupBattleTheme()
 
         // 全てのパーミッションが許可されているか
         if (REQUIRED_PERMISSIONS.all { hasPermission(it) }) {
