@@ -8,6 +8,16 @@
     <string name="retry_photo">撮り直す</string>
     <string name="score_image">採点する</string>
 
+    <!-- テーマ -->
+    <string name="anger">怒り</string>
+    <string name="contempt">軽蔑</string>
+    <string name="disgust">嫌悪</string>
+    <string name="fear">恐れ</string>
+    <string name="happiness">幸せ</string>
+    <string name="neutral">無表情</string>
+    <string name="sadness">悲しみ</string>
+    <string name="surprise">驚き</string>
+
     <!-- エラーメッセージ -->
     <string name="retry">リトライ</string>
     <string name="camera_permission_message">カメラへのアクセスを許可してください</string>
