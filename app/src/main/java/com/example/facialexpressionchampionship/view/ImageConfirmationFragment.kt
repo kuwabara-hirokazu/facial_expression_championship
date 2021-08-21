@@ -8,8 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.databinding.FragmentImageConfirmationBinding
+import com.example.facialexpressionchampionship.extension.getImageBytes
 import com.example.facialexpressionchampionship.extension.showError
-import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +17,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 
 @AndroidEntryPoint
 class ImageConfirmationFragment : Fragment() {
@@ -29,6 +31,7 @@ class ImageConfirmationFragment : Fragment() {
 
     companion object {
         private const val URL = "arg_url"
+        private const val MEDEA_TYPE = "application/octet-stream"
         fun createInstance(imageUrl: String): Fragment {
             val fragment = ImageConfirmationFragment()
             val args = bundleOf(URL to imageUrl)
@@ -59,8 +62,13 @@ class ImageConfirmationFragment : Fragment() {
         }
 
         binding.score.setOnClickListener {
-            val url = mutableMapOf("url" to "https://d3bhdfps5qyllw.cloudfront.net/org/67/67bce941606fcba0f482059692984a64_1080x1337_h.jpg")
-            viewModel.detectFace(url)
+            val byte = getImageBytes(viewModel.imageUrl.get())
+            byte ?: return@setOnClickListener
+
+            val requestBody =
+                byte.toRequestBody(MEDEA_TYPE.toMediaTypeOrNull(), 0, byte.size)
+
+            viewModel.detectFace(requestBody)
         }
 
         viewModel.result

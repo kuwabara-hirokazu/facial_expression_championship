@@ -39,8 +39,8 @@ fun ImageCapture.takePicture(
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 sound.play(MediaActionSound.SHUTTER_CLICK)
-                val photoUrl = Uri.fromFile(photoFile).toString()
-                success(photoUrl)
+                val photoUrl = Uri.fromFile(photoFile).path
+                if (photoUrl != null) success(photoUrl)
             }
 
             override fun onError(exception: ImageCaptureException) {

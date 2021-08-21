@@ -3,9 +3,10 @@ package com.example.facialexpressionchampionship.viewmodel
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.data.FaceDataSource
 import com.example.facialexpressionchampionship.model.Emotion
-import com.example.facialexpressionchampionship.model.FaceResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import okhttp3.RequestBody
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,13 +17,14 @@ class ImageConfirmationViewModel @Inject constructor(
     var imageUrl = ObservableField<String>()
     val result = BehaviorSubject.create<Emotion>()
 
-    fun detectFace(url: MutableMap<String, String>) {
-        repository.detectFace(url)
+    fun detectFace(binaryData: RequestBody) {
+        repository.detectFace(binaryData)
             .execute(
                 onSuccess = {
+                    Timber.d(it.toString())
                     result.onNext(it)
                 },
-                retry = { detectFace(url)}
+                retry = { detectFace(binaryData) }
             )
     }
 }
