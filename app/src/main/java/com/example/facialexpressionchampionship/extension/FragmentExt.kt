@@ -3,16 +3,12 @@ package com.example.facialexpressionchampionship.extension
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.model.Failure
-import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 import java.io.IOException
 
@@ -31,12 +27,6 @@ fun Fragment.showFragment(fragmentManager: FragmentManager, @IdRes containerView
             .replace(containerViewId, this)
             .commit()
     }
-}
-
-fun Fragment.showError(view: View, failure: Failure) {
-    Snackbar.make(view, failure.message, Snackbar.LENGTH_LONG)
-        .setAction(R.string.retry) { failure.retry() }
-        .show()
 }
 
 fun Fragment.registerForActivityResult(success: (Uri) -> Unit): ActivityResultLauncher<Intent> {

@@ -72,7 +72,7 @@ class ImageConfirmationFragment : Fragment() {
 
         viewModel.error
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { showError(binding.root, it) }
+            .subscribeBy { binding.root.showError(it) }
             .addTo(disposable)
     }
 
