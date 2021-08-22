@@ -35,9 +35,10 @@ class CameraFragment : Fragment() {
     private val startForResult =
         registerForActivityResult(
             success = {
-                ImageConfirmationFragment.createInstance(it.toString())
+                ImageConfirmationFragment.createInstance(it)
                     .showFragment(parentFragmentManager, R.id.battle_layout, true)
-            }
+            },
+            error = {requireContext().showToast(it)}
         )
 
     override fun onCreateView(
