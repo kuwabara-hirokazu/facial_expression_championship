@@ -38,7 +38,7 @@ class CameraFragment : Fragment() {
                 ImageConfirmationFragment.createInstance(it)
                     .showFragment(parentFragmentManager, R.id.battle_layout, true)
             },
-            error = {requireContext().showToast(it)}
+            error = { requireContext().showToast(it) }
         )
 
     override fun onCreateView(

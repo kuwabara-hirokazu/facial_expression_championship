@@ -23,7 +23,8 @@ fun Context.getPathFromUri(uri: Uri): String? {
     if (DocumentsContract.isDocumentUri(this, uri)) {
         if ("com.android.providers.media.documents" == uri.authority) {
             // クエリ作成
-            val contentUri = MediaStore.Files.getContentUri("external")  // content://media/external/file
+            val contentUri =
+                MediaStore.Files.getContentUri("external")  // content://media/external/file
             val selection = "_id=?"
             val docId = DocumentsContract.getDocumentId(uri)    // "image:1688"
             val split = docId.split(":".toRegex()).toTypedArray()   // {"image", "1688"}

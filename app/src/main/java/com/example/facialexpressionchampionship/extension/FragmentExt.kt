@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.facialexpressionchampionship.R
 import timber.log.Timber
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 
 private const val IMAGE_TYPE = "image/*"
 
@@ -38,7 +41,7 @@ fun Fragment.registerForActivityResult(success: (String) -> Unit , error: (Int) 
                         val path = requireContext().getPathFromUri(it)
                         if (path != null) {
                             success(path)
-                        } else{
+                        } else {
                             error(R.string.failed_get_image_path)
                         }
                     }
