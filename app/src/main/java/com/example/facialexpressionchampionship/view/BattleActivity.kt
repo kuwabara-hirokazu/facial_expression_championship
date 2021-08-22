@@ -26,7 +26,8 @@ class BattleActivity : AppCompatActivity() {
 
     companion object {
         // 必要なパーミッションのリスト
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS =
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
 
@@ -69,7 +70,7 @@ class BattleActivity : AppCompatActivity() {
             if (REQUIRED_PERMISSIONS.all { hasPermission(it) }) {
                 CameraFragment().showFragment(supportFragmentManager, binding.battleLayout.id, false)
             } else {
-                showToast(R.string.camera_permission_message)
+                showToast(R.string.permission_error_message)
                 finish()
             }
         }

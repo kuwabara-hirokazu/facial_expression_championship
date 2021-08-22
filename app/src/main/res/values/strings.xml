@@ -20,7 +20,7 @@
 
     <!-- エラーメッセージ -->
     <string name="retry">リトライ</string>
-    <string name="camera_permission_message">カメラへのアクセスを許可してください</string>
+    <string name="permission_error_message">端末の設定からカメラと写真へのアクセスを許可してください</string>
     <string name="failed_save_image">画像の保存に失敗しました</string>
     <string name="failed_get_image_path">画像の取得に失敗しました</string>
     <string name="error_message_default">通信エラーです</string>
