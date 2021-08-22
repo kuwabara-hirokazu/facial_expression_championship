@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_xlarge"
-            android:text="@{@string/score_result(battleViewModel.battleTheme)}"
+            android:text="@{@string/score_result(context.getString(battleViewModel.battleTheme))}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/anger(viewModel.anger)}"
+                android:text="@{@string/anger_score(viewModel.anger)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="怒り: 0.0点"
               />
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/contempt(viewModel.contempt)}"
+                android:text="@{@string/contempt_score(viewModel.contempt)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="軽蔑: 0.0点"
               />
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/disgust(viewModel.disgust)}"
+                android:text="@{@string/disgust_score(viewModel.disgust)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="嫌悪: 0.0点"
               />
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/fear(viewModel.fear)}"
+                android:text="@{@string/fear_score(viewModel.fear)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="恐れ: 0.0点"
               />
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/happiness(viewModel.happiness)}"
+                android:text="@{@string/happiness_score(viewModel.happiness)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="幸せ: 0.0点"
               />
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/neutral(viewModel.neutral)}"
+                android:text="@{@string/neutral_score(viewModel.neutral)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="無表情: 0.0点"
               />
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/sadness(viewModel.sadness)}"
+                android:text="@{@string/sadness_score(viewModel.sadness)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="悲しみ: 0.0点"
               />
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/element_spacing_normal"
-                android:text="@{@string/surprise(viewModel.surprise)}"
+                android:text="@{@string/surprise_score(viewModel.surprise)}"
                 android:textSize="@dimen/text_size_large"
                 tools:text="驚き: 0.0点"
               />

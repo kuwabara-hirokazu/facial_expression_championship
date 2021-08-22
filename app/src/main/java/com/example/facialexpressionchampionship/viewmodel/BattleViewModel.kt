@@ -1,12 +1,28 @@
 package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
+import com.example.facialexpressionchampionship.Signal
+import com.example.facialexpressionchampionship.data.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
 @HiltViewModel
-class BattleViewModel @Inject constructor() : ViewModel() {
+class BattleViewModel @Inject constructor(
+    private val repository: ThemeRepository
+) : BaseViewModel() {
 
-    var battleTheme = ObservableField<String>()
+    var battleTheme = ObservableField<Int>()
+    val decidedTheme: BehaviorSubject<Signal> = BehaviorSubject.create()
+
+    fun setup() {
+        repository.getTheme()
+            .execute(
+                onSuccess = {
+                    battleTheme.set(it)
+                    decidedTheme.onNext(Signal)
+                },
+                retry = { setup() }
+            )
+    }
 }

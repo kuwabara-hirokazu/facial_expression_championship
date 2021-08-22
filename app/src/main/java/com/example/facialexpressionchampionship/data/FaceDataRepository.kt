@@ -1,16 +1,16 @@
 package com.example.facialexpressionchampionship.data
 
 import com.example.facialexpressionchampionship.model.Emotion
-import com.example.facialexpressionchampionship.model.FaceResponse
 import io.reactivex.rxjava3.core.Single
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class FaceDataRepository @Inject constructor(
     private val remote: RemoteData
 ) : FaceDataSource {
 
-    override fun detectFace(url: MutableMap<String, String>): Single<Emotion> {
-        return remote.detectFace(url).flatMap {
+    override fun detectFace(binaryData: RequestBody): Single<Emotion> {
+        return remote.detectFace(binaryData).flatMap {
             Single.just(it[0].faceAttributes.emotion)
         }
     }
