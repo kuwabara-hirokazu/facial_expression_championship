@@ -11,6 +11,7 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreBinding
 import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showFragment
+import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.Emotion
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.FaceScoreViewModel
@@ -66,6 +67,13 @@ class FaceScoreFragment : Fragment() {
         binding.ranking.setOnClickListener {
             viewModel.saveScore()
         }
+
+        viewModel.blankName
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it)
+            }
+            .addTo(disposable)
 
         viewModel.isContinue
             .observeOn(AndroidSchedulers.mainThread())
