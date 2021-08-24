@@ -8,6 +8,7 @@ class ThemeRepository @Inject constructor(
 ): ThemeSource {
 
     override fun getTheme(): Single<Int> {
-        return Single.just(localData.themeList.shuffled()[0])
+        localData.changeTheme()
+        return Single.just(localData.getTheme())
     }
 }
