@@ -74,7 +74,7 @@ class ImageConfirmationFragment : Fragment() {
             viewModel.detectFace(requestBody)
         }
 
-        viewModel.result
+        viewModel.score
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
                 FaceScoreFragment.createInstance(viewModel.imageUrl.get(), it)
