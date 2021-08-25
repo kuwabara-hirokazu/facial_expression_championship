@@ -1,8 +1,6 @@
 package com.example.facialexpressionchampionship.model
 
-import java.io.Serializable
-
-data class Emotion (
+data class Emotion(
     val anger: String,
     val contempt: String,
     val disgust: String,
@@ -11,4 +9,4 @@ data class Emotion (
     val neutral: String,
     val sadness: String,
     val surprise: String
-) : Serializable
+)

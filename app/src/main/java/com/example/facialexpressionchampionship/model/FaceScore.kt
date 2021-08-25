@@ -1,5 +1,7 @@
 package com.example.facialexpressionchampionship.model
 
+import java.io.Serializable
+
 data class FaceScore(
     val theme: String,
     val anger: String,
@@ -10,4 +12,4 @@ data class FaceScore(
     val neutral: String,
     val sadness: String,
     val surprise: String
-)
+) : Serializable

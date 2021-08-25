@@ -12,7 +12,7 @@ import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreBin
 import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
-import com.example.facialexpressionchampionship.model.Emotion
+import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.FaceScoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +32,10 @@ class FaceScoreFragment : Fragment() {
 
     companion object {
         private const val URL = "arg_url"
-        private const val EMOTION = "arg_emotion"
-        fun createInstance(imageUrl: String?, emotion: Emotion) : Fragment {
+        private const val SCORE = "arg_score"
+        fun createInstance(imageUrl: String?, score: FaceScore) : Fragment {
             val fragment = FaceScoreFragment()
-            val args = bundleOf(URL to imageUrl, EMOTION to emotion)
+            val args = bundleOf(URL to imageUrl, SCORE to score)
             fragment.arguments = args
             return fragment
         }
@@ -57,8 +57,8 @@ class FaceScoreFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
-        val emotion = arguments?.getSerializable(EMOTION) as Emotion
-        viewModel.setEmotion(emotion)
+        val score = arguments?.getSerializable(SCORE) as FaceScore
+        viewModel.setScore(score)
 
         binding.nextChallenger.setOnClickListener {
             viewModel.saveScore()

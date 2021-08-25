@@ -3,7 +3,7 @@ package com.example.facialexpressionchampionship.viewmodel
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.data.ScoreCacheSource
-import com.example.facialexpressionchampionship.model.Emotion
+import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.model.ScoreCache
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -17,7 +17,7 @@ class FaceScoreViewModel @Inject constructor(
 
     var challenger = ObservableField<String>()
 
-    private lateinit var emotion: Emotion
+    private lateinit var score: FaceScore
 
     var anger = ObservableField<String>()
 
@@ -39,16 +39,16 @@ class FaceScoreViewModel @Inject constructor(
 
     val blankName: PublishSubject<Int> = PublishSubject.create()
 
-    fun setEmotion(emotion: Emotion) {
-        this.emotion = emotion
-        anger.set(emotion.anger)
-        contempt.set(emotion.contempt)
-        disgust.set(emotion.disgust)
-        fear.set(emotion.fear)
-        happiness.set(emotion.happiness)
-        neutral.set(emotion.neutral)
-        sadness.set(emotion.sadness)
-        surprise.set(emotion.surprise)
+    fun setScore(score: FaceScore) {
+        this.score = score
+        anger.set(score.anger)
+        contempt.set(score.contempt)
+        disgust.set(score.disgust)
+        fear.set(score.fear)
+        happiness.set(score.happiness)
+        neutral.set(score.neutral)
+        sadness.set(score.sadness)
+        surprise.set(score.surprise)
     }
 
     fun saveScore() {
@@ -58,7 +58,7 @@ class FaceScoreViewModel @Inject constructor(
             return
         }
 
-        val score = imageUrl.get()?.let { ScoreCache(name, emotion, it) }
+        val score = imageUrl.get()?.let { ScoreCache(name, score, it) }
         if (score != null) {
             cacheRepository.addScoreList(score)
             isContinue.onNext(true)
