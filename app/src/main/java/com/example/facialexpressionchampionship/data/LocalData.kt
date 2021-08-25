@@ -2,32 +2,40 @@ package com.example.facialexpressionchampionship.data
 
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.ScoreCache
+import com.example.facialexpressionchampionship.model.Emotion
 import javax.inject.Inject
 
 class LocalData @Inject constructor() {
 
     companion object {
-        private val themeList = listOf(
-            R.string.anger,
-            R.string.contempt,
-            R.string.disgust,
-            R.string.fear,
-            R.string.happiness,
-            R.string.neutral,
-            R.string.sadness,
-            R.string.surprise
-        )
-        var theme = themeList.shuffled()[0]
-
+        var themeType = ThemeType.values().toList().shuffled().first()
         val scoreCacheList = mutableListOf<ScoreCache>()
     }
 
+    private fun getThemeId(): Int {
+        return themeType.id
+    }
+
     fun getTheme(): Int {
-        return theme
+        return themeType.theme
     }
 
     fun changeTheme() {
-        theme = themeList.shuffled()[0]
+        themeType = ThemeType.values().toList().shuffled().first()
+    }
+
+    fun getThemeScore(emotion: Emotion): String {
+        val emotionList = listOf(
+            emotion.anger,
+            emotion.contempt,
+            emotion.disgust,
+            emotion.fear,
+            emotion.happiness,
+            emotion.neutral,
+            emotion.sadness,
+            emotion.surprise
+        )
+        return emotionList[getThemeId()]
     }
 
     fun getScoreList(): List<ScoreCache> {
@@ -41,4 +49,15 @@ class LocalData @Inject constructor() {
     fun clearCache() {
         scoreCacheList.clear()
     }
+}
+
+enum class ThemeType(val id: Int, val theme: Int) {
+    ANGER(0, R.string.anger),
+    CONTEMPT(1, R.string.contempt),
+    DISGUST(2, R.string.disgust),
+    FEAR(3, R.string.fear),
+    HAPPINESS(4, R.string.happiness),
+    NEUTRAL(5, R.string.neutral),
+    SADNESS(6, R.string.sadness),
+    SURPRISE(7, R.string.surprise)
 }
