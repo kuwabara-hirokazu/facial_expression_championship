@@ -12,7 +12,13 @@ import javax.inject.Inject
 @HiltViewModel
 class FaceScoreViewModel @Inject constructor(
     private val cacheRepository: ScoreCacheSource
-): BaseViewModel() {
+) : BaseViewModel() {
+
+    companion object {
+        private const val CHALLENGE_COUNT_MIN = 0
+        private const val CHALLENGE_COUNT_MAX = 3
+    }
+
     var imageUrl = ObservableField<String>()
 
     var challenger = ObservableField<String>()
@@ -37,9 +43,11 @@ class FaceScoreViewModel @Inject constructor(
 
     var surprise = ObservableField<String>()
 
-    val isContinue: PublishSubject<Boolean> = PublishSubject.create()
+    var isNextChallengerClickEnabled = ObservableField<Boolean>()
 
-    val blankName: PublishSubject<Int> = PublishSubject.create()
+    var isRankingClickEnabled = ObservableField<Boolean>()
+
+    val conditionInvalid: PublishSubject<Int> = PublishSubject.create()
 
     fun setScore(score: FaceScore) {
         this.score = score
@@ -54,17 +62,21 @@ class FaceScoreViewModel @Inject constructor(
         surprise.set(score.surprise)
     }
 
-    fun saveScore() {
-        val name = challenger.get()?.let { it }
-        if (name == null ) {
-            blankName.onNext(R.string.enter_name)
-            return
+    fun setup() {
+        val scoreCount = cacheRepository.getScoreCount()
+        isNextChallengerClickEnabled.set(scoreCount != CHALLENGE_COUNT_MAX)
+        isRankingClickEnabled.set(scoreCount != CHALLENGE_COUNT_MIN)
+    }
+
+    fun hasSavedScore(): Boolean {
+        val name = challenger.get()
+        if (name.isNullOrEmpty()) {
+            conditionInvalid.onNext(R.string.enter_name)
+            return false
         }
 
-        val score = imageUrl.get()?.let { ScoreCache(name, score, it) }
-        if (score != null) {
-            cacheRepository.addScoreList(score)
-            isContinue.onNext(true)
-        }
+        val score = imageUrl.get()?.let { ScoreCache(name, score, it) } ?: return false
+        cacheRepository.addScoreList(score)
+        return true
     }
 }

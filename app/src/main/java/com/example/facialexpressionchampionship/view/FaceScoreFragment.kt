@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreBinding
-import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.FaceScore
@@ -24,7 +23,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 @AndroidEntryPoint
 class FaceScoreFragment : Fragment() {
 
-    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
+    private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
     private val viewModel: FaceScoreViewModel by viewModels()
     private lateinit var binding: FragmentFaceScoreBinding
 
@@ -33,7 +32,7 @@ class FaceScoreFragment : Fragment() {
     companion object {
         private const val URL = "arg_url"
         private const val SCORE = "arg_score"
-        fun createInstance(imageUrl: String?, score: FaceScore) : Fragment {
+        fun createInstance(imageUrl: String?, score: FaceScore): Fragment {
             val fragment = FaceScoreFragment()
             val args = bundleOf(URL to imageUrl, SCORE to score)
             fragment.arguments = args
@@ -59,35 +58,25 @@ class FaceScoreFragment : Fragment() {
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
         val score = arguments?.getSerializable(SCORE) as FaceScore
         viewModel.setScore(score)
+        viewModel.setup()
 
         binding.nextChallenger.setOnClickListener {
-            viewModel.saveScore()
+            if (viewModel.hasSavedScore()) {
+                CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
+            }
         }
 
         binding.ranking.setOnClickListener {
-            viewModel.saveScore()
+            if (viewModel.hasSavedScore()) {
+                // 順位発表画面に遷移
+            }
         }
 
-        viewModel.blankName
+        viewModel.conditionInvalid
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
                 requireContext().showToast(it)
             }
-            .addTo(disposable)
-
-        viewModel.isContinue
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                when(it) {
-                    true -> CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
-                    false -> {} // ToDo 順位発表画面に遷移
-                }
-            }
-            .addTo(disposable)
-
-        viewModel.error
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { binding.root.showError(it) }
             .addTo(disposable)
     }
 

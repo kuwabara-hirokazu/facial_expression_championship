@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="battleViewModel"
             type="com.example.facialexpressionchampionship.viewmodel.BattleViewModel" />
@@ -68,6 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/score_layout" />
 
         <LinearLayout
+            android:id="@+id/emotion_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -156,19 +159,44 @@
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:text="@string/next_challenger"
+            android:enabled="@{viewModel.isNextChallengerClickEnabled()}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/ranking"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/emotion_layout" />
 
         <Button
             android:id="@+id/ranking"
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:text="@string/ranking"
+            android:enabled="@{viewModel.isRankingClickEnabled()}"
             app:layout_constraintLeft_toRightOf="@id/next_challenger"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/next_challenger"
-            app:layout_constraintBottom_toBottomOf="@id/next_challenger" />
+            app:layout_constraintTop_toTopOf="@id/next_challenger" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/element_spacing_normal"
+            android:text="@string/up_to_four"
+            android:visibility="@{viewModel.isNextChallengerClickEnabled() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ranking"
+            app:layout_constraintTop_toBottomOf="@+id/next_challenger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/element_spacing_normal"
+            android:text="@string/require_more_than_two"
+            android:visibility="@{viewModel.isRankingClickEnabled() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toRightOf="@id/next_challenger"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/next_challenger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
