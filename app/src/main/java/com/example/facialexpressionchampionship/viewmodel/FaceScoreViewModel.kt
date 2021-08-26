@@ -19,6 +19,8 @@ class FaceScoreViewModel @Inject constructor(
 
     private lateinit var score: FaceScore
 
+    var themeScore = ObservableField<String>()
+
     var anger = ObservableField<String>()
 
     var contempt = ObservableField<String>()
@@ -41,6 +43,7 @@ class FaceScoreViewModel @Inject constructor(
 
     fun setScore(score: FaceScore) {
         this.score = score
+        themeScore.set(score.theme)
         anger.set(score.anger)
         contempt.set(score.contempt)
         disgust.set(score.disgust)
