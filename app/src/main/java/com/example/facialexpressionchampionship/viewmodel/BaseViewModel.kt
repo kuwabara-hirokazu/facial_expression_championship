@@ -19,8 +19,8 @@ abstract class BaseViewModel : ViewModel() {
     val error: PublishSubject<Failure> = PublishSubject.create()
 
     protected fun <T : Any> Single<T>.execute(onSuccess: (T) -> Unit, retry: () -> Unit) {
-        this.observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+        this.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = onSuccess,
                 onError = {
