@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreRankingBinding
 import com.example.facialexpressionchampionship.extension.showError
+import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.FaceScoreRankingViewModel
 import com.xwray.groupie.GroupAdapter
@@ -51,10 +52,21 @@ class FaceScoreRankingFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
+        binding.save.setOnClickListener {
+            viewModel.saveRanking()
+        }
+
         viewModel.rankingList
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { rankingList ->
                 adapter.update(rankingList.map { FaceScoreRankingItem(it) })
+            }
+            .addTo(disposable)
+
+        viewModel.inValid
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it)
             }
             .addTo(disposable)
 

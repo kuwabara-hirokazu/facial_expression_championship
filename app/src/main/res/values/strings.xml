@@ -49,4 +49,5 @@
     <string name="enter_name">挑戦者の名前を入力してください</string>
     <string name="require_more_than_two">対戦は2人以上必要です</string>
     <string name="up_to_four">対戦は最大4人までとなります</string>
+    <string name="enter_challenge_name">対戦名を入力してください</string>
 </resources>
