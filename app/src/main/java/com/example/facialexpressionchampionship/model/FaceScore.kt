@@ -3,7 +3,7 @@ package com.example.facialexpressionchampionship.model
 import java.io.Serializable
 
 data class FaceScore(
-    val theme: String,
+    val theme: Float,
     val anger: String,
     val contempt: String,
     val disgust: String,

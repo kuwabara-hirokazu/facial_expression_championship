@@ -25,7 +25,7 @@ class FaceScoreViewModel @Inject constructor(
 
     private lateinit var score: FaceScore
 
-    var themeScore = ObservableField<String>()
+    var themeScore = ObservableField<Float>()
 
     var anger = ObservableField<String>()
 
