@@ -12,6 +12,10 @@
     <string name="challenger_name">挑戦者名</string>
     <string name="next_challenger">次の\n挑戦者</string>
     <string name="ranking">順位発表</string>
+    <string name="theme_ranking">%s度ランキング</string>
+    <string name="score_rank">%s位</string>
+    <string name="challenge_name">対戦名</string>
+    <string name="save_challenge_result">対戦結果を保存</string>
 
     <!-- テーマ -->
     <string name="anger">怒り</string>

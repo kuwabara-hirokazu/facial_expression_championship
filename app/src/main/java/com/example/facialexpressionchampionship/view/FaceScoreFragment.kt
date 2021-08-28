@@ -68,7 +68,7 @@ class FaceScoreFragment : Fragment() {
 
         binding.ranking.setOnClickListener {
             if (viewModel.hasSavedScore()) {
-                // 順位発表画面に遷移
+                FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
             }
         }
 
