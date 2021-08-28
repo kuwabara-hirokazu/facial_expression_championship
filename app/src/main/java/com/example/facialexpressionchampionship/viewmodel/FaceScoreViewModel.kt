@@ -75,7 +75,7 @@ class FaceScoreViewModel @Inject constructor(
             return false
         }
 
-        val score = imageUrl.get()?.let { ScoreCache(name, score, it) } ?: return false
+        val score = imageUrl.get()?.let { ScoreCache(name, score, it, null) } ?: return false
         cacheRepository.addScoreList(score)
         return true
     }

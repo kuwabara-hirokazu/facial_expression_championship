@@ -39,15 +39,24 @@ class LocalData @Inject constructor() {
     }
 
     fun getScoreList(): List<ScoreCache> {
-        return scoreCacheList
+        return scoreCacheList.sortedBy { it.ranking }
     }
 
     fun addScoreList(score: ScoreCache) {
         scoreCacheList.add(score)
+        changeRank()
     }
 
     fun clearCache() {
         scoreCacheList.clear()
+    }
+
+    private fun changeRank() {
+        scoreCacheList
+            .sortedByDescending { it.score.theme }
+            .forEachIndexed { index, scoreCache ->
+                scoreCache.ranking = (index + 1).toString()
+            }
     }
 }
 
