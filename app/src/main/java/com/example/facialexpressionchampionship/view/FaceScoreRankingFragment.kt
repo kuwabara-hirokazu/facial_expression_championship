@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreRankingBinding
@@ -20,7 +21,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FaceScoreRankingFragment : Fragment() {
@@ -50,6 +50,12 @@ class FaceScoreRankingFragment : Fragment() {
         binding.recyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            this.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    (layoutManager as LinearLayoutManager).orientation
+                )
+            )
         }
 
         binding.save.setOnClickListener {

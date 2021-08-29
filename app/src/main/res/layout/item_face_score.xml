@@ -11,7 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_spacing_normal"
+        android:layout_marginBottom="@dimen/element_spacing_normal">
 
         <ImageView
             android:id="@+id/challenger_image"
@@ -19,7 +21,6 @@
             android:layout_height="150dp"
             android:layout_marginStart="@dimen/element_spacing_normal"
             android:layout_marginEnd="@dimen/element_spacing_normal"
-            android:layout_marginTop="@dimen/element_spacing_normal"
             app:imageUrl="@{scoreCache.image}"
             app:layout_constraintLeft_toRightOf="@+id/left_side"
             app:layout_constraintRight_toRightOf="parent"
