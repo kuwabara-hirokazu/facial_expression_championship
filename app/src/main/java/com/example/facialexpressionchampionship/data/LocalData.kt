@@ -3,6 +3,7 @@ package com.example.facialexpressionchampionship.data
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.ScoreCache
 import com.example.facialexpressionchampionship.model.Emotion
+import io.reactivex.rxjava3.core.Completable
 import javax.inject.Inject
 
 class LocalData @Inject constructor() {
@@ -42,9 +43,11 @@ class LocalData @Inject constructor() {
         return scoreCacheList.sortedBy { it.ranking }
     }
 
-    fun addScoreList(score: ScoreCache) {
-        scoreCacheList.add(score)
-        changeRank()
+    fun addScoreList(score: ScoreCache): Completable {
+        return Completable.fromAction {
+            scoreCacheList.add(score)
+            changeRank()
+        }
     }
 
     fun clearCache() {

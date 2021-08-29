@@ -49,6 +49,8 @@ class FaceScoreViewModel @Inject constructor(
 
     val conditionInvalid: PublishSubject<Int> = PublishSubject.create()
 
+    val isContinue: PublishSubject<Boolean> = PublishSubject.create()
+
     fun setScore(score: FaceScore) {
         this.score = score
         themeScore.set(score.theme)
@@ -63,20 +65,29 @@ class FaceScoreViewModel @Inject constructor(
     }
 
     fun setup() {
-        val scoreCount = cacheRepository.getScoreCount()
-        isNextChallengerClickEnabled.set(scoreCount != CHALLENGE_COUNT_MAX)
-        isRankingClickEnabled.set(scoreCount != CHALLENGE_COUNT_MIN)
+        cacheRepository.getScoreCount()
+            .execute(
+                onSuccess = { scoreCount ->
+                    isNextChallengerClickEnabled.set(scoreCount != CHALLENGE_COUNT_MAX)
+                    isRankingClickEnabled.set(scoreCount != CHALLENGE_COUNT_MIN)
+                },
+                retry = { setup() }
+            )
     }
 
-    fun hasSavedScore(): Boolean {
+    fun saveScore(isContinue: Boolean) {
         val name = challenger.get()
         if (name.isNullOrEmpty()) {
             conditionInvalid.onNext(R.string.enter_name)
-            return false
+            return
         }
 
-        val score = imageUrl.get()?.let { ScoreCache(name, score, it, null) } ?: return false
+        val score = imageUrl.get()?.let { ScoreCache(name, score, it, null) } ?: return
+
         cacheRepository.addScoreList(score)
-        return true
+            .execute(
+                onComplete = { this.isContinue.onNext(isContinue) },
+                retry = { saveScore(isContinue) }
+            )
     }
 }

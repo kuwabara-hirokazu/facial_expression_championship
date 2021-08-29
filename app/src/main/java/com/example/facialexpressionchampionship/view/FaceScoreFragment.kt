@@ -61,15 +61,11 @@ class FaceScoreFragment : Fragment() {
         viewModel.setup()
 
         binding.nextChallenger.setOnClickListener {
-            if (viewModel.hasSavedScore()) {
-                CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
-            }
+            viewModel.saveScore(true)
         }
 
         binding.ranking.setOnClickListener {
-            if (viewModel.hasSavedScore()) {
-                FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
-            }
+            viewModel.saveScore(false)
         }
 
         viewModel.conditionInvalid
@@ -78,6 +74,21 @@ class FaceScoreFragment : Fragment() {
                 requireContext().showToast(it)
             }
             .addTo(disposable)
+
+        viewModel.isContinue
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy { when(it) {
+                    true -> CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
+                    false -> FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
+                }
+            }
+            .addTo(disposable)
+
+        viewModel.error
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it.message)
+            }
     }
 
     override fun onDestroyView() {
