@@ -20,35 +20,23 @@ class FaceScoreViewModel @Inject constructor(
     }
 
     var imageUrl = ObservableField<String>()
-
     var challenger = ObservableField<String>()
 
     private lateinit var score: FaceScore
-
     var themeScore = ObservableField<Float>()
-
     var anger = ObservableField<String>()
-
     var contempt = ObservableField<String>()
-
     var disgust = ObservableField<String>()
-
     var fear = ObservableField<String>()
-
     var happiness = ObservableField<String>()
-
     var neutral = ObservableField<String>()
-
     var sadness = ObservableField<String>()
-
     var surprise = ObservableField<String>()
 
     var isNextChallengerClickEnabled = ObservableField<Boolean>()
-
     var isRankingClickEnabled = ObservableField<Boolean>()
 
     val conditionInvalid: PublishSubject<Int> = PublishSubject.create()
-
     val isContinue: PublishSubject<Boolean> = PublishSubject.create()
 
     fun setScore(score: FaceScore) {
