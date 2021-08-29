@@ -19,6 +19,13 @@ class BattleViewModel @Inject constructor(
 
     fun setup() {
         cacheRepository.clearCache()
+            .execute(
+                onComplete = { getTheme() },
+                retry = { setup() }
+            )
+    }
+
+    private fun getTheme() {
         repository.getTheme()
             .execute(
                 onSuccess = {

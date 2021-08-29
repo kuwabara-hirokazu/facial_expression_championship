@@ -11,5 +11,5 @@ interface ScoreCacheSource {
 
     fun addScoreList(score: ScoreCache): Completable
 
-    fun clearCache()
+    fun clearCache(): Completable
 }

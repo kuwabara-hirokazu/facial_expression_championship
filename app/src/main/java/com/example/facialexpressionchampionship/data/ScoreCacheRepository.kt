@@ -21,7 +21,7 @@ class ScoreCacheRepository @Inject constructor(
         return localData.addScoreList(score)
     }
 
-    override fun clearCache() {
-        localData.clearCache()
+    override fun clearCache(): Completable {
+        return localData.clearCache()
     }
 }

@@ -50,8 +50,10 @@ class LocalData @Inject constructor() {
         }
     }
 
-    fun clearCache() {
-        scoreCacheList.clear()
+    fun clearCache(): Completable  {
+        return Completable.fromAction {
+            scoreCacheList.clear()
+        }
     }
 
     private fun changeRank() {
