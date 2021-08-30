@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [BattleInformationEntity::class, ScoreListEntity::class],
+    entities = [BattleInformationEntity::class, ChallengerEntity::class],
     version = 1,
     exportSchema = false
 )

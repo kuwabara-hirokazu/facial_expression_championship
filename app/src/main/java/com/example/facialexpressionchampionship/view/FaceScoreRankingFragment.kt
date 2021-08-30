@@ -46,6 +46,9 @@ class FaceScoreRankingFragment : Fragment() {
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
 
+        val theme = battleViewModel.battleTheme.get() ?: return
+        viewModel.battleTheme = theme
+
         val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerView.apply {
             this.adapter = adapter
@@ -74,6 +77,11 @@ class FaceScoreRankingFragment : Fragment() {
             .subscribeBy {
                 requireContext().showToast(it)
             }
+            .addTo(disposable)
+
+        viewModel.savedHistory
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy { requireActivity().finish() }
             .addTo(disposable)
 
         viewModel.error

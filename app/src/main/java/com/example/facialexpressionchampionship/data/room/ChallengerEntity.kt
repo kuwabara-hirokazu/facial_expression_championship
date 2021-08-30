@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "score_list",
+    tableName = "challenger",
     foreignKeys = [ForeignKey(
         entity = BattleInformationEntity::class,
         parentColumns = arrayOf("battle_id"),
@@ -14,11 +14,11 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class ScoreListEntity(
+data class ChallengerEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "score_list_id")
-    val scoreListId: Int,
-    @ColumnInfo(name = "battle_creator_id")
+    @ColumnInfo(name = "challenger_id")
+    val challengerId: Int = 0,
+    @ColumnInfo(name = "battle_creator_id", index = true)
     val battleCreatorId: Int,
     val name: String,
     val score: Float,

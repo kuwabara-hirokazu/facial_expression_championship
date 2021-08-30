@@ -9,5 +9,5 @@ data class BattleHistory(
         parentColumn = "battle_id",
         entityColumn = "battle_creator_id"
     )
-    val scoreList: List<ScoreListEntity>
+    val challenger: List<ChallengerEntity>
 )

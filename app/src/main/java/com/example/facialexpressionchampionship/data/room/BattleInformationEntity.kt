@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "battle_information")
 data class BattleInformationEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "battle_id")
     val battleId: Int,
     @ColumnInfo(name = "battle_name")
