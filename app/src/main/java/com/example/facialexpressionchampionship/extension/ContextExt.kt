@@ -1,5 +1,6 @@
 package com.example.facialexpressionchampionship.extension
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -57,4 +58,13 @@ fun Context.getDataColumn(
         cursor?.close()
     }
     return null
+}
+
+fun Context.showDialog(@StringRes title: Int, @StringRes message: Int, ok: () -> Unit) {
+    AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(android.R.string.ok) { _, _ -> ok() }
+        .setNegativeButton(android.R.string.cancel) { _, _ -> run {} }
+        .show()
 }
