@@ -74,7 +74,8 @@ class ImageConfirmationFragment : Fragment() {
         viewModel.score
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
-                
+                battleViewModel.setScore(it)
+                // 画面遷移
             }
             .addTo(disposable)
 
