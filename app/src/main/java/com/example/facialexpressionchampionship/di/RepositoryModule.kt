@@ -12,7 +12,4 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
     @Binds
     abstract fun bindFaceDataRepository(repository: FaceDataRepository): FaceDataSource
-
-    @Binds
-    abstract fun bindThemeRepository(repository: ThemeRepository): ThemeSource
 }
