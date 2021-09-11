@@ -14,14 +14,6 @@ class LocalData @Inject constructor(){
         return themeType.id
     }
 
-    fun getTheme(): Int {
-        return themeType.theme
-    }
-
-    fun changeTheme() {
-        themeType = ThemeType.values().toList().shuffled().first()
-    }
-
     fun getThemeScore(emotion: Emotion): String {
         val emotionList = listOf(
             emotion.anger,
