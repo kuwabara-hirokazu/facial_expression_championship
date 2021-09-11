@@ -1,7 +1,7 @@
 package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
-import com.example.facialexpressionchampionship.data.FaceDataSource
+import com.example.facialexpressionchampionship.data.FaceDataRepository
 import com.example.facialexpressionchampionship.extension.toByteArray
 import com.example.facialexpressionchampionship.model.FaceScore
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImageConfirmationViewModel @Inject constructor(
-    private val repository: FaceDataSource
+    private val repository: FaceDataRepository
 ) : BaseViewModel() {
 
     private val MEDEA_TYPE = "application/octet-stream"
