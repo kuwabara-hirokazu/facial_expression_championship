@@ -2,11 +2,14 @@ package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.data.FaceDataSource
+import com.example.facialexpressionchampionship.extension.toByteArray
 import com.example.facialexpressionchampionship.model.FaceScore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import okhttp3.RequestBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,17 +17,25 @@ class ImageConfirmationViewModel @Inject constructor(
     private val repository: FaceDataSource
 ) : BaseViewModel() {
 
+    private val MEDEA_TYPE = "application/octet-stream"
+
     var imageUrl = ObservableField<String>()
     val score: BehaviorSubject<FaceScore> = BehaviorSubject.create()
 
-    fun detectFace(binaryData: RequestBody) {
+    fun detectFace() {
+        val byte = File(imageUrl.get()).toByteArray()
+        byte ?: return
+
+        val binaryData =
+            byte.toRequestBody(MEDEA_TYPE.toMediaTypeOrNull(), 0, byte.size)
+
         repository.detectFace(binaryData)
             .execute(
                 onSuccess = {
                     Timber.d(it.toString())
                     score.onNext(it)
                 },
-                retry = { detectFace(binaryData) }
+                retry = { detectFace() }
             )
     }
 }
