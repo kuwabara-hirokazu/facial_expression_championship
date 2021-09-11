@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class FaceDataRepository @Inject constructor(
     private val remote: RemoteData,
-    private val localData: LocalData
 ) : FaceDataSource {
 
     override fun detectFace(binaryData: RequestBody): Single<FaceScore> {
@@ -15,7 +14,6 @@ class FaceDataRepository @Inject constructor(
             val emotion = it[0].faceAttributes.emotion
             Single.just(
                 FaceScore(
-                    localData.getThemeScore(emotion),
                     emotion.anger,
                     emotion.contempt,
                     emotion.disgust,
