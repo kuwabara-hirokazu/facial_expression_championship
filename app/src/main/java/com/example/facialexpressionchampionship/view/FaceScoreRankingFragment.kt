@@ -69,11 +69,6 @@ class FaceScoreRankingFragment : Fragment() {
                 requireContext().showToast(it)
             }
             .addTo(disposable)
-
-        viewModel.error
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { binding.root.showError(it) }
-            .addTo(disposable)
     }
 
     override fun onDestroyView() {

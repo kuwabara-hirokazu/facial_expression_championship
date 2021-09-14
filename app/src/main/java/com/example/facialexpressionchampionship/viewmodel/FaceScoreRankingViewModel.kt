@@ -19,6 +19,5 @@ class FaceScoreRankingViewModel @Inject constructor() : BaseViewModel() {
             inValid.onNext(R.string.enter_challenge_name)
             return
         }
-
     }
 }
