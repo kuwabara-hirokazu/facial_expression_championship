@@ -22,7 +22,7 @@ class BattleViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun getScoreList(): List<ScoreData> {
-        return scoreDataList
+        return scoreDataList.sortedBy { it.ranking }
     }
 
     fun addScoreList(score: ScoreData) {
