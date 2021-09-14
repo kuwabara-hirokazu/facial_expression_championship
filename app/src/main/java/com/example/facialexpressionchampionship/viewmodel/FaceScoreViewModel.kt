@@ -3,7 +3,7 @@ package com.example.facialexpressionchampionship.viewmodel
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.FaceScore
-import com.example.facialexpressionchampionship.model.ScoreCache
+import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -54,7 +54,7 @@ class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
         isRankingClickEnabled.set(count != CHALLENGE_COUNT_MIN)
     }
 
-    fun getScoreData(): ScoreCache? {
+    fun getScoreData(): ScoreData? {
         val name = challenger.get()
         if (name.isNullOrEmpty()) {
             conditionInvalid.onNext(R.string.enter_name)
@@ -63,7 +63,7 @@ class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
 
         return themeScore.get()?.let { themeScore ->
             imageUrl.get()?.let { url ->
-                ScoreCache(name, themeScore, score, url, null)
+                ScoreData(name, themeScore, score, url, null)
             }
         }
     }

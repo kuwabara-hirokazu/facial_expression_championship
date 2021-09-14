@@ -1,7 +1,7 @@
 package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
-import com.example.facialexpressionchampionship.model.ScoreCache
+import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class BattleViewModel @Inject constructor() : BaseViewModel() {
 
     private val themeType = ThemeType.values().toList().shuffled().first()
-    private val scoreCacheList = mutableListOf<ScoreCache>()
+    private val scoreDataList = mutableListOf<ScoreData>()
     var battleTheme = ObservableField<Int>()
 
     fun getTheme(): ThemeType {
@@ -21,19 +21,19 @@ class BattleViewModel @Inject constructor() : BaseViewModel() {
         battleTheme.set(themeType.theme)
     }
 
-    fun getScoreList(): List<ScoreCache> {
-        return scoreCacheList
+    fun getScoreList(): List<ScoreData> {
+        return scoreDataList
     }
 
-    fun addScoreList(score: ScoreCache) {
-        scoreCacheList.add(score)
+    fun addScoreList(score: ScoreData) {
+        scoreDataList.add(score)
     }
 
     fun changeRank() {
-        scoreCacheList
+        scoreDataList
             .sortedByDescending { it.score.getThemeScoreFrom(getTheme()) }
-            .forEachIndexed { index, scoreCache ->
-                scoreCache.ranking = (index + 1).toString()
+            .forEachIndexed { index, scoreData ->
+                scoreData.ranking = (index + 1).toString()
             }
     }
 }

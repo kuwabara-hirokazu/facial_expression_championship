@@ -1,6 +1,6 @@
 package com.example.facialexpressionchampionship.model
 
-data class ScoreCache(
+data class ScoreData(
     val name: String,
     val themeScore: Float,
     val score: FaceScore,

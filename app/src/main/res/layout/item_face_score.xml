@@ -5,8 +5,8 @@
     
     <data>
         <variable
-            name="scoreCache"
-            type="com.example.facialexpressionchampionship.model.ScoreCache" />
+            name="scoreData"
+            type="com.example.facialexpressionchampionship.model.ScoreData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_height="150dp"
             android:layout_marginStart="@dimen/element_spacing_normal"
             android:layout_marginEnd="@dimen/element_spacing_normal"
-            app:imageUrl="@{scoreCache.image}"
+            app:imageUrl="@{scoreData.image}"
             app:layout_constraintLeft_toRightOf="@+id/left_side"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
                 android:id="@+id/rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/score_rank(scoreCache.ranking)}"
+                android:text="@{@string/score_rank(scoreData.ranking)}"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/element_spacing_normal"
-                android:text="@{scoreCache.name}"
+                android:text="@{scoreData.name}"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintLeft_toRightOf="@+id/rank"
                 app:layout_constraintTop_toTopOf="parent"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/element_spacing_normal"
-                android:text="@{@string/score_result(Float.toString(scoreCache.themeScore))}"
+                android:text="@{@string/score_result(Float.toString(scoreData.themeScore))}"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rank"
