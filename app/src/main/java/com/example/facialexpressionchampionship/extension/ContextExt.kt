@@ -2,7 +2,6 @@ package com.example.facialexpressionchampionship.extension
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.MediaStore
@@ -42,19 +41,16 @@ fun Context.getDataColumn(
     selection: String?,
     selectionArgs: Array<String>?
 ): String? {
-    var cursor: Cursor? = null
     val projection = arrayOf(MediaStore.Files.FileColumns.DATA) // {"_data"}
-    try {
-        cursor = contentResolver.query(
-            uri, projection, selection, selectionArgs, null
-        )
-        // 取得結果から先頭レコードのファイルパスを取得する
-        if (cursor != null && cursor.moveToFirst()) {
-            val index = cursor.getColumnIndexOrThrow(projection[0])
-            return cursor.getString(index)
+
+    return contentResolver.query(uri, projection, selection, selectionArgs, null)
+        ?.use { cursor ->
+            // 取得結果から先頭レコードのファイルパスを取得する
+            if (cursor.moveToFirst()) {
+                val index = cursor.getColumnIndexOrThrow(projection[0])
+                cursor.getString(index)
+            } else {
+                null
+            }
         }
-    } finally {
-        cursor?.close()
-    }
-    return null
 }

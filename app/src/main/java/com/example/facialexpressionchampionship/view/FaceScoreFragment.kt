@@ -44,7 +44,7 @@ class FaceScoreFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFaceScoreBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -57,15 +57,20 @@ class FaceScoreFragment : Fragment() {
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
         val score = arguments?.getSerializable(SCORE) as FaceScore
-        viewModel.setScore(score)
-        viewModel.setup()
+        viewModel.setScore(score, battleViewModel.getTheme())
+        viewModel.checkBattleCount(battleViewModel.getScoreList().size)
 
         binding.nextChallenger.setOnClickListener {
-            viewModel.saveScore(true)
+            val scoreData = viewModel.getScoreData() ?: return@setOnClickListener
+            battleViewModel.addScoreList(scoreData)
+            CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
         }
 
         binding.ranking.setOnClickListener {
-            viewModel.saveScore(false)
+            val scoreData = viewModel.getScoreData() ?: return@setOnClickListener
+            battleViewModel.addScoreList(scoreData)
+            battleViewModel.changeRank()
+            FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
         }
 
         viewModel.conditionInvalid
@@ -74,21 +79,6 @@ class FaceScoreFragment : Fragment() {
                 requireContext().showToast(it)
             }
             .addTo(disposable)
-
-        viewModel.isContinue
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { when(it) {
-                    true -> CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
-                    false -> FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
-                }
-            }
-            .addTo(disposable)
-
-        viewModel.error
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy {
-                requireContext().showToast(it.message)
-            }
     }
 
     override fun onDestroyView() {

@@ -6,7 +6,7 @@ import com.example.facialexpressionchampionship.model.ScoreCache
 import com.xwray.groupie.databinding.BindableItem
 
 class FaceScoreRankingItem(
-    private val scoreCache: ScoreCache
+    private val scoreCache: ScoreCache,
 ) : BindableItem<ItemFaceScoreBinding>() {
 
     override fun bind(viewBinding: ItemFaceScoreBinding, position: Int) {

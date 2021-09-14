@@ -9,9 +9,9 @@ import retrofit2.http.POST
 
 interface ApiRequest {
 
-    @Headers("Ocp-Apim-Subscription-Key: 19565daf9eef4b368637d70458462ad7")
+    @Headers("Ocp-Apim-Subscription-Key: ${BuildConfig.FACE_API_KEY}")
     @POST("detect?returnFaceAttributes=emotion")
     fun detectFace(
         @Body binaryData: RequestBody
-    ): Single<Array<FaceResponse>>
+    ): Single<List<FaceResponse>>
 }
