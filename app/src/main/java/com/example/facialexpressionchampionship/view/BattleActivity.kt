@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityBattleBinding
 import com.example.facialexpressionchampionship.extension.hasPermission
+import com.example.facialexpressionchampionship.extension.showConfirmDialog
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
@@ -74,6 +75,17 @@ class BattleActivity : AppCompatActivity() {
         }
     }
 
-    // データが消えないようにデフォルトの戻るボタンで戻れないようにする
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            when (it) {
+                is CameraFragment -> {
+                    showConfirmDialog(R.string.alert_back_title, R.string.alert_back_message) {
+                        super.onBackPressed()
+                    }
+                    return
+                }
+            }
+        }
+        super.onBackPressed()
+    }
 }
