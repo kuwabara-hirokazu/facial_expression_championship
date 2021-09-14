@@ -22,14 +22,14 @@ class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
 
     private lateinit var score: FaceScore
     var themeScore = ObservableField<Float>()
-    var anger = ObservableField<String>()
-    var contempt = ObservableField<String>()
-    var disgust = ObservableField<String>()
-    var fear = ObservableField<String>()
-    var happiness = ObservableField<String>()
-    var neutral = ObservableField<String>()
-    var sadness = ObservableField<String>()
-    var surprise = ObservableField<String>()
+    var anger = ObservableField<Float>()
+    var contempt = ObservableField<Float>()
+    var disgust = ObservableField<Float>()
+    var fear = ObservableField<Float>()
+    var happiness = ObservableField<Float>()
+    var neutral = ObservableField<Float>()
+    var sadness = ObservableField<Float>()
+    var surprise = ObservableField<Float>()
 
     var isNextChallengerClickEnabled = ObservableField<Boolean>()
     var isRankingClickEnabled = ObservableField<Boolean>()
