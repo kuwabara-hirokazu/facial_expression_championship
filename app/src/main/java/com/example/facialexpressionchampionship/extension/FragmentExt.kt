@@ -21,7 +21,7 @@ fun Fragment.showFragment(fragmentManager: FragmentManager, @IdRes containerView
             .addToBackStack(null)
             .commit()
     } else {
-        fragmentManager.popBackStack()
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         fragmentManager
             .beginTransaction()
             .replace(containerViewId, this)
