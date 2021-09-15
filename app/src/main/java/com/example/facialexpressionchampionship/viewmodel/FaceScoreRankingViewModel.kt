@@ -25,11 +25,7 @@ class FaceScoreRankingViewModel @Inject constructor(
 
     val savedHistory: PublishSubject<Int> = PublishSubject.create()
 
-    var battleTheme: Int = 0
-
-    var scoreDataList = listOf<ScoreData>()
-
-    fun saveRanking() {
+    fun saveRanking(battleTheme: Int, scoreDataList: List<ScoreData>) {
         val name = challengeName.get()
         if (name.isNullOrEmpty()) {
             inValid.onNext(R.string.enter_challenge_name)
@@ -38,26 +34,26 @@ class FaceScoreRankingViewModel @Inject constructor(
 
         val battleInformation = BattleInformationEntity(sharedPreference.getBattleId(), name, battleTheme)
         battleHistoryRepository.saveBattleInformation(battleInformation)
-            .andThen(battleHistoryRepository.saveChallenger(createChallengerList()))
+            .andThen(battleHistoryRepository.saveChallenger(createChallengerList(scoreDataList)))
             .execute(
                 onComplete = {
                     sharedPreference.saveBattleId(sharedPreference.getBattleId())
                     savedHistory.onNext(R.string.saved_challenge_result)
                 },
-                retry = { saveRanking() }
+                retry = { saveRanking(battleTheme, scoreDataList) }
             )
     }
 
-    private fun createChallengerList(): List<ChallengerEntity> {
+    private fun createChallengerList(scoreDataList: List<ScoreData>): List<ChallengerEntity> {
         val challengerList = mutableListOf<ChallengerEntity>()
-        scoreDataList.forEach { scoreData ->
-            val ranking = scoreData.ranking ?: return challengerList
+        scoreDataList.forEach { scoreCache ->
+            val ranking = scoreCache.ranking ?: return challengerList
             val challenger = ChallengerEntity(
                 0,
                 sharedPreference.getBattleId(),
-                scoreData.name,
-                scoreData.themeScore,
-                scoreData.image,
+                scoreCache.name,
+                scoreCache.themeScore,
+                scoreCache.image,
                 ranking
             )
             challengerList.add(challenger)
