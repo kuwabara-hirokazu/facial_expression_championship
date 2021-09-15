@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="history"
+            type="com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/element_spacing_normal"
+        android:layout_marginStart="@dimen/element_spacing_large">
+
+        <TextView
+            android:id="@+id/challenge_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/challenge_name"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/challenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_spacing_xlarge"
+            android:text="@{history.battleName}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toRightOf="@+id/challenge_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="天下一武道会"
+            />
+
+        <TextView
+            android:id="@+id/challenger_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/challenger_name"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <TextView
+            android:id="@+id/challenger_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger1.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            tools:text="孫悟空"
+            />
+
+        <TextView
+            android:id="@+id/challenger_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger2.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_1"
+            tools:text="ベジータ"
+            />
+
+        <TextView
+            android:id="@+id/challenger_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{history.challenger3 != null ? View.VISIBLE : View.GONE}"
+            android:text="@{history.challenger3.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_2"
+            tools:text="魔人ブウ"
+            />
+
+        <TextView
+            android:id="@+id/challenger_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{history.challenger4 != null ? View.VISIBLE : View.GONE}"
+            android:text="@{history.challenger4.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_3"
+            tools:text="ヤムチャ"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
