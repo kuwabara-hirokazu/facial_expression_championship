@@ -23,7 +23,7 @@ class FaceScoreRankingViewModel @Inject constructor(
 
     val inValid: PublishSubject<Int> = PublishSubject.create()
 
-    val savedHistory: BehaviorSubject<Signal> = BehaviorSubject.create()
+    val savedHistory: PublishSubject<Int> = PublishSubject.create()
 
     var battleTheme: Int = 0
 
@@ -42,7 +42,7 @@ class FaceScoreRankingViewModel @Inject constructor(
             .execute(
                 onComplete = {
                     sharedPreference.saveBattleId(sharedPreference.getBattleId())
-                    savedHistory.onNext(Signal)
+                    savedHistory.onNext(R.string.saved_challenge_result)
                 },
                 retry = { saveRanking() }
             )
