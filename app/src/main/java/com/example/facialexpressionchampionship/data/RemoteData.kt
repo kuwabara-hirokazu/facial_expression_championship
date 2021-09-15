@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RemoteData @Inject constructor(
     private val api: ApiRequest
 ) {
-    fun detectFace(binaryData: RequestBody): Single<Array<FaceResponse>> {
+    fun detectFace(binaryData: RequestBody): Single<List<FaceResponse>> {
         return api.detectFace(binaryData)
     }
 }

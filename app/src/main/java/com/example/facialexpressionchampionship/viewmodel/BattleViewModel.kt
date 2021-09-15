@@ -1,38 +1,39 @@
 package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
-import com.example.facialexpressionchampionship.Signal
-import com.example.facialexpressionchampionship.data.ScoreCacheSource
-import com.example.facialexpressionchampionship.data.ThemeSource
+import com.example.facialexpressionchampionship.model.ScoreData
+import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 
 @HiltViewModel
-class BattleViewModel @Inject constructor(
-    private val repository: ThemeSource,
-    private val cacheRepository: ScoreCacheSource
-) : BaseViewModel() {
+class BattleViewModel @Inject constructor() : BaseViewModel() {
 
+    private val themeType = ThemeType.values().toList().shuffled().first()
+    private val scoreDataList = mutableListOf<ScoreData>()
     var battleTheme = ObservableField<Int>()
-    val decidedTheme: BehaviorSubject<Signal> = BehaviorSubject.create()
 
-    fun setup() {
-        cacheRepository.clearCache()
-            .execute(
-                onComplete = { getTheme() },
-                retry = { setup() }
-            )
+    fun getTheme(): ThemeType {
+        return themeType
     }
 
-    private fun getTheme() {
-        repository.getTheme()
-            .execute(
-                onSuccess = {
-                    battleTheme.set(it)
-                    decidedTheme.onNext(Signal)
-                },
-                retry = { setup() }
-            )
+    fun setTheme() {
+        battleTheme.set(themeType.theme)
+    }
+
+    fun getScoreList(): List<ScoreData> {
+        return scoreDataList.sortedBy { it.ranking }
+    }
+
+    fun addScoreList(score: ScoreData) {
+        scoreDataList.add(score)
+    }
+
+    fun changeRank() {
+        scoreDataList
+            .sortedByDescending { it.score.getThemeScoreFrom(getTheme()) }
+            .forEachIndexed { index, scoreData ->
+                scoreData.ranking = (index + 1).toString()
+            }
     }
 }

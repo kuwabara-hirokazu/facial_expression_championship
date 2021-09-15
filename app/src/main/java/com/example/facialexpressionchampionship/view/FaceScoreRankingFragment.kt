@@ -35,7 +35,7 @@ class FaceScoreRankingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFaceScoreRankingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,17 +60,11 @@ class FaceScoreRankingFragment : Fragment() {
                 )
             )
         }
+        adapter.update(battleViewModel.getScoreList().map { FaceScoreRankingItem(it) })
 
         binding.save.setOnClickListener {
             viewModel.saveRanking()
         }
-
-        viewModel.rankingList
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { rankingList ->
-                adapter.update(rankingList.map { FaceScoreRankingItem(it) })
-            }
-            .addTo(disposable)
 
         viewModel.inValid
             .observeOn(AndroidSchedulers.mainThread())
@@ -88,8 +82,6 @@ class FaceScoreRankingFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { binding.root.showError(it) }
             .addTo(disposable)
-
-        viewModel.loadScoreRanking()
     }
 
     override fun onDestroyView() {
