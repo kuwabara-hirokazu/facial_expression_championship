@@ -75,7 +75,10 @@ class FaceScoreRankingFragment : Fragment() {
 
         viewModel.savedHistory
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { requireActivity().finish() }
+            .subscribeBy {
+                requireContext().showToast(it)
+                requireActivity().finish()
+            }
             .addTo(disposable)
 
         viewModel.error
