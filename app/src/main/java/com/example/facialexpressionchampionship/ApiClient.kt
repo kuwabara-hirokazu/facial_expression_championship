@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiClient {
-    private val URL = "https://championship.cognitiveservices.azure.com/face/v1.0/"
+    private val URL = "https://facialchampionship.cognitiveservices.azure.com/face/v1.0/"
 
     // OkHttp
     @Provides

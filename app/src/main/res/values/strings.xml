@@ -36,9 +36,9 @@
     <string name="sadness_score">悲しみ: %s点</string>
     <string name="surprise_score">驚き: %s点</string>
 
-    <!-- アラート -->
-    <string name="alert_reset">対戦情報がリセットされます</string>
-    <string name="confirm_back">本当に戻りますか？</string>
+    <!-- ダイアログ -->
+    <string name="alert_back_title">対戦データが失われます</string>
+    <string name="alert_back_message">本当に戻りますか？</string>
 
     <!-- エラーメッセージ -->
     <string name="retry">リトライ</string>

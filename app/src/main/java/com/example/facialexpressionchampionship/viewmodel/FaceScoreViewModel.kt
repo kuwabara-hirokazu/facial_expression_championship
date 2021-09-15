@@ -2,17 +2,15 @@ package com.example.facialexpressionchampionship.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.data.ScoreCacheSource
 import com.example.facialexpressionchampionship.model.FaceScore
-import com.example.facialexpressionchampionship.model.ScoreCache
+import com.example.facialexpressionchampionship.model.ScoreData
+import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
 
 @HiltViewModel
-class FaceScoreViewModel @Inject constructor(
-    private val cacheRepository: ScoreCacheSource
-) : BaseViewModel() {
+class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
 
     companion object {
         private const val CHALLENGE_COUNT_MIN = 0
@@ -24,24 +22,23 @@ class FaceScoreViewModel @Inject constructor(
 
     private lateinit var score: FaceScore
     var themeScore = ObservableField<Float>()
-    var anger = ObservableField<String>()
-    var contempt = ObservableField<String>()
-    var disgust = ObservableField<String>()
-    var fear = ObservableField<String>()
-    var happiness = ObservableField<String>()
-    var neutral = ObservableField<String>()
-    var sadness = ObservableField<String>()
-    var surprise = ObservableField<String>()
+    var anger = ObservableField<Float>()
+    var contempt = ObservableField<Float>()
+    var disgust = ObservableField<Float>()
+    var fear = ObservableField<Float>()
+    var happiness = ObservableField<Float>()
+    var neutral = ObservableField<Float>()
+    var sadness = ObservableField<Float>()
+    var surprise = ObservableField<Float>()
 
     var isNextChallengerClickEnabled = ObservableField<Boolean>()
     var isRankingClickEnabled = ObservableField<Boolean>()
 
     val conditionInvalid: PublishSubject<Int> = PublishSubject.create()
-    val isContinue: PublishSubject<Boolean> = PublishSubject.create()
 
-    fun setScore(score: FaceScore) {
+    fun setScore(score: FaceScore, themeType: ThemeType) {
         this.score = score
-        themeScore.set(score.theme)
+        themeScore.set(score.getThemeScoreFrom(themeType))
         anger.set(score.anger)
         contempt.set(score.contempt)
         disgust.set(score.disgust)
@@ -52,30 +49,22 @@ class FaceScoreViewModel @Inject constructor(
         surprise.set(score.surprise)
     }
 
-    fun setup() {
-        cacheRepository.getScoreCount()
-            .execute(
-                onSuccess = { scoreCount ->
-                    isNextChallengerClickEnabled.set(scoreCount != CHALLENGE_COUNT_MAX)
-                    isRankingClickEnabled.set(scoreCount != CHALLENGE_COUNT_MIN)
-                },
-                retry = { setup() }
-            )
+    fun checkBattleCount(count: Int) {
+        isNextChallengerClickEnabled.set(count != CHALLENGE_COUNT_MAX)
+        isRankingClickEnabled.set(count != CHALLENGE_COUNT_MIN)
     }
 
-    fun saveScore(isContinue: Boolean) {
+    fun getScoreData(): ScoreData? {
         val name = challenger.get()
         if (name.isNullOrEmpty()) {
             conditionInvalid.onNext(R.string.enter_name)
-            return
+            return null
         }
 
-        val score = imageUrl.get()?.let { ScoreCache(name, score, it, null) } ?: return
-
-        cacheRepository.addScoreList(score)
-            .execute(
-                onComplete = { this.isContinue.onNext(isContinue) },
-                retry = { saveScore(isContinue) }
-            )
+        return themeScore.get()?.let { themeScore ->
+            imageUrl.get()?.let { url ->
+                ScoreData(name, themeScore, score, url, null)
+            }
+        }
     }
 }

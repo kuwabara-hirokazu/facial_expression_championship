@@ -3,7 +3,6 @@ package com.example.facialexpressionchampionship.extension
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.MediaStore
@@ -18,6 +17,15 @@ fun Context.showToast(@StringRes resourceId: Int) {
 
 fun Context.hasPermission(@NonNull permission: String): Boolean {
     return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+}
+
+fun Context.showConfirmDialog(@StringRes titleId: Int, @StringRes messageId: Int, ok:() -> Unit) {
+    AlertDialog.Builder(this)
+        .setTitle(titleId)
+        .setMessage(messageId)
+        .setPositiveButton(android.R.string.ok) { _, _ -> ok() }
+        .setNegativeButton(android.R.string.cancel) { _, _ -> }
+        .show()
 }
 
 fun Context.getPathFromUri(uri: Uri): String? {
@@ -43,21 +51,18 @@ fun Context.getDataColumn(
     selection: String?,
     selectionArgs: Array<String>?
 ): String? {
-    var cursor: Cursor? = null
     val projection = arrayOf(MediaStore.Files.FileColumns.DATA) // {"_data"}
-    try {
-        cursor = contentResolver.query(
-            uri, projection, selection, selectionArgs, null
-        )
-        // 取得結果から先頭レコードのファイルパスを取得する
-        if (cursor != null && cursor.moveToFirst()) {
-            val index = cursor.getColumnIndexOrThrow(projection[0])
-            return cursor.getString(index)
+
+    return contentResolver.query(uri, projection, selection, selectionArgs, null)
+        ?.use { cursor ->
+            // 取得結果から先頭レコードのファイルパスを取得する
+            if (cursor.moveToFirst()) {
+                val index = cursor.getColumnIndexOrThrow(projection[0])
+                cursor.getString(index)
+            } else {
+                null
+            }
         }
-    } finally {
-        cursor?.close()
-    }
-    return null
 }
 
 fun Context.showDialog(@StringRes title: Int, @StringRes message: Int, ok: () -> Unit) {

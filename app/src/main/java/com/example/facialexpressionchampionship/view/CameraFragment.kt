@@ -15,7 +15,6 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.*
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
-import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
@@ -29,7 +28,6 @@ class CameraFragment : Fragment() {
     @Inject lateinit var outputDirectory: File
 
     private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
-    private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
 
     private val startForResult =
@@ -52,9 +50,7 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.battleViewModel = battleViewModel
-        binding.viewModel = viewModel
 
         binding.imageAttachment.setOnClickListener { openLibrary(startForResult) }
 

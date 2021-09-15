@@ -2,15 +2,15 @@ package com.example.facialexpressionchampionship.view
 
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ItemFaceScoreBinding
-import com.example.facialexpressionchampionship.model.ScoreCache
+import com.example.facialexpressionchampionship.model.ScoreData
 import com.xwray.groupie.databinding.BindableItem
 
 class FaceScoreRankingItem(
-    private val scoreCache: ScoreCache
+    private val scoreData: ScoreData,
 ) : BindableItem<ItemFaceScoreBinding>() {
 
     override fun bind(viewBinding: ItemFaceScoreBinding, position: Int) {
-        viewBinding.scoreCache = scoreCache
+        viewBinding.scoreData = scoreData
     }
 
     override fun getLayout() = R.layout.item_face_score
