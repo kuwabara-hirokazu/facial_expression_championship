@@ -27,9 +27,7 @@ class FaceScoreRankingViewModel @Inject constructor(
 
     var battleTheme: Int = 0
 
-    var scoreDataList = listOf<ScoreData>()
-
-    fun saveRanking() {
+    fun saveRanking(scoreDataList: List<ScoreData>) {
         val name = challengeName.get()
         if (name.isNullOrEmpty()) {
             inValid.onNext(R.string.enter_challenge_name)
@@ -38,17 +36,17 @@ class FaceScoreRankingViewModel @Inject constructor(
 
         val battleInformation = BattleInformationEntity(sharedPreference.getBattleId(), name, battleTheme)
         battleHistoryRepository.saveBattleInformation(battleInformation)
-            .andThen(battleHistoryRepository.saveChallenger(createChallengerList()))
+            .andThen(battleHistoryRepository.saveChallenger(createChallengerList(scoreDataList)))
             .execute(
                 onComplete = {
                     sharedPreference.saveBattleId(sharedPreference.getBattleId())
                     savedHistory.onNext(R.string.saved_challenge_result)
                 },
-                retry = { saveRanking() }
+                retry = { saveRanking(scoreDataList) }
             )
     }
 
-    private fun createChallengerList(): List<ChallengerEntity> {
+    private fun createChallengerList(scoreDataList: List<ScoreData>): List<ChallengerEntity> {
         val challengerList = mutableListOf<ChallengerEntity>()
         scoreDataList.forEach { scoreCache ->
             val ranking = scoreCache.ranking ?: return challengerList

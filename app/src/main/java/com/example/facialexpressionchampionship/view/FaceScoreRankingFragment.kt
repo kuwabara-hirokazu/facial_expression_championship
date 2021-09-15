@@ -63,7 +63,7 @@ class FaceScoreRankingFragment : Fragment() {
         adapter.update(battleViewModel.getScoreList().map { FaceScoreRankingItem(it) })
 
         binding.save.setOnClickListener {
-            viewModel.saveRanking()
+            viewModel.saveRanking(battleViewModel.getScoreList())
         }
 
         viewModel.inValid
