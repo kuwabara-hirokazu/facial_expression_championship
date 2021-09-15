@@ -25,9 +25,7 @@ class FaceScoreRankingViewModel @Inject constructor(
 
     val savedHistory: PublishSubject<Int> = PublishSubject.create()
 
-    var battleTheme: Int = 0
-
-    fun saveRanking(scoreDataList: List<ScoreData>) {
+    fun saveRanking(battleTheme: Int, scoreDataList: List<ScoreData>) {
         val name = challengeName.get()
         if (name.isNullOrEmpty()) {
             inValid.onNext(R.string.enter_challenge_name)
@@ -42,7 +40,7 @@ class FaceScoreRankingViewModel @Inject constructor(
                     sharedPreference.saveBattleId(sharedPreference.getBattleId())
                     savedHistory.onNext(R.string.saved_challenge_result)
                 },
-                retry = { saveRanking(scoreDataList) }
+                retry = { saveRanking(battleTheme, scoreDataList) }
             )
     }
 

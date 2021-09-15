@@ -46,9 +46,6 @@ class FaceScoreRankingFragment : Fragment() {
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
 
-        val theme = battleViewModel.battleTheme.get() ?: return
-        viewModel.battleTheme = theme
-
         val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerView.apply {
             this.adapter = adapter
@@ -62,8 +59,9 @@ class FaceScoreRankingFragment : Fragment() {
         }
         adapter.update(battleViewModel.getScoreList().map { FaceScoreRankingItem(it) })
 
+        val theme = battleViewModel.battleTheme.get() ?: return
         binding.save.setOnClickListener {
-            viewModel.saveRanking(battleViewModel.getScoreList())
+            viewModel.saveRanking(theme, battleViewModel.getScoreList())
         }
 
         viewModel.inValid
