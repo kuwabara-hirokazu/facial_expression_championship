@@ -14,8 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/element_spacing_normal"
-        android:layout_marginStart="@dimen/element_spacing_large">
+        android:padding="@dimen/element_spacing_normal">
 
         <TextView
             android:id="@+id/challenge_title"
@@ -40,13 +39,34 @@
             />
 
         <TextView
+            android:id="@+id/theme_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battle_theme"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <TextView
+            android:id="@+id/theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{context.getString(history.battleTheme)}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toTopOf="@+id/theme_title"
+            tools:text="驚き"
+            />
+
+        <TextView
             android:id="@+id/challenger_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/challenger_name"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            app:layout_constraintTop_toBottomOf="@id/theme_title"
             />
 
         <TextView
@@ -56,7 +76,7 @@
             android:text="@{history.challenger1.name}"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="@id/challenge"
-            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            app:layout_constraintTop_toBottomOf="@id/theme_title"
             tools:text="孫悟空"
             />
 
@@ -75,7 +95,6 @@
             android:id="@+id/challenger_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{history.challenger3 != null ? View.VISIBLE : View.GONE}"
             android:text="@{history.challenger3.name}"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="@id/challenge"
@@ -87,13 +106,23 @@
             android:id="@+id/challenger_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{history.challenger4 != null ? View.VISIBLE : View.GONE}"
             android:text="@{history.challenger4.name}"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="@id/challenge"
             app:layout_constraintTop_toBottomOf="@id/challenger_3"
             tools:text="ヤムチャ"
             />
+
+        <ImageView
+            android:id="@+id/victor_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/element_spacing_normal"
+            android:layout_marginEnd="@dimen/element_spacing_normal"
+            app:imageUrl="@{history.challenger1.image}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
