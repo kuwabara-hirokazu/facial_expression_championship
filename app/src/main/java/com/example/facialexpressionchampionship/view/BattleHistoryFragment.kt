@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryBinding
+import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.viewmodel.BattleHistoryViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -64,7 +65,13 @@ class BattleHistoryFragment : Fragment() {
         viewModel.historyList
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { historyList ->
-                adapter.update(historyList.map { BattleHistoryItem(it) })
+                adapter.update(historyList.map { history ->
+                    BattleHistoryItem(history) {
+                        BattleHistoryDetailFragment().showFragment(
+                            parentFragmentManager, R.id.fragment_container, true
+                        )
+                    }
+                })
             }
             .addTo(disposable)
 
