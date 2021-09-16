@@ -18,6 +18,7 @@
     <string name="save_challenge_result">対戦結果を保存</string>
     <string name="saved_challenge_result">対戦結果を保存しました</string>
     <string name="battle_theme">テーマ</string>
+    <string name="battle_history_detail">対戦履歴詳細</string>
     <string name="delete_challenge_history">対戦履歴を削除</string>
     <string name="deleted_challenge_history">対戦履歴を削除しました</string>
 
@@ -43,6 +44,8 @@
     <!-- ダイアログ -->
     <string name="alert_back_title">対戦データが失われます</string>
     <string name="alert_back_message">本当に戻りますか？</string>
+    <string name="alert_delete_title">対戦履歴が削除されます</string>
+    <string name="alert_delete_message">本当に削除しますか？</string>
 
     <!-- エラーメッセージ -->
     <string name="retry">リトライ</string>

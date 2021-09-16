@@ -2,15 +2,19 @@ package com.example.facialexpressionchampionship.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryDetailBinding
+import com.example.facialexpressionchampionship.extension.showConfirmDialog
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
 import com.example.facialexpressionchampionship.viewmodel.BattleHistoryDetailViewModel
@@ -53,6 +57,12 @@ class BattleHistoryDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.battle_history_detail)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+        setHasOptionsMenu(true)
+
         val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerView.apply {
             this.adapter = adapter
@@ -70,7 +80,9 @@ class BattleHistoryDetailFragment : Fragment() {
         adapter.update(viewModel.getChallengerList().map { BattleHistoryDetailItem(it) })
 
         binding.delete.setOnClickListener {
-            viewModel.deleteHistory()
+            requireContext().showConfirmDialog(R.string.alert_delete_title, R.string.alert_delete_message) {
+                viewModel.deleteHistory()
+            }
         }
 
         viewModel.deleted
@@ -80,6 +92,16 @@ class BattleHistoryDetailFragment : Fragment() {
                 parentFragmentManager.popBackStack()
             }
             .addTo(disposable)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                parentFragmentManager.popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroyView() {
