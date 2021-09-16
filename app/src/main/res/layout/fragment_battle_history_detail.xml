@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_xlarge"
-            android:text="@{context.getString(viewModel.history.battleTheme)}"
+            android:text="@{@string/theme_ranking(context.getString(viewModel.history.battleTheme))}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
