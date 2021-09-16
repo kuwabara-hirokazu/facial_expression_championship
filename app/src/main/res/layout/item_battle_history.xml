@@ -42,6 +42,7 @@
             android:id="@+id/theme_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing_normal"
             android:text="@string/battle_theme"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,6 +64,7 @@
             android:id="@+id/challenger_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing_normal"
             android:text="@string/challenger_name"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -76,7 +78,7 @@
             android:text="@{history.challenger1.name}"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="@id/challenge"
-            app:layout_constraintTop_toBottomOf="@id/theme_title"
+            app:layout_constraintTop_toTopOf="@+id/challenger_title"
             tools:text="孫悟空"
             />
 
@@ -116,7 +118,7 @@
         <ImageView
             android:id="@+id/victor_image"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/element_spacing_normal"
             android:layout_marginEnd="@dimen/element_spacing_normal"
             app:imageUrl="@{history.challenger1.image}"
