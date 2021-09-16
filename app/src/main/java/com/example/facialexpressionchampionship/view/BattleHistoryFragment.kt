@@ -2,13 +2,16 @@ package com.example.facialexpressionchampionship.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryBinding
 import com.example.facialexpressionchampionship.viewmodel.BattleHistoryViewModel
 import com.xwray.groupie.GroupAdapter
@@ -40,6 +43,12 @@ class BattleHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.battle_history)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+        setHasOptionsMenu(true)
+
         val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerView.apply {
             this.adapter = adapter
@@ -60,6 +69,16 @@ class BattleHistoryFragment : Fragment() {
             .addTo(disposable)
 
         viewModel.loadHistory()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                parentFragmentManager.popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroyView() {

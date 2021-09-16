@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentHomeBinding
@@ -27,6 +28,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.app_name)
+            it.setDisplayHomeAsUpEnabled(false)
+        }
 
         binding.battle.setOnClickListener {
             val intent = Intent(requireActivity(), BattleActivity::class.java)
