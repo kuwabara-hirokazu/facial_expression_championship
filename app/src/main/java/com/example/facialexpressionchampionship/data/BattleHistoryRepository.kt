@@ -25,4 +25,8 @@ class BattleHistoryRepository @Inject constructor(
             Single.just(it.mapToBattleHistoryBusinessModel())
         }
     }
+
+    override fun deleteBattleHistory(battleInformation: BattleInformationEntity): Completable {
+        return localData.deleteBattleHistory(battleInformation)
+    }
 }

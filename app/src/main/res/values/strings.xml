@@ -19,6 +19,7 @@
     <string name="saved_challenge_result">対戦結果を保存しました</string>
     <string name="battle_theme">テーマ</string>
     <string name="delete_challenge_history">対戦履歴を削除</string>
+    <string name="deleted_challenge_history">対戦履歴を削除しました</string>
 
     <!-- テーマ -->
     <string name="anger">怒り</string>

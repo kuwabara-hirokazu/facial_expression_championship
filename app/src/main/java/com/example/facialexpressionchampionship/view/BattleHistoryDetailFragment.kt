@@ -11,17 +11,24 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryDetailBinding
+import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
 import com.example.facialexpressionchampionship.viewmodel.BattleHistoryDetailViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
 @AndroidEntryPoint
 class BattleHistoryDetailFragment : Fragment() {
 
     private val viewModel: BattleHistoryDetailViewModel by viewModels()
     private lateinit var binding: FragmentBattleHistoryDetailBinding
+
+    private val disposable = CompositeDisposable()
 
     companion object {
         private const val HISTORY = "arg_history"
@@ -62,5 +69,21 @@ class BattleHistoryDetailFragment : Fragment() {
 
         adapter.update(viewModel.getChallengerList().map { BattleHistoryDetailItem(it) })
 
+        binding.delete.setOnClickListener {
+            viewModel.deleteHistory()
+        }
+
+        viewModel.deleted
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it)
+                parentFragmentManager.popBackStack()
+            }
+            .addTo(disposable)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposable.clear()
     }
 }
