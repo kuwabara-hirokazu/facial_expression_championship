@@ -1,6 +1,7 @@
 package com.example.facialexpressionchampionship.model
 
 import com.example.facialexpressionchampionship.data.room.BattleHistory
+import java.io.Serializable
 
 data class BattleHistoryBusinessModel(
     val battleId: Int,
@@ -10,7 +11,7 @@ data class BattleHistoryBusinessModel(
     val challenger2: Challenger?,
     val challenger3: Challenger?,
     val challenger4: Challenger?
-)
+): Serializable
 
 fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBusinessModel> {
     val list = mutableListOf<BattleHistoryBusinessModel>()

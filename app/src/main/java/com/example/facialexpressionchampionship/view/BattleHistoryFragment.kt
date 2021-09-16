@@ -67,7 +67,7 @@ class BattleHistoryFragment : Fragment() {
             .subscribeBy { historyList ->
                 adapter.update(historyList.map { history ->
                     BattleHistoryItem(history) {
-                        BattleHistoryDetailFragment().showFragment(
+                        BattleHistoryDetailFragment.createInstance(history).showFragment(
                             parentFragmentManager, R.id.fragment_container, true
                         )
                     }
