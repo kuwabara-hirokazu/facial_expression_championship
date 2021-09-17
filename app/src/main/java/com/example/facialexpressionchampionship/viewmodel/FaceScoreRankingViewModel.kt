@@ -3,19 +3,17 @@ package com.example.facialexpressionchampionship.viewmodel
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.SharedPreferencesWrapper
-import com.example.facialexpressionchampionship.Signal
-import com.example.facialexpressionchampionship.data.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.BattleHistoryRepositoryImpl
 import com.example.facialexpressionchampionship.data.room.BattleInformationEntity
 import com.example.facialexpressionchampionship.data.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.ScoreData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
 
 @HiltViewModel
 class FaceScoreRankingViewModel @Inject constructor(
-    private val battleHistoryRepository: BattleHistoryRepository,
+    private val battleHistoryRepositoryImpl: BattleHistoryRepositoryImpl,
     private val sharedPreference: SharedPreferencesWrapper
 ) : BaseViewModel() {
 
@@ -33,8 +31,8 @@ class FaceScoreRankingViewModel @Inject constructor(
         }
 
         val battleInformation = BattleInformationEntity(sharedPreference.getBattleId(), name, battleTheme)
-        battleHistoryRepository.saveBattleInformation(battleInformation)
-            .andThen(battleHistoryRepository.saveChallenger(createChallengerList(scoreDataList)))
+        battleHistoryRepositoryImpl.saveBattleInformation(battleInformation)
+            .andThen(battleHistoryRepositoryImpl.saveChallenger(createChallengerList(scoreDataList)))
             .execute(
                 onComplete = {
                     sharedPreference.saveBattleId(sharedPreference.getBattleId())
