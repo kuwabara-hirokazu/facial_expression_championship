@@ -1,5 +1,6 @@
-package com.example.facialexpressionchampionship
+package com.example.facialexpressionchampionship.di
 
+import com.example.facialexpressionchampionship.ApiRequest
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiClient {
+object ApiModule {
     private val URL = "https://facialchampionship.cognitiveservices.azure.com/face/v1.0/"
 
     // OkHttp
