@@ -1,7 +1,12 @@
 <resources>
+    <!-- タイトル -->
     <string name="app_name">表情選手権</string>
-    <string name="battle">対戦する(最大4人)</string>
+    <string name="scoring_result">採点結果</string>
+    <string name="ranking">順位発表</string>
     <string name="battle_history">対戦履歴</string>
+    <string name="battle_history_detail">対戦履歴詳細</string>
+
+    <string name="battle">対戦する(最大4人)</string>
     <string name="home">ホーム</string>
     <string name="theme">お題: %sの表情</string>
     <string name="take_photo">Take Photo</string>
@@ -11,7 +16,6 @@
     <string name="score_result">%s点</string>
     <string name="challenger_name">挑戦者名</string>
     <string name="next_challenger">次の\n挑戦者</string>
-    <string name="ranking">順位発表</string>
     <string name="theme_ranking">%s度ランキング</string>
     <string name="score_rank">%s位</string>
     <string name="challenge_name">対戦名</string>
@@ -19,7 +23,6 @@
     <string name="saved_challenge_result">対戦結果を保存しました</string>
     <string name="battle_theme">テーマ</string>
     <string name="no_battle_history">対戦履歴がありません</string>
-    <string name="battle_history_detail">対戦履歴詳細</string>
     <string name="delete_challenge_history">対戦履歴を削除</string>
     <string name="deleted_challenge_history">対戦履歴を削除しました</string>
 

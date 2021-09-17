@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,6 +53,9 @@ class ImageConfirmationFragment : Fragment() {
 
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.app_name)
+        }
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
 

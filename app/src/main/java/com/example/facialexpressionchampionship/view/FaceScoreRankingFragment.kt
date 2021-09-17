@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreRankingBinding
 import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showToast
@@ -45,6 +47,9 @@ class FaceScoreRankingFragment : Fragment() {
 
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.ranking)
+        }
 
         val adapter = GroupAdapter<GroupieViewHolder>()
         binding.recyclerView.apply {
