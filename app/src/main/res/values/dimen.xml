@@ -4,6 +4,7 @@
     <dimen name="element_spacing_xlarge">48dp</dimen>
     <dimen name="element_spacing_large">32dp</dimen>
     <dimen name="element_spacing_normal">12dp</dimen>
+    <dimen name="element_spacing_small">8dp</dimen>
 
     <dimen name="text_size_xlarge">32dp</dimen>
     <dimen name="text_size_large">20dp</dimen>
