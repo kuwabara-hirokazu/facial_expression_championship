@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentHomeBinding
 import com.example.facialexpressionchampionship.extension.showFragment
+import com.example.facialexpressionchampionship.view.battle.BattleActivity
+import com.example.facialexpressionchampionship.view.history.BattleHistoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

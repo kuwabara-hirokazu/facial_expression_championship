@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.battle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreBin
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.FaceScore
-import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
-import com.example.facialexpressionchampionship.viewmodel.FaceScoreViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.FaceScoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

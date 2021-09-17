@@ -1,8 +1,9 @@
-package com.example.facialexpressionchampionship.viewmodel
+package com.example.facialexpressionchampionship.viewmodel.history
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.data.BattleHistoryRepository
 import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
+import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.viewmodel
+package com.example.facialexpressionchampionship.viewmodel.battle
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
@@ -7,6 +7,7 @@ import com.example.facialexpressionchampionship.data.BattleHistoryRepository
 import com.example.facialexpressionchampionship.data.room.BattleInformationEntity
 import com.example.facialexpressionchampionship.data.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.ScoreData
+import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject

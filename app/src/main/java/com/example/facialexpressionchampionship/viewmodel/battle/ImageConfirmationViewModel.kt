@@ -1,9 +1,10 @@
-package com.example.facialexpressionchampionship.viewmodel
+package com.example.facialexpressionchampionship.viewmodel.battle
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.data.FaceDataRepository
 import com.example.facialexpressionchampionship.extension.toByteArray
 import com.example.facialexpressionchampionship.model.FaceScore
+import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

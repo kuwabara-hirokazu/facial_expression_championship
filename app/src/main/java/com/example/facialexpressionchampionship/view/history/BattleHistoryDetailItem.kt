@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.history
 
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ItemBattleHistoryDetailBinding

@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.battle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentImageConfirmationBinding
 import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showFragment
-import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
-import com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.ImageConfirmationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

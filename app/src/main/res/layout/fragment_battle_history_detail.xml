@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.BattleHistoryDetailViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.history.BattleHistoryDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

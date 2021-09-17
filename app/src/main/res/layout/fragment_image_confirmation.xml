@@ -6,11 +6,11 @@
     <data>
         <variable
             name="battleViewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.BattleViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel" />
 
         <variable
             name="viewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.ImageConfirmationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.battle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.*
-import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
