@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_xlarge"
+                android:textColor="@color/dark_blue"
                 android:text="@{@string/score_theme(context.getString(battleViewModel.battleTheme))}"
                 tools:text="驚き度:" />
 
@@ -41,6 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_xlarge"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
                 android:text="@{@string/score_result(Float.toString(viewModel.themeScore))}"
                 tools:text="100点" />
         </LinearLayout>
