@@ -21,6 +21,7 @@ class ImageConfirmationViewModel @Inject constructor(
     private val MEDEA_TYPE = "application/octet-stream"
 
     var imageUrl = ObservableField<String>()
+    var isShowProgress = ObservableField<Boolean>()
     val score: BehaviorSubject<FaceScore> = BehaviorSubject.create()
 
     fun detectFace() {
@@ -30,10 +31,12 @@ class ImageConfirmationViewModel @Inject constructor(
         val binaryData =
             byte.toRequestBody(MEDEA_TYPE.toMediaTypeOrNull(), 0, byte.size)
 
+        isShowProgress.set(true)
         repository.detectFace(binaryData)
             .execute(
                 onSuccess = {
                     Timber.d(it.toString())
+                    isShowProgress.set(false)
                     score.onNext(it)
                 },
                 retry = { detectFace() }
