@@ -64,12 +64,3 @@ fun Context.getDataColumn(
             }
         }
 }
-
-fun Context.showDialog(@StringRes title: Int, @StringRes message: Int, ok: () -> Unit) {
-    AlertDialog.Builder(this)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(android.R.string.ok) { _, _ -> ok() }
-        .setNegativeButton(android.R.string.cancel) { _, _ -> run {} }
-        .show()
-}
