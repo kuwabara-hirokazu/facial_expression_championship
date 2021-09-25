@@ -63,7 +63,7 @@ class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
 
         return themeScore.get()?.let { themeScore ->
             imageUrl.get()?.let { url ->
-                ScoreData(name, themeScore, score, url, null)
+                ScoreData(name, themeScore, score, url)
             }
         }
     }

@@ -21,19 +21,11 @@ class BattleViewModel @Inject constructor() : BaseViewModel() {
         battleTheme.set(themeType.theme)
     }
 
-    fun getScoreList(): List<ScoreData> {
-        return scoreDataList.sortedBy { it.ranking }
+    fun getSortedScoreList(): List<ScoreData> {
+        return scoreDataList.sortedByDescending { it.score.getThemeScoreFrom(getTheme()) }
     }
 
     fun addScoreList(score: ScoreData) {
         scoreDataList.add(score)
-    }
-
-    fun changeRank() {
-        scoreDataList
-            .sortedByDescending { it.score.getThemeScoreFrom(getTheme()) }
-            .forEachIndexed { index, scoreData ->
-                scoreData.ranking = (index + 1).toString()
-            }
     }
 }

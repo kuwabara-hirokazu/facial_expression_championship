@@ -4,6 +4,5 @@ data class ScoreData(
     val name: String,
     val themeScore: Float,
     val score: FaceScore,
-    val image: String,
-    var ranking: String?
+    val image: String
 )
