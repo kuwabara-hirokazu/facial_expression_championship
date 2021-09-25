@@ -5,10 +5,15 @@ import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Scheduler
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
-class BattleViewModel @Inject constructor() : BaseViewModel() {
+class BattleViewModel @Inject constructor(
+    @Named("observeOnScheduler") observeOnScheduler: Scheduler,
+    @Named("subscribeOnScheduler") subscribeOnScheduler: Scheduler,
+) : BaseViewModel(observeOnScheduler, subscribeOnScheduler) {
 
     private val scoreDataList = mutableListOf<ScoreData>()
     val themeType = ThemeType.values().toList().shuffled().first()

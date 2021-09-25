@@ -8,13 +8,17 @@ import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
 import com.example.facialexpressionchampionship.model.Challenger
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class BattleHistoryDetailViewModel @Inject constructor(
+    @Named("observeOnScheduler") observeOnScheduler: Scheduler,
+    @Named("subscribeOnScheduler") subscribeOnScheduler: Scheduler,
     private val repository: BattleHistoryRepository
-) : BaseViewModel() {
+) : BaseViewModel(observeOnScheduler, subscribeOnScheduler) {
 
     var history = ObservableField<BattleHistoryBusinessModel>()
 

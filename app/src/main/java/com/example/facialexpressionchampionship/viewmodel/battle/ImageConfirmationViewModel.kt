@@ -6,17 +6,21 @@ import com.example.facialexpressionchampionship.extension.toByteArray
 import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class ImageConfirmationViewModel @Inject constructor(
+    @Named("observeOnScheduler") observeOnScheduler: Scheduler,
+    @Named("subscribeOnScheduler") subscribeOnScheduler: Scheduler,
     private val repository: FaceDataRepository
-) : BaseViewModel() {
+) : BaseViewModel(observeOnScheduler, subscribeOnScheduler) {
 
     private val MEDEA_TYPE = "application/octet-stream"
 
