@@ -62,19 +62,18 @@ class FaceScoreFragment : Fragment() {
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
         val score = arguments?.getSerializable(SCORE) as FaceScore
-        viewModel.setScore(score, battleViewModel.getTheme())
-        viewModel.checkBattleCount(battleViewModel.getScoreList().size)
+        viewModel.setScore(score, battleViewModel.themeType)
+        viewModel.setBattleCount(battleViewModel.getSortedScoreList().size)
 
         binding.nextChallenger.setOnClickListener {
-            val scoreData = viewModel.getScoreData() ?: return@setOnClickListener
+            val scoreData = viewModel.validateScore() ?: return@setOnClickListener
             battleViewModel.addScoreList(scoreData)
             CameraFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
         }
 
         binding.ranking.setOnClickListener {
-            val scoreData = viewModel.getScoreData() ?: return@setOnClickListener
+            val scoreData = viewModel.validateScore() ?: return@setOnClickListener
             battleViewModel.addScoreList(scoreData)
-            battleViewModel.changeRank()
             FaceScoreRankingFragment().showFragment(parentFragmentManager, R.id.battle_layout, false)
         }
 

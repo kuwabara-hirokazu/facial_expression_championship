@@ -25,8 +25,7 @@ class ImageConfirmationViewModel @Inject constructor(
     val score: BehaviorSubject<FaceScore> = BehaviorSubject.create()
 
     fun detectFace() {
-        val byte = File(imageUrl.get()).toByteArray()
-        byte ?: return
+        val byte = File(imageUrl.get()).toByteArray() ?: return
 
         val binaryData =
             byte.toRequestBody(MEDEA_TYPE.toMediaTypeOrNull(), 0, byte.size)
