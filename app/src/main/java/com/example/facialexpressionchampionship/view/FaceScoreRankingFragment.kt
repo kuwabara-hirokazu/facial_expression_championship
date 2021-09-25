@@ -57,11 +57,13 @@ class FaceScoreRankingFragment : Fragment() {
                 )
             )
         }
-        adapter.update(battleViewModel.getScoreList().map { FaceScoreRankingItem(it) })
+        adapter.update(battleViewModel.getSortedScoreList().mapIndexed { index, scoreData ->
+            FaceScoreRankingItem(index + 1, scoreData)
+        })
 
         val theme = battleViewModel.battleTheme.get() ?: return
         binding.save.setOnClickListener {
-            viewModel.saveRanking(theme, battleViewModel.getScoreList())
+            viewModel.saveRanking(theme, battleViewModel.getSortedScoreList())
         }
 
         viewModel.inValid
