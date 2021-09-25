@@ -57,7 +57,7 @@ class FaceScoreFragment : Fragment() {
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
         val score = arguments?.getSerializable(SCORE) as FaceScore
-        viewModel.setScore(score, battleViewModel.getTheme())
+        viewModel.setScore(score, battleViewModel.themeType)
         viewModel.setBattleCount(battleViewModel.getSortedScoreList().size)
 
         binding.nextChallenger.setOnClickListener {
