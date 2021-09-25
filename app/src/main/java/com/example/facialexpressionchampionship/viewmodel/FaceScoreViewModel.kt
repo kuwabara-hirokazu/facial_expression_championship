@@ -49,12 +49,12 @@ class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
         surprise.set(score.surprise)
     }
 
-    fun checkBattleCount(count: Int) {
+    fun setBattleCount(count: Int) {
         isNextChallengerClickEnabled.set(count != CHALLENGE_COUNT_MAX)
         isRankingClickEnabled.set(count != CHALLENGE_COUNT_MIN)
     }
 
-    fun getScoreData(): ScoreData? {
+    fun validateScore(): ScoreData? {
         val name = challenger.get()
         if (name.isNullOrEmpty()) {
             conditionInvalid.onNext(R.string.enter_name)
