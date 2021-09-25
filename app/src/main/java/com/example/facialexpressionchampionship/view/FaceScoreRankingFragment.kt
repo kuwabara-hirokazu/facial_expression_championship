@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreRankingBinding
-import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.FaceScoreRankingViewModel
@@ -57,7 +56,9 @@ class FaceScoreRankingFragment : Fragment() {
                 )
             )
         }
-        adapter.update(battleViewModel.getScoreList().map { FaceScoreRankingItem(it) })
+        adapter.update(battleViewModel.getSortedScoreList().mapIndexed { index, scoreData ->
+            FaceScoreRankingItem(index + 1, scoreData)
+        })
 
         val theme = battleViewModel.battleTheme.get() ?: return
         binding.save.setOnClickListener {
