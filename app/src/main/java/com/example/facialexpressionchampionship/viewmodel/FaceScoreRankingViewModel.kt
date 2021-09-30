@@ -7,6 +7,7 @@ import com.example.facialexpressionchampionship.data.BattleHistoryRepository
 import com.example.facialexpressionchampionship.data.room.BattleInformationEntity
 import com.example.facialexpressionchampionship.data.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.ScoreData
+import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class FaceScoreRankingViewModel @Inject constructor(
 
     val savedHistory: PublishSubject<Int> = PublishSubject.create()
 
-    fun saveRanking(battleTheme: Int, scoreDataList: List<ScoreData>) {
+    fun saveRanking(battleTheme: ThemeType, scoreDataList: List<ScoreData>) {
         val name = challengeName.get()
         if (name.isNullOrEmpty()) {
             inValid.onNext(R.string.enter_challenge_name)
@@ -51,7 +52,7 @@ class FaceScoreRankingViewModel @Inject constructor(
                 scoreCache.name,
                 scoreCache.themeScore,
                 scoreCache.image,
-                (index + 1).toString()
+                index + 1
             )
             challengerList.add(challenger)
         }
