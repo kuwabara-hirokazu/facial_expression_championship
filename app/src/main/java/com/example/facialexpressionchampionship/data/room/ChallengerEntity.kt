@@ -23,6 +23,6 @@ data class ChallengerEntity(
     val name: String,
     val score: Float,
     val image: String,
-    var ranking: String
+    val ranking: Int
 )
 

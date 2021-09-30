@@ -3,6 +3,7 @@ package com.example.facialexpressionchampionship.data.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.facialexpressionchampionship.model.ThemeType
 
 @Entity(tableName = "battle_information")
 data class BattleInformationEntity(
@@ -12,5 +13,5 @@ data class BattleInformationEntity(
     @ColumnInfo(name = "battle_name")
     val battleName: String,
     @ColumnInfo(name = "battle_theme")
-    val battleTheme: Int
+    val battleTheme: ThemeType
 )
