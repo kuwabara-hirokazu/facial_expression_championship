@@ -6,7 +6,7 @@ import java.io.Serializable
 data class BattleHistoryBusinessModel(
     val battleId: Int,
     val battleName: String,
-    val battleTheme: Int,
+    val battleTheme: ThemeType,
     val challenger1: Challenger?,
     val challenger2: Challenger?,
     val challenger3: Challenger?,
@@ -20,7 +20,7 @@ fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBus
         val businessModel = BattleHistoryBusinessModel(
             it.battleInformation.battleId,
             it.battleInformation.battleName,
-            it.battleInformation.battleTheme.theme,
+            it.battleInformation.battleTheme,
             it.challenger.mapToChallenger(0),
             it.challenger.mapToChallenger(1),
             it.challenger.mapToChallenger(2),
