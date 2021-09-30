@@ -20,7 +20,7 @@ fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBus
         val businessModel = BattleHistoryBusinessModel(
             it.battleInformation.battleId,
             it.battleInformation.battleName,
-            it.battleInformation.battleTheme,
+            it.battleInformation.battleTheme.theme,
             it.challenger.mapToChallenger(0),
             it.challenger.mapToChallenger(1),
             it.challenger.mapToChallenger(2),

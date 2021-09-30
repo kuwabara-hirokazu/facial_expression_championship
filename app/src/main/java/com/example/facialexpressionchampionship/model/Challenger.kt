@@ -6,7 +6,7 @@ data class Challenger(
     val name: String,
     val score: Float,
     val image: String,
-    var ranking: String,
+    var ranking: Int,
 )
 
 fun List<ChallengerEntity>.mapToChallenger(index: Int): Challenger? {
