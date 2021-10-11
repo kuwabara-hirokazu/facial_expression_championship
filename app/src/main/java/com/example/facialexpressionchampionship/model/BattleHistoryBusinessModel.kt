@@ -18,10 +18,10 @@ fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBus
             it.battleInformation.battleId,
             it.battleInformation.battleName,
             it.battleInformation.battleTheme.theme,
-            it.challenger.mapToChallenger(0),
-            it.challenger.mapToChallenger(1),
-            it.challenger.mapToChallenger(2),
-            it.challenger.mapToChallenger(3)
+            it.challenger.getOrNull(0)?.toChallenger(),
+            it.challenger.getOrNull(1)?.toChallenger(),
+            it.challenger.getOrNull(2)?.toChallenger(),
+            it.challenger.getOrNull(3)?.toChallenger()
         )
     }
 }
