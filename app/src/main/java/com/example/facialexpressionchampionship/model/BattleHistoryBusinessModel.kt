@@ -18,7 +18,7 @@ fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBus
         BattleHistoryBusinessModel(
             it.battleInformation.battleId,
             it.battleInformation.battleName,
-            it.battleInformation.battleTheme.theme,
+            it.battleInformation.battleTheme,
             it.challenger.getOrNull(0)?.toChallenger(),
             it.challenger.getOrNull(1)?.toChallenger(),
             it.challenger.getOrNull(2)?.toChallenger(),
