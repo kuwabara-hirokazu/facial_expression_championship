@@ -15,7 +15,6 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
 import com.example.facialexpressionchampionship.extension.*
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
-import com.example.facialexpressionchampionship.viewmodel.CameraViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
@@ -29,15 +28,15 @@ class CameraFragment : Fragment() {
     @Inject lateinit var outputDirectory: File
 
     private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
-    private val viewModel: CameraViewModel by viewModels()
     private lateinit var binding: FragmentCameraBinding
 
     private val startForResult =
         registerForActivityResult(
             success = {
-                ImageConfirmationFragment.createInstance(it.toString())
+                ImageConfirmationFragment.createInstance(it)
                     .showFragment(parentFragmentManager, R.id.battle_layout, true)
-            }
+            },
+            error = { requireContext().showToast(it) }
         )
 
     override fun onCreateView(
@@ -51,9 +50,7 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.battleViewModel = battleViewModel
-        binding.viewModel = viewModel
 
         binding.imageAttachment.setOnClickListener { openLibrary(startForResult) }
 
@@ -83,7 +80,8 @@ class CameraFragment : Fragment() {
             // プレビュー設定
             val preview = Preview.Builder()
                 .build()
-                .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
+
+            imageCapture = ImageCapture.Builder().build()
 
             // デフォルトを内カメラに設定
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -93,6 +91,9 @@ class CameraFragment : Fragment() {
                 cameraProvider.unbindAll()
                 // ライフサイクルにカメラをバインディング
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+
+                // プレビューのユースケースをpreviewViewに接続
+                preview.setSurfaceProvider(binding.previewView.surfaceProvider)
 
             } catch (e: Exception) {
                 Timber.e("バインディング失敗 $e")

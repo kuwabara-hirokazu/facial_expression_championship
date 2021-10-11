@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="ranking"
+            type="Integer" />
+
+        <variable
+            name="scoreData"
+            type="com.example.facialexpressionchampionship.model.ScoreData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/element_spacing_normal"
+        android:layout_marginBottom="@dimen/element_spacing_normal">
+
+        <ImageView
+            android:id="@+id/challenger_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/element_spacing_normal"
+            android:layout_marginEnd="@dimen/element_spacing_normal"
+            app:imageUrl="@{scoreData.image}"
+            app:layout_constraintLeft_toRightOf="@+id/left_side"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/left_side"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/challenger_image"
+            app:layout_constraintTop_toTopOf="@+id/challenger_image"
+            app:layout_constraintBottom_toBottomOf="@+id/challenger_image">
+
+            <TextView
+                android:id="@+id/rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/score_rank(Integer.toString(ranking))}"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1位"
+                />
+
+            <TextView
+                android:id="@+id/challenger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/element_spacing_normal"
+                android:text="@{scoreData.name}"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintLeft_toRightOf="@+id/rank"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="タロウ"
+                />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/element_spacing_normal"
+                android:text="@{@string/score_result(Float.toString(scoreData.themeScore))}"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rank"
+                tools:text="100点"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

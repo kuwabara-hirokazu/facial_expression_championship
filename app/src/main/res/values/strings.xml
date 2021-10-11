@@ -7,6 +7,15 @@
     <string name="take_photo">Take Photo</string>
     <string name="retry_photo">撮り直す</string>
     <string name="score_image">採点する</string>
+    <string name="score_theme">%s度:</string>
+    <string name="score_result">%s点</string>
+    <string name="challenger_name">挑戦者名</string>
+    <string name="next_challenger">次の\n挑戦者</string>
+    <string name="ranking">順位発表</string>
+    <string name="theme_ranking">%s度ランキング</string>
+    <string name="score_rank">%s位</string>
+    <string name="challenge_name">対戦名</string>
+    <string name="save_challenge_result">対戦結果を保存</string>
 
     <!-- テーマ -->
     <string name="anger">怒り</string>
@@ -18,11 +27,31 @@
     <string name="sadness">悲しみ</string>
     <string name="surprise">驚き</string>
 
+    <string name="anger_score">怒り: %s点</string>
+    <string name="contempt_score">軽蔑: %s点</string>
+    <string name="disgust_score">嫌悪: %s点</string>
+    <string name="fear_score">恐れ: %s点</string>
+    <string name="happiness_score">幸せ: %s点</string>
+    <string name="neutral_score">無表情: %s点</string>
+    <string name="sadness_score">悲しみ: %s点</string>
+    <string name="surprise_score">驚き: %s点</string>
+
     <!-- ダイアログ -->
     <string name="alert_back_title">対戦データが失われます</string>
     <string name="alert_back_message">本当に戻りますか？</string>
 
     <!-- エラーメッセージ -->
-    <string name="camera_permission_message">カメラへのアクセスを許可してください</string>
+    <string name="retry">リトライ</string>
+    <string name="permission_error_message">端末の設定からカメラと写真へのアクセスを許可してください</string>
     <string name="failed_save_image">画像の保存に失敗しました</string>
+    <string name="failed_get_image_path">画像の取得に失敗しました</string>
+    <string name="error_message_default">通信エラーです</string>
+    <string name="failed_facial_expression">表情が読み取れませんでした</string>
+    <string name="failed_detect_image">画像の読取りに失敗しました</string>
+    <string name="time_out_error">通信がタイムアウトしました</string>
+    <string name="uncertain_error">不明なエラーが発生しました</string>
+    <string name="enter_name">挑戦者の名前を入力してください</string>
+    <string name="require_more_than_two">対戦は2人以上必要です</string>
+    <string name="up_to_four">対戦は最大4人までとなります</string>
+    <string name="enter_challenge_name">対戦名を入力してください</string>
 </resources>
