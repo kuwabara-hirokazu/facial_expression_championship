@@ -1,7 +1,5 @@
 package com.example.facialexpressionchampionship.model
 
-import com.example.facialexpressionchampionship.data.room.ChallengerEntity
-
 data class Challenger(
     val name: String,
     val score: Float,
@@ -9,10 +7,3 @@ data class Challenger(
     var ranking: Int,
 )
 
-fun List<ChallengerEntity>.mapToChallenger(index: Int): Challenger? {
-    if (index >= this.size) {
-        return null
-    }
-    val challenger = this[index]
-    return Challenger(challenger.name, challenger.score, challenger.image, challenger.ranking)
-}
