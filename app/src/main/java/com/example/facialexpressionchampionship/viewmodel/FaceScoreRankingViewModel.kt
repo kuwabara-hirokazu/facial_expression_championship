@@ -44,9 +44,8 @@ class FaceScoreRankingViewModel @Inject constructor(
     }
 
     private fun createChallengerList(scoreDataList: List<ScoreData>): List<ChallengerEntity> {
-        val challengerList = mutableListOf<ChallengerEntity>()
-        scoreDataList.forEachIndexed { index, scoreCache ->
-            val challenger = ChallengerEntity(
+        return scoreDataList.mapIndexed { index, scoreCache ->
+            ChallengerEntity(
                 0,
                 sharedPreference.getBattleId(),
                 scoreCache.name,
@@ -54,8 +53,6 @@ class FaceScoreRankingViewModel @Inject constructor(
                 scoreCache.image,
                 index + 1
             )
-            challengerList.add(challenger)
         }
-        return challengerList
     }
 }

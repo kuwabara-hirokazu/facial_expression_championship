@@ -1,6 +1,7 @@
 package com.example.facialexpressionchampionship.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.facialexpressionchampionship.SharedPreferencesWrapper
 import com.example.facialexpressionchampionship.data.room.BattleHistoryDao
 import com.example.facialexpressionchampionship.data.room.BattleHistoryDatabase
@@ -13,10 +14,17 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
+    private const val DATABASE_NAME = "battle.db"
 
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): BattleHistoryDatabase {
-        return BattleHistoryDatabase.getInstance(context)
+        return Room.databaseBuilder(
+            context.applicationContext,
+            BattleHistoryDatabase::class.java,
+            DATABASE_NAME
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
