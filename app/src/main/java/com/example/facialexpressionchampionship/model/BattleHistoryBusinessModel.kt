@@ -13,10 +13,8 @@ data class BattleHistoryBusinessModel(
 )
 
 fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBusinessModel> {
-    val list = mutableListOf<BattleHistoryBusinessModel>()
-
-    this.forEach {
-        val businessModel = BattleHistoryBusinessModel(
+    return this.map {
+        BattleHistoryBusinessModel(
             it.battleInformation.battleId,
             it.battleInformation.battleName,
             it.battleInformation.battleTheme.theme,
@@ -25,7 +23,5 @@ fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBus
             it.challenger.mapToChallenger(2),
             it.challenger.mapToChallenger(3)
         )
-        list.add(businessModel)
     }
-    return list
 }
