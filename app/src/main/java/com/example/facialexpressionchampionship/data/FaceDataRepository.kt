@@ -5,6 +5,5 @@ import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
 
 interface FaceDataRepository {
-
     fun detectFace(binaryData: RequestBody): Single<FaceScore>
 }

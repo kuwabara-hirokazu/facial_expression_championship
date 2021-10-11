@@ -50,7 +50,6 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.battleViewModel = battleViewModel
 
         binding.imageAttachment.setOnClickListener { openLibrary(startForResult) }
@@ -81,7 +80,8 @@ class CameraFragment : Fragment() {
             // プレビュー設定
             val preview = Preview.Builder()
                 .build()
-                .also { it.setSurfaceProvider(binding.previewView.surfaceProvider) }
+
+            imageCapture = ImageCapture.Builder().build()
 
             // デフォルトを内カメラに設定
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
@@ -91,6 +91,9 @@ class CameraFragment : Fragment() {
                 cameraProvider.unbindAll()
                 // ライフサイクルにカメラをバインディング
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+
+                // プレビューのユースケースをpreviewViewに接続
+                preview.setSurfaceProvider(binding.previewView.surfaceProvider)
 
             } catch (e: Exception) {
                 Timber.e("バインディング失敗 $e")

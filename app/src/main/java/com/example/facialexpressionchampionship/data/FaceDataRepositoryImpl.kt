@@ -1,5 +1,7 @@
 package com.example.facialexpressionchampionship.data
 
+import com.example.facialexpressionchampionship.extension.floor
+import com.example.facialexpressionchampionship.extension.hundredfold
 import com.example.facialexpressionchampionship.model.FaceScore
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
@@ -14,14 +16,14 @@ class FaceDataRepositoryImpl @Inject constructor(
             val emotion = it[0].faceAttributes.emotion
             Single.just(
                 FaceScore(
-                    emotion.anger,
-                    emotion.contempt,
-                    emotion.disgust,
-                    emotion.fear,
-                    emotion.happiness,
-                    emotion.neutral,
-                    emotion.sadness,
-                    emotion.surprise
+                    emotion.anger.hundredfold().floor(),
+                    emotion.contempt.hundredfold().floor(),
+                    emotion.disgust.hundredfold().floor(),
+                    emotion.fear.hundredfold().floor(),
+                    emotion.happiness.hundredfold().floor(),
+                    emotion.neutral.hundredfold().floor(),
+                    emotion.sadness.hundredfold().floor(),
+                    emotion.surprise.hundredfold().floor()
                 )
             )
         }

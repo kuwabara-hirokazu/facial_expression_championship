@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="element_spacing_xxlarge">60dp</dimen>
+    <dimen name="element_spacing_large">32dp</dimen>
+    <dimen name="element_spacing_normal">12dp</dimen>
 
-    <dimen name="text_size">32dp</dimen>
+    <dimen name="text_size_xlarge">32dp</dimen>
+    <dimen name="text_size_large">20dp</dimen>
 
     <dimen name="button_size">100dp</dimen>
 </resources>

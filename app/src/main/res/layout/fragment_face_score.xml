@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="battleViewModel"
+            type="com.example.facialexpressionchampionship.viewmodel.BattleViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.facialexpressionchampionship.viewmodel.FaceScoreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/score_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_xlarge"
+                android:text="@{@string/score_theme(context.getString(battleViewModel.battleTheme))}"
+                tools:text="驚き度:" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_xlarge"
+                android:text="@{@string/score_result(Float.toString(viewModel.themeScore))}"
+                tools:text="100点" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/challenger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_spacing_normal"
+            android:hint="@string/challenger_name"
+            android:inputType="text"
+            android:text="@={viewModel.challenger}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/decision_image"
+            app:layout_constraintTop_toBottomOf="@id/score_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/decision_image"/>
+
+        <ImageView
+            android:id="@+id/decision_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/element_spacing_normal"
+            android:layout_marginEnd="@dimen/element_spacing_normal"
+            app:imageUrl="@{viewModel.imageUrl}"
+            app:layout_constraintLeft_toRightOf="@+id/challenger"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/score_layout" />
+
+        <LinearLayout
+            android:id="@+id/emotion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/element_spacing_xxlarge"
+            android:layout_marginEnd="@dimen/element_spacing_xxlarge"
+            android:layout_marginTop="@dimen/element_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/decision_image" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/anger_score(Float.toString(viewModel.anger))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="怒り: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/contempt_score(Float.toString(viewModel.contempt))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="軽蔑: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/disgust_score(Float.toString(viewModel.disgust))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="嫌悪: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/fear_score(Float.toString(viewModel.fear))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="恐れ: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/happiness_score(Float.toString(viewModel.happiness))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="幸せ: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/neutral_score(Float.toString(viewModel.neutral))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="無表情: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/sadness_score(Float.toString(viewModel.sadness))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="悲しみ: 0.0点"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/element_spacing_normal"
+                android:text="@{@string/surprise_score(Float.toString(viewModel.surprise))}"
+                android:textSize="@dimen/text_size_large"
+                tools:text="驚き: 0.0点"
+              />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/next_challenger"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:text="@string/next_challenger"
+            android:enabled="@{viewModel.isNextChallengerClickEnabled()}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ranking"
+            app:layout_constraintTop_toBottomOf="@+id/emotion_layout" />
+
+        <Button
+            android:id="@+id/ranking"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:text="@string/ranking"
+            android:enabled="@{viewModel.isRankingClickEnabled()}"
+            app:layout_constraintLeft_toRightOf="@id/next_challenger"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/next_challenger" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/element_spacing_normal"
+            android:text="@string/up_to_four"
+            android:visibility="@{viewModel.isNextChallengerClickEnabled() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ranking"
+            app:layout_constraintTop_toBottomOf="@+id/next_challenger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/element_spacing_normal"
+            android:text="@string/require_more_than_two"
+            android:visibility="@{viewModel.isRankingClickEnabled() ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toRightOf="@id/next_challenger"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/next_challenger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

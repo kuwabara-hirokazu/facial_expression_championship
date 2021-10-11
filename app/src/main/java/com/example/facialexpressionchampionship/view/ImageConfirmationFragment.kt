@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentImageConfirmationBinding
 import com.example.facialexpressionchampionship.extension.showError
+import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +42,7 @@ class ImageConfirmationFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentImageConfirmationBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -64,7 +66,8 @@ class ImageConfirmationFragment : Fragment() {
         viewModel.score
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
-                // 画面遷移
+                FaceScoreFragment.createInstance(viewModel.imageUrl.get(), it)
+                    .showFragment(parentFragmentManager, R.id.battle_layout, false)
             }
             .addTo(disposable)
 

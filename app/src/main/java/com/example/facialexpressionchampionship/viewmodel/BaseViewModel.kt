@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.Failure
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -19,12 +20,25 @@ abstract class BaseViewModel : ViewModel() {
     val error: PublishSubject<Failure> = PublishSubject.create()
 
     protected fun <T : Any> Single<T>.execute(onSuccess: (T) -> Unit, retry: () -> Unit) {
-        this.observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+        this.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = onSuccess,
                 onError = {
-                    Timber.e(it.message)
+                    Timber.e(it)
+                    error.onNext(Failure(it, it.toMessage(), retry))
+                }
+            )
+            .addTo(disposables)
+    }
+
+    protected fun Completable.execute(onComplete: () -> Unit, retry: () -> Unit) {
+        this.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onComplete = onComplete,
+                onError = {
+                    Timber.e(it)
                     error.onNext(Failure(it, it.toMessage(), retry))
                 }
             )
