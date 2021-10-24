@@ -3,7 +3,7 @@ package com.example.facialexpressionchampionship
 import android.content.Context
 import javax.inject.Inject
 
-class SharedPreferencesWrapper @Inject constructor(
+open class SharedPreferencesWrapper @Inject constructor(
     context: Context
 ) {
 
@@ -13,14 +13,23 @@ class SharedPreferencesWrapper @Inject constructor(
     private val sharedPreferences = context.getSharedPreferences(HISTORY_KEY, Context.MODE_PRIVATE)
 
     fun saveBattleId(id: Int) {
-        sharedPreferences
-            .edit()
-            .putInt(BATTLE_ID, id + 1)
-            .apply()
+        try {
+            sharedPreferences
+                .edit()
+                .putInt(BATTLE_ID, id + 1)
+                .apply()
+        } catch (e: NullPointerException) {
+            println(e)
+        }
     }
 
     fun getBattleId(): Int {
-        return sharedPreferences.getInt(BATTLE_ID, 1)
+        return try {
+            sharedPreferences.getInt(BATTLE_ID, 1)
+        } catch (e: NullPointerException) {
+            println(e)
+            1
+        }
     }
 
 }

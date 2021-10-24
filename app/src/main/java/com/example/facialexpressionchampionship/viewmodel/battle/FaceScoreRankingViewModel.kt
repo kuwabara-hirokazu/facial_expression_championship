@@ -29,7 +29,7 @@ class FaceScoreRankingViewModel @Inject constructor(
     val savedHistory: PublishSubject<Int> = PublishSubject.create()
 
     fun saveRanking(battleTheme: Int, scoreDataList: List<ScoreData>) {
-        val name = challengeName.get()
+        val name = challengeName.get() ?: "testName"
         if (name.isNullOrEmpty()) {
             inValid.onNext(R.string.enter_challenge_name)
             return
