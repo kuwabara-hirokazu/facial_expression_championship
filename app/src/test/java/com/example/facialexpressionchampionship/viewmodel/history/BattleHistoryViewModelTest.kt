@@ -56,7 +56,7 @@ class BattleHistoryViewModelTest : TestCase() {
     }
 
     @Test
-    fun testSaveRanking() {
+    fun testLoadHistory() {
         // Given
         given(repository.getBattleHistory()).willReturn(Single.just(HISTORY_LIST))
         val testObserver = viewModel.historyList.test()
