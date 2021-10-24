@@ -35,7 +35,20 @@ class BattleHistoryDetailViewModel @Inject constructor(
     }
 
     fun deleteHistory() {
-        val history = history.get() ?: return
+        // testデータ
+        val CHALLENGER1 = Challenger("Taro", 47.0.toFloat(), "imageUrl", "1")
+        val CHALLENGER2 = Challenger("Taro", 37.0.toFloat(), "imageUrl", "2")
+        val HISTORY = BattleHistoryBusinessModel(
+            1,
+            "testBattle",
+            R.string.happiness,
+            CHALLENGER1,
+            CHALLENGER2,
+            null,
+            null
+        )
+
+        val history = history.get() ?: HISTORY
         val information = BattleInformationEntity(history.battleId, history.battleName, history.battleTheme)
         repository.deleteBattleHistory(information)
             .execute(
