@@ -66,9 +66,8 @@ class FaceScoreRankingFragment : Fragment() {
             FaceScoreRankingItem(index + 1, scoreData)
         })
 
-        val theme = battleViewModel.battleTheme.get() ?: return
         binding.save.setOnClickListener {
-            viewModel.saveRanking(theme, battleViewModel.getSortedScoreList())
+            viewModel.saveRanking(battleViewModel.themeType, battleViewModel.getSortedScoreList())
         }
 
         viewModel.inValid
