@@ -1,6 +1,7 @@
 package com.example.facialexpressionchampionship.viewmodel.battle
 
 import com.example.facialexpressionchampionship.data.FaceDataRepository
+import com.example.facialexpressionchampionship.data.RequestBodyCreator
 import com.example.facialexpressionchampionship.model.FaceScore
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

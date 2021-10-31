@@ -2,10 +2,10 @@ package com.example.facialexpressionchampionship.di
 
 import android.content.Context
 import com.example.facialexpressionchampionship.SharedPreferencesWrapper
+import com.example.facialexpressionchampionship.data.RequestBodyCreator
+import com.example.facialexpressionchampionship.data.RequestBodyCreatorImpl
 import com.example.facialexpressionchampionship.data.room.BattleHistoryDao
 import com.example.facialexpressionchampionship.data.room.BattleHistoryDatabase
-import com.example.facialexpressionchampionship.viewmodel.battle.RequestBodyCreator
-import com.example.facialexpressionchampionship.viewmodel.battle.RequestBodyCreatorImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
