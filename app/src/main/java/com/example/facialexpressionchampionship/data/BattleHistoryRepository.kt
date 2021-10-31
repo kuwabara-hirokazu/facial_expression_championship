@@ -13,4 +13,6 @@ interface BattleHistoryRepository {
     fun saveChallenger(challenger: List<ChallengerEntity>): Completable
 
     fun getBattleHistory(): Single<List<BattleHistoryBusinessModel>>
+
+    fun deleteBattleHistory(battleInformation: BattleInformationEntity): Completable
 }

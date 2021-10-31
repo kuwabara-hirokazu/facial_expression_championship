@@ -22,4 +22,8 @@ class LocalData @Inject constructor(private val battleHistoryDao: BattleHistoryD
         return battleHistoryDao.getBattleHistory()
     }
 
+    fun deleteBattleHistory(battleInformation: BattleInformationEntity): Completable {
+        return battleHistoryDao.deleteBattleHistory(battleInformation)
+    }
+
 }

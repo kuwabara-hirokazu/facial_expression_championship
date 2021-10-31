@@ -6,14 +6,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryBinding
-import com.example.facialexpressionchampionship.extension.showFragment
-import com.example.facialexpressionchampionship.viewmodel.BattleHistoryViewModel
+import com.example.facialexpressionchampionship.databinding.FragmentBattleHistoryDetailBinding
+import com.example.facialexpressionchampionship.extension.showConfirmDialog
+import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
+import com.example.facialexpressionchampionship.viewmodel.BattleHistoryDetailViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,19 +27,29 @@ import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 @AndroidEntryPoint
-class BattleHistoryFragment : Fragment() {
+class BattleHistoryDetailFragment : Fragment() {
 
-    private val viewModel: BattleHistoryViewModel by viewModels()
-    private lateinit var binding: FragmentBattleHistoryBinding
+    private val viewModel: BattleHistoryDetailViewModel by viewModels()
+    private lateinit var binding: FragmentBattleHistoryDetailBinding
 
     private val disposable = CompositeDisposable()
+
+    companion object {
+        private const val HISTORY = "arg_history"
+        fun createInstance(history: BattleHistoryBusinessModel): Fragment {
+            val fragment = BattleHistoryDetailFragment()
+            val args = bundleOf(HISTORY to history)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentBattleHistoryBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentBattleHistoryDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,7 +58,7 @@ class BattleHistoryFragment : Fragment() {
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).supportActionBar?.let {
-            it.setTitle(R.string.battle_history)
+            it.setTitle(R.string.battle_history_detail)
             it.setDisplayHomeAsUpEnabled(true)
         }
         setHasOptionsMenu(true)
@@ -53,22 +67,31 @@ class BattleHistoryFragment : Fragment() {
         binding.recyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            this.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    (layoutManager as LinearLayoutManager).orientation
+                )
+            )
+        }
+        val history = arguments?.getSerializable(HISTORY) as BattleHistoryBusinessModel
+        viewModel.history.set(history)
+
+        adapter.update(viewModel.getChallengerList().map { BattleHistoryDetailItem(it) })
+
+        binding.delete.setOnClickListener {
+            requireContext().showConfirmDialog(R.string.alert_delete_title, R.string.alert_delete_message) {
+                viewModel.deleteHistory()
+            }
         }
 
-        viewModel.historyList
+        viewModel.deleted
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { historyList ->
-                adapter.update(historyList.map { history ->
-                    BattleHistoryItem(history) {
-                        BattleHistoryDetailFragment.createInstance(history).showFragment(
-                            parentFragmentManager, R.id.fragment_container, true
-                        )
-                    }
-                })
+            .subscribeBy {
+                requireContext().showToast(it)
+                parentFragmentManager.popBackStack()
             }
             .addTo(disposable)
-
-        viewModel.loadHistory()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
