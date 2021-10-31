@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="history"
+            type="com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/element_spacing_normal">
+
+        <TextView
+            android:id="@+id/challenge_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/challenge_name"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/challenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/element_spacing_xlarge"
+            android:text="@{history.battleName}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toRightOf="@+id/challenge_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="天下一武道会"
+            />
+
+        <TextView
+            android:id="@+id/theme_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing_normal"
+            android:text="@string/battle_theme"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_title"
+            />
+
+        <TextView
+            android:id="@+id/theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{context.getString(history.battleTheme)}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toTopOf="@+id/theme_title"
+            tools:text="驚き"
+            />
+
+        <TextView
+            android:id="@+id/challenger_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/element_spacing_normal"
+            android:text="@string/challenger_name"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/theme_title"
+            />
+
+        <TextView
+            android:id="@+id/challenger_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger1.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toTopOf="@+id/challenger_title"
+            tools:text="孫悟空"
+            />
+
+        <TextView
+            android:id="@+id/challenger_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger2.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_1"
+            tools:text="ベジータ"
+            />
+
+        <TextView
+            android:id="@+id/challenger_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger3.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_2"
+            tools:text="魔人ブウ"
+            />
+
+        <TextView
+            android:id="@+id/challenger_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.challenger4.name}"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintLeft_toLeftOf="@id/challenge"
+            app:layout_constraintTop_toBottomOf="@id/challenger_3"
+            tools:text="ヤムチャ"
+            />
+
+        <ImageView
+            android:id="@+id/victor_image"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/element_spacing_normal"
+            android:layout_marginEnd="@dimen/element_spacing_normal"
+            app:imageUrl="@{history.challenger1.image}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

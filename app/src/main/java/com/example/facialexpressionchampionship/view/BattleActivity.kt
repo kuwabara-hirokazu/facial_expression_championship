@@ -10,10 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityBattleBinding
-import com.example.facialexpressionchampionship.extension.hasPermission
-import com.example.facialexpressionchampionship.extension.showConfirmDialog
-import com.example.facialexpressionchampionship.extension.showFragment
-import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.extension.*
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

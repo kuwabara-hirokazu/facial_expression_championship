@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="element_spacing_xxlarge">60dp</dimen>
+    <dimen name="element_spacing_xlarge">48dp</dimen>
     <dimen name="element_spacing_large">32dp</dimen>
     <dimen name="element_spacing_normal">12dp</dimen>
 
