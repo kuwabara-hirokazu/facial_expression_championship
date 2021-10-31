@@ -6,7 +6,7 @@ import java.io.Serializable
 data class BattleHistoryBusinessModel(
     val battleId: Int,
     val battleName: String,
-    val battleTheme: Int,
+    val battleTheme: ThemeType,
     val challenger1: Challenger?,
     val challenger2: Challenger?,
     val challenger3: Challenger?,
@@ -14,19 +14,15 @@ data class BattleHistoryBusinessModel(
 ): Serializable
 
 fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBusinessModel> {
-    val list = mutableListOf<BattleHistoryBusinessModel>()
-
-    this.forEach {
-        val businessModel = BattleHistoryBusinessModel(
+    return this.map {
+        BattleHistoryBusinessModel(
             it.battleInformation.battleId,
             it.battleInformation.battleName,
             it.battleInformation.battleTheme,
-            it.challenger.mapToChallenger(0),
-            it.challenger.mapToChallenger(1),
-            it.challenger.mapToChallenger(2),
-            it.challenger.mapToChallenger(3)
+            it.challenger.getOrNull(0)?.toChallenger(),
+            it.challenger.getOrNull(1)?.toChallenger(),
+            it.challenger.getOrNull(2)?.toChallenger(),
+            it.challenger.getOrNull(3)?.toChallenger()
         )
-        list.add(businessModel)
     }
-    return list
 }

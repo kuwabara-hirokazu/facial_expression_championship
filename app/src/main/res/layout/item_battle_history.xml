@@ -57,7 +57,7 @@
             android:id="@+id/theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{context.getString(history.battleTheme)}"
+            android:text="@{context.getString(history.battleTheme.theme)}"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintLeft_toLeftOf="@id/challenge"
             app:layout_constraintTop_toTopOf="@+id/theme_title"

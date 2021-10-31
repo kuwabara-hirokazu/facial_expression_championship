@@ -5,6 +5,7 @@ import com.example.facialexpressionchampionship.data.BattleHistoryRepository
 import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
 import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.model.ScoreData
+import com.example.facialexpressionchampionship.model.ThemeType
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import junit.framework.TestCase
@@ -18,7 +19,7 @@ import org.mockito.kotlin.given
 class FaceScoreRankingViewModelTest : TestCase() {
 
     companion object {
-        val BATTLE_THEME: Int = R.string.happiness
+        val BATTLE_THEME = ThemeType.HAPPINESS
         private val FACE_SCORE = FaceScore(
             anger = 0.0.toFloat(),
             contempt = 0.1.toFloat(),

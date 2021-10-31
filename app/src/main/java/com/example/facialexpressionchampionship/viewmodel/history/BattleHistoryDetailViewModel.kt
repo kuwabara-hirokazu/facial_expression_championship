@@ -25,13 +25,14 @@ class BattleHistoryDetailViewModel @Inject constructor(
     val deleted: PublishSubject<Int> = PublishSubject.create()
 
     fun getChallengerList(): List<Challenger> {
-        val challengerList = mutableListOf<Challenger>()
-        val history = history.get() ?: return challengerList
-        history.challenger1?.let { challengerList.add(it) }
-        history.challenger2?.let { challengerList.add(it) }
-        history.challenger3?.let { challengerList.add(it) }
-        history.challenger4?.let { challengerList.add(it) }
-        return challengerList
+        return history.get()?.let { history ->
+            listOf(
+                history.challenger1,
+                history.challenger2,
+                history.challenger3,
+                history.challenger4
+            ).mapNotNull { it }
+        } ?: emptyList()
     }
 
     fun deleteHistory() {
