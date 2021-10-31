@@ -11,23 +11,14 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
     private val BATTLE_ID = "battle_id"
 
     override fun saveBattleId(id: Int) {
-        try {
-            sharedPreferences
-                .edit()
-                .putInt(BATTLE_ID, id + 1)
-                .apply()
-        } catch (e: NullPointerException) {
-            println(e)
-        }
+        sharedPreferences
+            .edit()
+            .putInt(BATTLE_ID, id + 1)
+            .apply()
     }
 
     override fun getBattleId(): Int {
-        return try {
-            sharedPreferences.getInt(BATTLE_ID, 1)
-        } catch (e: NullPointerException) {
-            println(e)
-            1
-        }
+        return sharedPreferences.getInt(BATTLE_ID, 1)
     }
 
 }
