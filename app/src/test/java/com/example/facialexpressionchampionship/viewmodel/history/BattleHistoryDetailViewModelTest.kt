@@ -2,6 +2,8 @@ package com.example.facialexpressionchampionship.viewmodel.history
 
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.data.BattleHistoryRepository
+import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
+import com.example.facialexpressionchampionship.model.Challenger
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import junit.framework.TestCase
@@ -13,6 +15,20 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 
 class BattleHistoryDetailViewModelTest : TestCase() {
+
+    companion object {
+        private val CHALLENGER1 = Challenger("Taro", 47.0.toFloat(), "imageUrl", "1")
+        private val CHALLENGER2 = Challenger("Taro", 37.0.toFloat(), "imageUrl", "2")
+        private val TEST_DATA = BattleHistoryBusinessModel(
+            1,
+            "testBattle",
+            R.string.happiness,
+            CHALLENGER1,
+            CHALLENGER2,
+            null,
+            null
+        )
+    }
 
     @Mock
     private lateinit var repository: BattleHistoryRepository
@@ -33,6 +49,7 @@ class BattleHistoryDetailViewModelTest : TestCase() {
     fun testDeleteHistory() {
         // Given
         given(repository.deleteBattleHistory(any())).willReturn(Completable.complete())
+        viewModel.history.set(TEST_DATA)
         val testObserver = viewModel.deleted.test()
 
         // When
