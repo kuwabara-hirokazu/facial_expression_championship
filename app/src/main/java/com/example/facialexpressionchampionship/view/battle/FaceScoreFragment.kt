@@ -1,9 +1,10 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.battle
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,8 +13,8 @@ import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreBin
 import com.example.facialexpressionchampionship.extension.showFragment
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.model.FaceScore
-import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
-import com.example.facialexpressionchampionship.viewmodel.FaceScoreViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.FaceScoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -54,6 +55,10 @@ class FaceScoreFragment : Fragment() {
 
         binding.battleViewModel = battleViewModel
         binding.viewModel = viewModel
+
+        (activity as AppCompatActivity).supportActionBar?.let {
+            it.setTitle(R.string.scoring_result)
+        }
 
         viewModel.imageUrl.set(checkNotNull(arguments?.getString(URL)))
         val score = arguments?.getSerializable(SCORE) as FaceScore

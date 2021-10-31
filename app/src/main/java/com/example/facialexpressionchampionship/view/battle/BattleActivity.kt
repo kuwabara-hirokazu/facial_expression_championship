@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.battle
 
 import android.Manifest
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityBattleBinding
 import com.example.facialexpressionchampionship.extension.*
-import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
+import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

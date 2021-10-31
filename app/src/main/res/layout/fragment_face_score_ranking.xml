@@ -6,11 +6,11 @@
     <data>
         <variable
             name="battleViewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.BattleViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel" />
 
         <variable
             name="viewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.FaceScoreRankingViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.FaceScoreRankingViewModel" />
 
     </data>
 
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_xlarge"
+            android:textColor="@color/dark_blue"
             android:text="@{@string/theme_ranking(context.getString(battleViewModel.battleTheme))}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -54,11 +55,11 @@
 
         <Button
             android:id="@+id/save"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
-            android:layout_marginStart="@dimen/element_spacing_large"
-            android:layout_marginEnd="@dimen/element_spacing_large"
+            android:layout_width="@dimen/button_size_width"
+            android:layout_height="@dimen/button_size_height"
+            android:layout_margin="@dimen/element_spacing_large"
             android:text="@string/save_challenge_result"
+            android:background="@drawable/shape_button_gradient"
             app:layout_constraintLeft_toRightOf="@+id/challenge_name"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_view"

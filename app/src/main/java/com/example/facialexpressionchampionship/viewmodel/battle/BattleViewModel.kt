@@ -1,8 +1,9 @@
-package com.example.facialexpressionchampionship.viewmodel
+package com.example.facialexpressionchampionship.viewmodel.battle
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
+import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

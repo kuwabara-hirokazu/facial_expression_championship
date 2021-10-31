@@ -6,11 +6,11 @@
     <data>
         <variable
             name="battleViewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.BattleViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel" />
 
         <variable
             name="viewModel"
-            type="com.example.facialexpressionchampionship.viewmodel.ImageConfirmationViewModel" />
+            type="com.example.facialexpressionchampionship.viewmodel.battle.ImageConfirmationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@{@string/theme(context.getString(battleViewModel.battleTheme))}"
             android:textSize="@dimen/text_size_xlarge"
+            android:textColor="@color/dark_blue"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,20 +39,35 @@
             app:layout_constraintTop_toBottomOf="@id/theme"
             app:layout_constraintBottom_toTopOf="@id/retry" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showProgress="@{viewModel.isShowProgress}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <Button
             android:id="@+id/retry"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
+            android:layout_width="@dimen/button_size_width"
+            android:layout_height="@dimen/button_size_height"
+            android:layout_marginBottom="@dimen/element_spacing_small"
             android:text="@string/retry_photo"
+            android:background="@drawable/shape_button_gradient"
+            android:enabled="@{!viewModel.isShowProgress()}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/score"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <Button
             android:id="@+id/score"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
+            android:layout_width="@dimen/button_size_width"
+            android:layout_height="@dimen/button_size_height"
             android:text="@string/score_image"
+            android:background="@drawable/shape_button_gradient"
+            android:enabled="@{!viewModel.isShowProgress()}"
             app:layout_constraintLeft_toRightOf="@id/retry"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/retry"

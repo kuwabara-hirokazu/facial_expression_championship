@@ -48,7 +48,7 @@ abstract class BaseViewModel : ViewModel() {
     private fun Throwable.toMessage(): Int {
         return when (this) {
             is HttpException -> toMessage()
-            is ArrayIndexOutOfBoundsException -> R.string.failed_facial_expression
+            is IndexOutOfBoundsException -> R.string.failed_facial_expression
             else -> R.string.error_message_default
         }
     }

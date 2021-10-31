@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.view
+package com.example.facialexpressionchampionship.view.history
 
 import android.view.View
 import com.example.facialexpressionchampionship.R
