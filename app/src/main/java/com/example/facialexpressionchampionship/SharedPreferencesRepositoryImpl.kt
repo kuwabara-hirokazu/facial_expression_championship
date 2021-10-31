@@ -1,18 +1,16 @@
 package com.example.facialexpressionchampionship
 
-import android.content.Context
+import android.content.SharedPreferences
+import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
 import javax.inject.Inject
 
-open class SharedPreferencesWrapper @Inject constructor(
-    context: Context
-) {
+class SharedPreferencesRepositoryImpl @Inject constructor(
+    private val sharedPreferences: SharedPreferences
+) : SharedPreferencesRepository {
 
-    private val HISTORY_KEY = "history_key"
     private val BATTLE_ID = "battle_id"
 
-    private val sharedPreferences = context.getSharedPreferences(HISTORY_KEY, Context.MODE_PRIVATE)
-
-    fun saveBattleId(id: Int) {
+    override fun saveBattleId(id: Int) {
         try {
             sharedPreferences
                 .edit()
@@ -23,7 +21,7 @@ open class SharedPreferencesWrapper @Inject constructor(
         }
     }
 
-    fun getBattleId(): Int {
+    override fun getBattleId(): Int {
         return try {
             sharedPreferences.getInt(BATTLE_ID, 1)
         } catch (e: NullPointerException) {

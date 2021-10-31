@@ -1,7 +1,7 @@
 package com.example.facialexpressionchampionship.di
 
 import android.content.Context
-import com.example.facialexpressionchampionship.SharedPreferencesWrapper
+import android.content.SharedPreferences
 import com.example.facialexpressionchampionship.data.RequestBodyCreator
 import com.example.facialexpressionchampionship.data.RequestBodyCreatorImpl
 import com.example.facialexpressionchampionship.data.room.BattleHistoryDao
@@ -20,6 +20,8 @@ import javax.inject.Named
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
+    private const val HISTORY_KEY = "history_key"
+
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): BattleHistoryDatabase {
         return BattleHistoryDatabase.getInstance(context)
@@ -31,8 +33,8 @@ object DataModule {
     }
 
     @Provides
-    fun provideSharedPreferencesWrapper(@ApplicationContext context: Context): SharedPreferencesWrapper {
-        return SharedPreferencesWrapper(context)
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(HISTORY_KEY, Context.MODE_PRIVATE)
     }
 
     @Provides

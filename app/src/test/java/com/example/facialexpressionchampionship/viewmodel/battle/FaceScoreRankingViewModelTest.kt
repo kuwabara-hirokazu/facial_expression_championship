@@ -1,8 +1,8 @@
 package com.example.facialexpressionchampionship.viewmodel.battle
 
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.SharedPreferencesWrapper
 import com.example.facialexpressionchampionship.data.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
 import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.model.ScoreData
 import io.reactivex.rxjava3.core.Completable
@@ -14,7 +14,6 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
-import org.mockito.kotlin.then
 
 class FaceScoreRankingViewModelTest : TestCase() {
 
@@ -39,7 +38,7 @@ class FaceScoreRankingViewModelTest : TestCase() {
     private lateinit var repository: BattleHistoryRepository
 
     @Mock
-    lateinit var preferences: SharedPreferencesWrapper
+    lateinit var preferences: SharedPreferencesRepository
 
     private lateinit var viewModel: FaceScoreRankingViewModel
 
