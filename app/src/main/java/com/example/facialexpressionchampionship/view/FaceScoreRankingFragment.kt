@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facialexpressionchampionship.databinding.FragmentFaceScoreRankingBinding
+import com.example.facialexpressionchampionship.extension.showError
 import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.BattleViewModel
 import com.example.facialexpressionchampionship.viewmodel.FaceScoreRankingViewModel
@@ -61,7 +62,7 @@ class FaceScoreRankingFragment : Fragment() {
         })
 
         binding.save.setOnClickListener {
-            viewModel.saveRanking()
+            viewModel.saveRanking(battleViewModel.themeType, battleViewModel.getSortedScoreList())
         }
 
         viewModel.inValid
@@ -69,6 +70,19 @@ class FaceScoreRankingFragment : Fragment() {
             .subscribeBy {
                 requireContext().showToast(it)
             }
+            .addTo(disposable)
+
+        viewModel.savedHistory
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy {
+                requireContext().showToast(it)
+                requireActivity().finish()
+            }
+            .addTo(disposable)
+
+        viewModel.error
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy { binding.root.showError(it) }
             .addTo(disposable)
     }
 
