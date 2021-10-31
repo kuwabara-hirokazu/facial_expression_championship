@@ -31,10 +31,12 @@ class ImageConfirmationViewModelTest : TestCase() {
             surprise = 0.0.toFloat()
         )
 
-        val requestBody = object : RequestBody() {
+        private val requestBody = object : RequestBody() {
             override fun contentType(): MediaType? = null
             override fun writeTo(sink: BufferedSink) = Unit
         }
+
+        private const val DUMMY_URL = "/Users/kuwa/開発/Caraquri/FacialExpressionChampionship/app/src/test/resources/test_image.jpg"
     }
 
     @Mock
@@ -62,6 +64,7 @@ class ImageConfirmationViewModelTest : TestCase() {
         // Given
         given(creator.create(any())).willReturn(requestBody)
         given(repository.detectFace(any())).willReturn(Single.just(FACE_SCORE))
+        viewModel.imageUrl.set(DUMMY_URL)
         val testObserver = viewModel.score.test()
 
         // When

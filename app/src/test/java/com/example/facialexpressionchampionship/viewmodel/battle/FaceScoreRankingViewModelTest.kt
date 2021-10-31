@@ -58,6 +58,7 @@ class FaceScoreRankingViewModelTest : TestCase() {
         // Given
         given(repository.saveBattleInformation(any())).willReturn(Completable.complete())
         given(repository.saveChallenger(any())).willReturn(Completable.complete())
+        viewModel.challengeName.set("testName")
         val testObserver = viewModel.savedHistory.test()
 
         // When

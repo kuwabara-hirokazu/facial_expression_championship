@@ -12,8 +12,6 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-val dummyUrl = "/Users/kuwa/開発/Caraquri/FacialExpressionChampionship/app/src/test/resources/test_image.jpg"
-
 @HiltViewModel
 class ImageConfirmationViewModel @Inject constructor(
     @Named("observeOnScheduler") observeOnScheduler: Scheduler,
@@ -27,7 +25,7 @@ class ImageConfirmationViewModel @Inject constructor(
     val score: BehaviorSubject<FaceScore> = BehaviorSubject.create()
 
     fun detectFace() {
-        val url = imageUrl.get() ?: dummyUrl
+        val url = imageUrl.get() ?: return
         val binaryData = creator.create(url) ?: return
 
         isShowProgress.set(true)
