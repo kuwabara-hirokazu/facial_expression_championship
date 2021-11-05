@@ -7,11 +7,16 @@ import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
-class FaceScoreViewModel @Inject constructor() : BaseViewModel() {
+class FaceScoreViewModel @Inject constructor(
+    @Named("observeOnScheduler") observeOnScheduler: Scheduler,
+    @Named("subscribeOnScheduler") subscribeOnScheduler: Scheduler,
+) : BaseViewModel(observeOnScheduler, subscribeOnScheduler) {
 
     companion object {
         private const val CHALLENGE_COUNT_MIN = 0

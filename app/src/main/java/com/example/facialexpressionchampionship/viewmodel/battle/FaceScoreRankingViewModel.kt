@@ -2,22 +2,26 @@ package com.example.facialexpressionchampionship.viewmodel.battle
 
 import androidx.databinding.ObservableField
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.SharedPreferencesWrapper
 import com.example.facialexpressionchampionship.data.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
 import com.example.facialexpressionchampionship.data.room.BattleInformationEntity
 import com.example.facialexpressionchampionship.data.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import com.example.facialexpressionchampionship.model.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class FaceScoreRankingViewModel @Inject constructor(
+    @Named("observeOnScheduler") observeOnScheduler: Scheduler,
+    @Named("subscribeOnScheduler") subscribeOnScheduler: Scheduler,
     private val repository: BattleHistoryRepository,
-    private val sharedPreference: SharedPreferencesWrapper
-) : BaseViewModel() {
+    private val sharedPreference: SharedPreferencesRepository
+) : BaseViewModel(observeOnScheduler, subscribeOnScheduler) {
 
     var challengeName = ObservableField<String>()
 

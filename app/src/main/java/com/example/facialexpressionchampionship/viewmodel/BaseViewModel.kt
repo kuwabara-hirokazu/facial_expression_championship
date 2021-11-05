@@ -5,6 +5,7 @@ import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.Failure
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -14,14 +15,17 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import retrofit2.HttpException
 import timber.log.Timber
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(
+    private val observeOnScheduler: Scheduler,
+    private val subscribeOnScheduler: Scheduler
+) : ViewModel() {
 
     private val disposables = CompositeDisposable()
     val error: PublishSubject<Failure> = PublishSubject.create()
 
     protected fun <T : Any> Single<T>.execute(onSuccess: (T) -> Unit, retry: () -> Unit) {
-        this.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        this.subscribeOn(subscribeOnScheduler)
+            .observeOn(observeOnScheduler)
             .subscribeBy(
                 onSuccess = onSuccess,
                 onError = {
@@ -33,8 +37,8 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     protected fun Completable.execute(onComplete: () -> Unit, retry: () -> Unit) {
-        this.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        this.subscribeOn(subscribeOnScheduler)
+            .observeOn(observeOnScheduler)
             .subscribeBy(
                 onComplete = onComplete,
                 onError = {
