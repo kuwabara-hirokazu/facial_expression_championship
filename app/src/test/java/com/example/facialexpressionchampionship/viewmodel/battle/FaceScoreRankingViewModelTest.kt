@@ -8,7 +8,6 @@ import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -16,7 +15,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 
-class FaceScoreRankingViewModelTest : TestCase() {
+class FaceScoreRankingViewModelTest {
 
     companion object {
         val BATTLE_THEME = ThemeType.HAPPINESS
@@ -44,7 +43,7 @@ class FaceScoreRankingViewModelTest : TestCase() {
     private lateinit var viewModel: FaceScoreRankingViewModel
 
     @Before
-    override fun setUp() {
+    fun setUp() {
         MockitoAnnotations.openMocks(this)
         viewModel = FaceScoreRankingViewModel(
             Schedulers.trampoline(),

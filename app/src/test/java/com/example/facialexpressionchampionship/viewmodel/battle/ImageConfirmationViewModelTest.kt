@@ -5,7 +5,6 @@ import com.example.facialexpressionchampionship.data.RequestBodyCreator
 import com.example.facialexpressionchampionship.model.FaceScore
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import junit.framework.TestCase
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.BufferedSink
@@ -17,7 +16,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.mockito.kotlin.then
 
-class ImageConfirmationViewModelTest : TestCase() {
+class ImageConfirmationViewModelTest {
 
     companion object {
         private val FACE_SCORE = FaceScore(
@@ -48,7 +47,7 @@ class ImageConfirmationViewModelTest : TestCase() {
     private lateinit var viewModel: ImageConfirmationViewModel
 
     @Before
-    override fun setUp() {
+    fun setUp() {
         MockitoAnnotations.openMocks(this)
         viewModel =
             ImageConfirmationViewModel(

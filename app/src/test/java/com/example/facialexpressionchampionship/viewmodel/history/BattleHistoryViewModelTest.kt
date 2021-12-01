@@ -6,7 +6,7 @@ import com.example.facialexpressionchampionship.model.Challenger
 import com.example.facialexpressionchampionship.model.ThemeType
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import junit.framework.TestCase
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.given
 import org.mockito.kotlin.then
 
-class BattleHistoryViewModelTest : TestCase() {
+class BattleHistoryViewModelTest {
 
     companion object {
         private val CHALLENGER1 = Challenger("Taro", 47.0.toFloat(), "imageUrl", 1)
@@ -46,7 +46,7 @@ class BattleHistoryViewModelTest : TestCase() {
     private lateinit var viewModel: BattleHistoryViewModel
 
     @Before
-    override fun setUp() {
+    fun setUp() {
         MockitoAnnotations.openMocks(this)
         viewModel = BattleHistoryViewModel(
             Schedulers.trampoline(),
