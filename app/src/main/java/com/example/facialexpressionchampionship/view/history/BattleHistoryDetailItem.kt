@@ -16,5 +16,4 @@ class BattleHistoryDetailItem(
     override fun getLayout(): Int {
         return R.layout.item_battle_history_detail
     }
-
 }

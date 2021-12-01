@@ -8,12 +8,14 @@ import com.example.facialexpressionchampionship.model.Challenger
 
 @Entity(
     tableName = "challenger",
-    foreignKeys = [ForeignKey(
-        entity = BattleInformationEntity::class,
-        parentColumns = arrayOf("battle_id"),
-        childColumns = arrayOf("battle_creator_id"),
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = BattleInformationEntity::class,
+            parentColumns = arrayOf("battle_id"),
+            childColumns = arrayOf("battle_creator_id"),
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
 )
 data class ChallengerEntity(
     @PrimaryKey(autoGenerate = true)
@@ -30,4 +32,3 @@ data class ChallengerEntity(
         return Challenger(name, score, image, ranking)
     }
 }
-

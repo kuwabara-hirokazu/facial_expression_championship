@@ -19,5 +19,4 @@ class SharedPreferencesDataImpl @Inject constructor(
     override fun getBattleId(): Int {
         return sharedPreferences.getInt(BATTLE_ID, 1)
     }
-
 }

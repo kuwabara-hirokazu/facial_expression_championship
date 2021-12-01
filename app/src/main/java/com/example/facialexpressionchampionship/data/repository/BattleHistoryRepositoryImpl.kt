@@ -30,5 +30,4 @@ class BattleHistoryRepositoryImpl @Inject constructor(
     override fun deleteBattleHistory(battleInformation: BattleInformationEntity): Completable {
         return localData.deleteBattleHistory(battleInformation)
     }
-
 }

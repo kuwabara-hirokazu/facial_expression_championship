@@ -28,7 +28,6 @@ fun File.toByteArray(): ByteArray? {
         byteArrayOutputStream.close()
 
         return totalByteArray
-
     } catch (e: Exception) {
         Timber.e("Byte変換エラー $e")
         return null

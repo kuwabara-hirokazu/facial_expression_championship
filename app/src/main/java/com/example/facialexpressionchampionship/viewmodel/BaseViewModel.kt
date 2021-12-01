@@ -3,14 +3,12 @@ package com.example.facialexpressionchampionship.viewmodel
 import androidx.lifecycle.ViewModel
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.model.Failure
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import retrofit2.HttpException
 import timber.log.Timber

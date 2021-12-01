@@ -14,7 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.FragmentCameraBinding
-import com.example.facialexpressionchampionship.extension.*
+import com.example.facialexpressionchampionship.extension.openLibrary
+import com.example.facialexpressionchampionship.extension.registerForActivityResult
+import com.example.facialexpressionchampionship.extension.showFragment
+import com.example.facialexpressionchampionship.extension.showToast
+import com.example.facialexpressionchampionship.extension.takePicture
 import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -65,7 +69,8 @@ class CameraFragment : Fragment() {
         imageCapture = ImageCapture.Builder().build()
 
         binding.cameraCaptureButton.setOnClickListener {
-            imageCapture?.takePicture(outputDirectory,
+            imageCapture?.takePicture(
+                outputDirectory,
                 success = {
                     ImageConfirmationFragment.createInstance(it)
                         .showFragment(parentFragmentManager, R.id.battle_layout, true)
@@ -80,28 +85,30 @@ class CameraFragment : Fragment() {
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
-        cameraProviderFuture.addListener(Runnable {
-            // プレビュー設定
-            val preview = Preview.Builder()
-                .build()
+        cameraProviderFuture.addListener(
+            Runnable {
+                // プレビュー設定
+                val preview = Preview.Builder()
+                    .build()
 
-            imageCapture = ImageCapture.Builder().build()
+                imageCapture = ImageCapture.Builder().build()
 
-            // デフォルトを内カメラに設定
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                // デフォルトを内カメラに設定
+                val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            try {
-                cameraProvider.unbindAll()
-                // ライフサイクルにカメラをバインディング
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+                val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+                try {
+                    cameraProvider.unbindAll()
+                    // ライフサイクルにカメラをバインディング
+                    cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
 
-                // プレビューのユースケースをpreviewViewに接続
-                preview.setSurfaceProvider(binding.previewView.surfaceProvider)
-
-            } catch (e: Exception) {
-                Timber.e("バインディング失敗 $e")
-            }
-        }, ContextCompat.getMainExecutor(requireContext()))
+                    // プレビューのユースケースをpreviewViewに接続
+                    preview.setSurfaceProvider(binding.previewView.surfaceProvider)
+                } catch (e: Exception) {
+                    Timber.e("バインディング失敗 $e")
+                }
+            },
+            ContextCompat.getMainExecutor(requireContext())
+        )
     }
 }

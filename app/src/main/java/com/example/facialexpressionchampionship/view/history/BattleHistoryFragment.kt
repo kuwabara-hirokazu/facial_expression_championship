@@ -58,13 +58,15 @@ class BattleHistoryFragment : Fragment() {
         viewModel.historyList
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { historyList ->
-                adapter.update(historyList.map { history ->
-                    BattleHistoryItem(history) {
-                        BattleHistoryDetailFragment.createInstance(history).showFragment(
-                            parentFragmentManager, R.id.fragment_container, true
-                        )
+                adapter.update(
+                    historyList.map { history ->
+                        BattleHistoryItem(history) {
+                            BattleHistoryDetailFragment.createInstance(history).showFragment(
+                                parentFragmentManager, R.id.fragment_container, true
+                            )
+                        }
                     }
-                })
+                )
             }
             .addTo(disposable)
 

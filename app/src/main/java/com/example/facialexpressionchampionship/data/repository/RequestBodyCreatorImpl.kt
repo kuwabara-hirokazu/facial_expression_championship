@@ -18,4 +18,3 @@ class RequestBodyCreatorImpl : RequestBodyCreator {
         return byte.toRequestBody(MEDEA_TYPE.toMediaTypeOrNull(), 0, byte.size)
     }
 }
-

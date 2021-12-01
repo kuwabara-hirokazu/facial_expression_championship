@@ -16,5 +16,4 @@ class FaceScoreRankingItem(
     }
 
     override fun getLayout() = R.layout.item_face_score
-
 }

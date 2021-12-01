@@ -17,5 +17,4 @@ class BattleHistoryItem(
     }
 
     override fun getLayout() = R.layout.item_battle_history
-
 }

@@ -1,6 +1,5 @@
 package com.example.facialexpressionchampionship.data.source.remote
 
-import com.example.facialexpressionchampionship.data.source.remote.ApiRequest
 import com.example.facialexpressionchampionship.model.FaceResponse
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody

@@ -1,11 +1,11 @@
 package com.example.facialexpressionchampionship.di
 
-import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesDataImpl
 import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepository
 import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepositoryImpl
 import com.example.facialexpressionchampionship.data.repository.FaceDataRepository
 import com.example.facialexpressionchampionship.data.repository.FaceDataRepositoryImpl
 import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesData
+import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesDataImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

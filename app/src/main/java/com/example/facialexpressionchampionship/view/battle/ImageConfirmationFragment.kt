@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 @AndroidEntryPoint
 class ImageConfirmationFragment : Fragment() {
 
-    private val battleViewModel: BattleViewModel by viewModels({requireActivity()})
+    private val battleViewModel: BattleViewModel by viewModels({ requireActivity() })
     private val viewModel: ImageConfirmationViewModel by viewModels()
     private lateinit var binding: FragmentImageConfirmationBinding
 

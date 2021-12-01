@@ -62,9 +62,11 @@ class FaceScoreRankingFragment : Fragment() {
                 )
             )
         }
-        adapter.update(battleViewModel.getSortedScoreList().mapIndexed { index, scoreData ->
-            FaceScoreRankingItem(index + 1, scoreData)
-        })
+        adapter.update(
+            battleViewModel.getSortedScoreList().mapIndexed { index, scoreData ->
+                FaceScoreRankingItem(index + 1, scoreData)
+            }
+        )
 
         binding.save.setOnClickListener {
             viewModel.saveRanking(battleViewModel.themeType, battleViewModel.getSortedScoreList())

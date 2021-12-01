@@ -6,4 +6,3 @@ data class Challenger(
     val image: String,
     var ranking: Int,
 )
-

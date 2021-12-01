@@ -11,7 +11,7 @@ data class BattleHistoryBusinessModel(
     val challenger2: Challenger?,
     val challenger3: Challenger?,
     val challenger4: Challenger?
-): Serializable
+) : Serializable
 
 fun List<BattleHistory>.mapToBattleHistoryBusinessModel(): List<BattleHistoryBusinessModel> {
     return this.map {

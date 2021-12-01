@@ -42,5 +42,4 @@ object ApiModule {
     fun provideFaceApi(retrofit: Retrofit): ApiRequest {
         return retrofit.create(ApiRequest::class.java)
     }
-
 }

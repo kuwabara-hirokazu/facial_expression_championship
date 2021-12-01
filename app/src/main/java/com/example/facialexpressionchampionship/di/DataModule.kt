@@ -2,9 +2,9 @@ package com.example.facialexpressionchampionship.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import com.example.facialexpressionchampionship.data.repository.RequestBodyCreator
 import com.example.facialexpressionchampionship.data.repository.RequestBodyCreatorImpl
-import androidx.room.Room
 import com.example.facialexpressionchampionship.data.source.local.room.BattleHistoryDao
 import com.example.facialexpressionchampionship.data.source.local.room.BattleHistoryDatabase
 import dagger.Module

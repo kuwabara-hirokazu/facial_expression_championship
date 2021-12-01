@@ -10,7 +10,10 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.facialexpressionchampionship.R
 import com.example.facialexpressionchampionship.databinding.ActivityBattleBinding
-import com.example.facialexpressionchampionship.extension.*
+import com.example.facialexpressionchampionship.extension.hasPermission
+import com.example.facialexpressionchampionship.extension.showConfirmDialog
+import com.example.facialexpressionchampionship.extension.showFragment
+import com.example.facialexpressionchampionship.extension.showToast
 import com.example.facialexpressionchampionship.viewmodel.battle.BattleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +29,7 @@ class BattleActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBattleBinding
 
-    private val viewModel : BattleViewModel by viewModels()
+    private val viewModel: BattleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +67,7 @@ class BattleActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.menu_home -> {
                 finish()
                 true

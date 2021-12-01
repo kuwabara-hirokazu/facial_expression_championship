@@ -59,6 +59,5 @@ class BattleHistoryDetailViewModelTest {
         testObserver
             .assertValue(R.string.deleted_challenge_history)
             .assertNoErrors()
-
     }
 }

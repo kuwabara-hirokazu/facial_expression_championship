@@ -19,7 +19,7 @@ fun Context.hasPermission(@NonNull permission: String): Boolean {
     return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 }
 
-fun Context.showConfirmDialog(@StringRes titleId: Int, @StringRes messageId: Int, ok:() -> Unit) {
+fun Context.showConfirmDialog(@StringRes titleId: Int, @StringRes messageId: Int, ok: () -> Unit) {
     AlertDialog.Builder(this)
         .setTitle(titleId)
         .setMessage(messageId)
@@ -33,11 +33,11 @@ fun Context.getPathFromUri(uri: Uri): String? {
         if ("com.android.providers.media.documents" == uri.authority) {
             // クエリ作成
             val contentUri =
-                MediaStore.Files.getContentUri("external")  // content://media/external/file
+                MediaStore.Files.getContentUri("external") // content://media/external/file
             val selection = "_id=?"
-            val docId = DocumentsContract.getDocumentId(uri)    // "image:1688"
-            val split = docId.split(":".toRegex()).toTypedArray()   // {"image", "1688"}
-            val selectionArgs = arrayOf(split[1])   // {"1688"}
+            val docId = DocumentsContract.getDocumentId(uri) // "image:1688"
+            val split = docId.split(":".toRegex()).toTypedArray() // {"image", "1688"}
+            val selectionArgs = arrayOf(split[1]) // {"1688"}
 
             return getDataColumn(contentUri, selection, selectionArgs)
         }

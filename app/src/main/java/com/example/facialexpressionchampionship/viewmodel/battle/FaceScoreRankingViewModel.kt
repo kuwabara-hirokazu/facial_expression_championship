@@ -7,8 +7,8 @@ import com.example.facialexpressionchampionship.data.source.local.SharedPreferen
 import com.example.facialexpressionchampionship.data.source.local.room.BattleInformationEntity
 import com.example.facialexpressionchampionship.data.source.local.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.ScoreData
-import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import com.example.facialexpressionchampionship.model.ThemeType
+import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject

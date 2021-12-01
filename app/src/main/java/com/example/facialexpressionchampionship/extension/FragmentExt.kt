@@ -29,7 +29,7 @@ fun Fragment.showFragment(fragmentManager: FragmentManager, @IdRes containerView
     }
 }
 
-fun Fragment.registerForActivityResult(success: (String) -> Unit , error: (Int) -> Unit): ActivityResultLauncher<Intent> {
+fun Fragment.registerForActivityResult(success: (String) -> Unit, error: (Int) -> Unit): ActivityResultLauncher<Intent> {
     return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
         if (result?.resultCode == Activity.RESULT_OK) {
             result.data?.let { intent ->
