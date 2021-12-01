@@ -1,8 +1,8 @@
 package com.example.facialexpressionchampionship.viewmodel.battle
 
 import androidx.databinding.ObservableField
-import com.example.facialexpressionchampionship.data.FaceDataRepository
-import com.example.facialexpressionchampionship.data.RequestBodyCreator
+import com.example.facialexpressionchampionship.data.repository.FaceDataRepository
+import com.example.facialexpressionchampionship.data.repository.RequestBodyCreator
 import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

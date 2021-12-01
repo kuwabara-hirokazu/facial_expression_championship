@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.data
+package com.example.facialexpressionchampionship.data.repository
 
 import com.example.facialexpressionchampionship.model.FaceScore
 import io.reactivex.rxjava3.core.Single

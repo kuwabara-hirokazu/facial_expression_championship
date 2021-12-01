@@ -1,7 +1,8 @@
-package com.example.facialexpressionchampionship.data
+package com.example.facialexpressionchampionship.data.repository
 
-import com.example.facialexpressionchampionship.data.room.BattleInformationEntity
-import com.example.facialexpressionchampionship.data.room.ChallengerEntity
+import com.example.facialexpressionchampionship.data.source.local.LocalData
+import com.example.facialexpressionchampionship.data.source.local.room.BattleInformationEntity
+import com.example.facialexpressionchampionship.data.source.local.room.ChallengerEntity
 import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
 import com.example.facialexpressionchampionship.model.mapToBattleHistoryBusinessModel
 import io.reactivex.rxjava3.core.Completable

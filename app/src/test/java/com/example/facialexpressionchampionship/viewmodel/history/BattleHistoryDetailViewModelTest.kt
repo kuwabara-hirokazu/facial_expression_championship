@@ -1,7 +1,7 @@
 package com.example.facialexpressionchampionship.viewmodel.history
 
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.data.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepository
 import com.example.facialexpressionchampionship.model.BattleHistoryBusinessModel
 import com.example.facialexpressionchampionship.model.Challenger
 import com.example.facialexpressionchampionship.model.ThemeType

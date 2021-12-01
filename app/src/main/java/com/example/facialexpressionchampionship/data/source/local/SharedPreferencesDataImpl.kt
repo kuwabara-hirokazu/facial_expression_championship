@@ -1,12 +1,11 @@
-package com.example.facialexpressionchampionship
+package com.example.facialexpressionchampionship.data.source.local
 
 import android.content.SharedPreferences
-import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
 import javax.inject.Inject
 
-class SharedPreferencesRepositoryImpl @Inject constructor(
+class SharedPreferencesDataImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
-) : SharedPreferencesRepository {
+) : SharedPreferencesData {
 
     private val BATTLE_ID = "battle_id"
 

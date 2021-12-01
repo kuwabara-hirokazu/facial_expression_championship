@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.data
+package com.example.facialexpressionchampionship.data.repository
 
 import com.example.facialexpressionchampionship.extension.toByteArray
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

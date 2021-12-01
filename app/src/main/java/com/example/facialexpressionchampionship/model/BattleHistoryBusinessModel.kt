@@ -1,6 +1,6 @@
 package com.example.facialexpressionchampionship.model
 
-import com.example.facialexpressionchampionship.data.room.BattleHistory
+import com.example.facialexpressionchampionship.data.source.local.room.BattleHistory
 import java.io.Serializable
 
 data class BattleHistoryBusinessModel(

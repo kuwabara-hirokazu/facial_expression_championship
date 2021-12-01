@@ -1,8 +1,8 @@
 package com.example.facialexpressionchampionship.viewmodel.battle
 
 import com.example.facialexpressionchampionship.R
-import com.example.facialexpressionchampionship.data.BattleHistoryRepository
-import com.example.facialexpressionchampionship.data.SharedPreferencesRepository
+import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesData
 import com.example.facialexpressionchampionship.model.FaceScore
 import com.example.facialexpressionchampionship.model.ScoreData
 import com.example.facialexpressionchampionship.model.ThemeType
@@ -38,7 +38,7 @@ class FaceScoreRankingViewModelTest {
     private lateinit var repository: BattleHistoryRepository
 
     @Mock
-    lateinit var preferences: SharedPreferencesRepository
+    lateinit var preferences: SharedPreferencesData
 
     private lateinit var viewModel: FaceScoreRankingViewModel
 

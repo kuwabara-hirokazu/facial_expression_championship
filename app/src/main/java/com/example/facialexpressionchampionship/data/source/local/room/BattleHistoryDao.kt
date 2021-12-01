@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.data.room
+package com.example.facialexpressionchampionship.data.source.local.room
 
 import androidx.room.*
 import io.reactivex.rxjava3.core.Completable

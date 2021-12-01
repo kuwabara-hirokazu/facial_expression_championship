@@ -1,6 +1,6 @@
 package com.example.facialexpressionchampionship.di
 
-import com.example.facialexpressionchampionship.ApiRequest
+import com.example.facialexpressionchampionship.data.source.remote.ApiRequest
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

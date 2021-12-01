@@ -1,5 +1,6 @@
-package com.example.facialexpressionchampionship.data
+package com.example.facialexpressionchampionship.data.repository
 
+import com.example.facialexpressionchampionship.data.source.remote.RemoteData
 import com.example.facialexpressionchampionship.extension.floor
 import com.example.facialexpressionchampionship.extension.hundredfold
 import com.example.facialexpressionchampionship.model.FaceScore

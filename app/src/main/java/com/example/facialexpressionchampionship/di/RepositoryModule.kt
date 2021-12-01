@@ -1,7 +1,11 @@
 package com.example.facialexpressionchampionship.di
 
-import com.example.facialexpressionchampionship.SharedPreferencesRepositoryImpl
-import com.example.facialexpressionchampionship.data.*
+import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesDataImpl
+import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepository
+import com.example.facialexpressionchampionship.data.repository.BattleHistoryRepositoryImpl
+import com.example.facialexpressionchampionship.data.repository.FaceDataRepository
+import com.example.facialexpressionchampionship.data.repository.FaceDataRepositoryImpl
+import com.example.facialexpressionchampionship.data.source.local.SharedPreferencesData
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,5 +21,5 @@ abstract class RepositoryModule {
     abstract fun bindBattleHistoryRepository(repository: BattleHistoryRepositoryImpl): BattleHistoryRepository
 
     @Binds
-    abstract fun bindSharedPreferencesRepository(repository: SharedPreferencesRepositoryImpl): SharedPreferencesRepository
+    abstract fun bindSharedPreferencesRepository(data: SharedPreferencesDataImpl): SharedPreferencesData
 }

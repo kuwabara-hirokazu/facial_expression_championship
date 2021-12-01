@@ -1,4 +1,4 @@
-package com.example.facialexpressionchampionship.data
+package com.example.facialexpressionchampionship.data.repository
 
 import okhttp3.RequestBody
 
