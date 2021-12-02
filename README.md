@@ -15,16 +15,22 @@
 * Retrofit2
 * CameraX
 * Groupie
-* Glide 　　etc.
+* Glide
+* mockito
+* ktlint 　　etc.
+
+# CI
+**Github Actions**
+
+#### 実行内容（push時）
+* シークレット変数の設定
+* UnitTest
+* lint check
 
 # Usage
 ### FaceAPI使用手順  [仕様書](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236?utm_source=pocket_mylist)
 * Microsoft Azureアカウントを作成し、FaceAPIの[APIキー]を取得する。(無料)
 * `gradle.properties`ファイルに`faceApiKey=[APIキー]`を設定する。
-
-
-
-
 
 # DEMO
 ### トップ画面
