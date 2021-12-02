@@ -11,7 +11,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      
+
+      - name: Restore gradle.properties
+        env:
+          FACE_API_KEY: ${{ secrets.FACE_API_KEY }}
+        run: |
+          echo "android.useAndroidX=true" >> ./gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" >> ./gradle.properties
+          echo "faceApiKey=$FACE_API_KEY" >> ./gradle.properties
+
       - name: run ktlintCheck
         run: ./gradlew --continue ktlintCheck
       
