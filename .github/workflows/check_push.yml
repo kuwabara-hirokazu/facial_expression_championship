@@ -1,7 +1,7 @@
 name: Check push
 on: [ push ]
 jobs:
-  check:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -30,6 +30,33 @@ jobs:
 
       - name: run ktlintCheck
         run: ./gradlew --continue ktlintCheck
-      
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Restore gradle.properties
+        env:
+          FACE_API_KEY: ${{ secrets.FACE_API_KEY }}
+        run: |
+          echo "android.useAndroidX=true" >> ./gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" >> ./gradle.properties
+          echo "faceApiKey=$FACE_API_KEY" >> ./gradle.properties
+
       - name: UnitTest
         run: ./gradlew testDebugUnitTest
